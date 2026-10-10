@@ -1,4 +1,5 @@
-== TrainingPipeline (https://github.com/codewithdark-git/TrainingPipeline, rpt-panel-v2 @ a5836a9; 548 tracked files)
+== TrainingPipeline (https://github.com/codewithdark-git/TrainingPipeline, rpt-panel-v2 @ dca7c38; 571 tracked files)
+.claude/launch.json
 .gitignore
 README.md
 __init__.py
@@ -514,10 +515,13 @@ rpt_panel/run.py
 rpt_panel/stress_tests.py
 rpt_panel/text_features.py
 rpt_panel/text_model.py
+scripts/check_site_export.py
 scripts/code_audit_opinions.py
 scripts/design_tests.py
 scripts/design_tests_v2.py
+scripts/export_site.py
 scripts/external_validation.py
+scripts/github_pages_publish.py
 scripts/make_companies_doc.py
 scripts/make_hand_check_sample.py
 scripts/make_m2_workbook.py
@@ -528,6 +532,25 @@ scripts/make_thesis_chapters.py
 scripts/md_to_docx.py
 scripts/power_simulation.py
 scripts/run_full_local.py
+scripts/site/assets/css/site.css
+scripts/site/assets/js/charts.js
+scripts/site/assets/js/compute.js
+scripts/site/assets/js/nav.js
+scripts/site/assets/js/render.js
+scripts/site/assets/js/results.js
+scripts/site/assets/js/run.js
+scripts/site/assets/js/screening.js
+scripts/site/assets/js/selector.js
+scripts/site/assets/js/viz.js
+scripts/site/templates/404.html
+scripts/site/templates/base.html
+scripts/site/templates/code.html
+scripts/site/templates/doc.html
+scripts/site/templates/home.html
+scripts/site/templates/methodology.html
+scripts/site/templates/results.html
+scripts/site/templates/run.html
+scripts/site/templates/screening.html
 tests/__init__.py
 tests/fixtures/ault_fy2018/expected.json
 tests/fixtures/ault_fy2018/item1.txt

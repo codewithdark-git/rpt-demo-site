@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home · RPT fraud-risk study</title>
 <meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 
 </head>
 <body>
 <header class="topnav">
   <div class="inner">
-    <a class="brand" href="index.html">RPT <span>fraud-risk</span> study</a>
+    <a class="brand" href="index.html">RPT fraud-risk study</a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Site">
-      <a href="index.html" data-page="index">Home</a>
       <a href="run.html" data-page="run">Run the model</a>
-      <a href="methodology.html" data-page="methodology">Methodology</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="review-response.html" data-page="review-response">Review response</a>
+      <a href="methodology.html" data-page="methodology">Methodology</a>
+      <a href="screening.html" data-page="screening">Sample</a>
       <a href="companies.html" data-page="companies">Companies</a>
       <a href="code.html" data-page="code">Code &amp; data</a>
     </nav>
@@ -26,79 +28,41 @@
 </header>
 <main class="page" id="main">
 
-<div class="hero">
-  <h1>Related-party transactions and corporate fraud risk</h1>
-  <p class="lede">Can observable financial, governance and disclosure characteristics of related-party transactions (RPTs) support earlier identification of elevated fraud risk? A matched case-control study of 31 US firms named in SEC enforcement for RPT-related misconduct and 145 matched firms, over the five fiscal years before each case became public (862 firm-years, FY2004–FY2024 data), built entirely from public EDGAR filings.</p>
-  <p><a class="btn primary" href="run.html">Run the model on a company</a> <a class="btn" href="methodology.html">Read the methodology</a> <a class="btn" href="results.html">See the results</a></p>
-</div>
+<div id="banner" class="banner error" hidden></div>
+<section class="hero">
+  <h1>Do related-party transactions give fraud away before the SEC does?</h1>
+  <p class="lede">31 US firms later charged over a related-party transaction, each matched with firms from the same industry and size that were never charged. Five fiscal years before the problem became public, read from 2664 annual reports and proxy statements. Every number below can be traced to a sentence in a filing.</p>
+  <div class="viz-block">
+    <div id="v-strip" class="chart"></div>
+    <p class="caption">Each dot is one firm-year's AI risk score (the design's rank-averaged score of eight related-party characteristics). The threshold is the 95th percentile of the matched firm-years. The two distributions overlap almost entirely: the score alone does not separate the groups.</p>
+  </div>
+</section>
 
-<h2>What the study does, in plain words</h2>
-<p>Every US company that was later charged by the SEC over a related-party transaction is paired with up to five companies from the same industry and of similar size that were never charged. For each company and each of the five years before the problem became public, the study reads the annual report (Form 10-K) and the proxy statement (DEF 14A), codes eight characteristics of the related-party disclosures, and asks three things: do the fraud firms differ from their matched firms (H1–H3), from which year (H4), and do the characteristics add anything to the signals auditors and regulators already use (H5)? Every coded value keeps the sentence it came from, so a reviewer can follow any number back to the filing.</p>
+<section class="findings">
+  <h2>What the tests found</h2>
+  <div class="chips">
+    <a class="chip" href="results.html#h13"><span>H1 financial layer</span><b id="chip-H1">…</b></a>
+    <a class="chip" href="results.html#h13"><span>H2 disclosure layer</span><b id="chip-H2">…</b></a>
+    <a class="chip" href="results.html#h13"><span>H3 governance layer</span><b id="chip-H3">…</b></a>
+    <a class="chip" href="results.html#h4"><span>H4 earlier years</span><b id="chip-H4">…</b></a>
+    <a class="chip" href="results.html#h5"><span>H5 adds to audit signals</span><b id="chip-H5">…</b></a>
+  </div>
+  <p class="small muted">"Supported" means the predicted direction with Holm-adjusted p &lt; 0.05 using the firm-clustered standard errors the design asks for. Governance separates the groups with model-based errors only; the disclosure layer runs the opposite way; the combined score adds nothing to the audit and internal-control signals.</p>
+</section>
 
-<h2>The methodology in one diagram</h2>
-<figure>
-  <img src="assets/img/thesis/fig_methodology_blocks.png" alt="Three-stage methodology: sample and data, measurement, tests and validation; eighteen numbered blocks">
-  <figcaption>Figure 3.1 of the thesis. Blocks are numbered in the order of work; each is explained below.</figcaption>
-</figure>
-<div class="grid">
-  <div class="card"><h3>Stage 1 — Sample and data</h3>
-    <ol class="small">
-      <li><b>Case discovery.</b> Every SEC accounting enforcement release 2005–2024, every litigation release 2010–2025, EDGAR full-text search of issuers' own filings and the client's workbook were searched for RPT-related cases.</li>
-      <li><b>Inclusion rule D1.</b> The order or complaint must describe a misstatement or misappropriation in which an RPT is the mechanism, or a charge for failing to disclose an RPT (the disclosure-only stratum).</li>
-      <li><b>Revelation date D2.</b> The first public event that revealed the problem, with a source document and a confidence level.</li>
-      <li><b>Window D3.</b> The five fiscal years before the revelation year; at least four annual reports are required.</li>
-      <li><b>Peer matching D4.</b> Five firms per case from the same four-digit industry, nearest in log total assets, with a 10-K in every window year and no enforcement history.</li>
-      <li><b>EDGAR download.</b> Filing lists, 10-Ks, proxy statements, XBRL financial values, 8-K item codes and amended 10-K/As, fetched from the SEC's public endpoints.</li>
-    </ol></div>
-  <div class="card"><h3>Stage 2 — Measurement</h3>
-    <ol class="small" start="7">
-      <li><b>Section extraction.</b> Item 1, Item 9A, Item 13, the related-party note, the audit report and the proxy's related-party section.</li>
-      <li><b>Eight RPT characteristics.</b> Lending to, payables to, sales to and purchases from related parties (financial layer); incompleteness and vagueness of the disclosure (disclosure layer); board non-independence and CEO duality (governance layer).</li>
-      <li><b>Traditional signals.</b> Material weakness, modified or going-concern opinion, auditor change, restatement — the benchmark the characteristics must add to.</li>
-      <li><b>Controls.</b> Leverage and return on assets; industry, size and year are handled by the matching.</li>
-      <li><b>Scores.</b> Each characteristic ranked 0–1 across all analysed firm-years, averaged within layer, the three layers averaged and multiplied by ten: the AI risk score.</li>
-    </ol></div>
-  <div class="card"><h3>Stage 3 — Tests and validation</h3>
-    <ol class="small" start="12">
-      <li><b>M1–M3.</b> Coverage, reliability and distinctness of the measures.</li>
-      <li><b>H1–H3.</b> Each layer against fraud within matched sets (conditional logit, Holm-adjusted, firm-clustered errors).</li>
-      <li><b>H4.</b> The same test in each of the five years.</li>
-      <li><b>H5.</b> Traditional signals alone against traditional signals plus the AI risk score, scored out of sample; timing at an equal false-alarm rate.</li>
-      <li><b>P1.</b> Transaction types by form of fraud, as a pattern.</li>
-      <li><b>A1–A3.</b> Every score divided into named evidence; stability when each set is left out; reading against theory.</li>
-      <li><b>Validation and exploratory work.</b> Alternative samples, an external set, power; and, kept apart, a fitted 36-input model with its stress tests.</li>
-    </ol></div>
-</div>
-
-<h2>What the tests found</h2>
-<div class="grid">
-  <div class="card"><h3>H1 — financial exposure</h3><p class="small">Fraud firms have higher related-party financial exposure: odds ratio 1.61 per standard deviation [1.04, 2.49], as predicted; p = 0.031 (Holm = 0.062) with model-based errors, p = 0.206 with the firm-clustered errors the design asks for; 187 firm-years of 63 firms in 17 sets. not supported with model-based errors; not supported with firm-clustered errors. The subset that states an amount is selected on the outcome: fraud firms state amounts about three times as often.</p></div>
-  <div class="card"><h3>H2 — disclosure</h3><p class="small">Fraud firms&#39; RPT disclosures are less complete and vaguer: odds ratio 0.80 per standard deviation [0.63, 1.02], in the opposite direction; p = 0.075 (Holm = 0.075) with model-based errors, p = 0.374 with the firm-clustered errors the design asks for; 517 firm-years of 117 firms in 25 sets. not supported with model-based errors; not supported with firm-clustered errors. Part of the reversal is the coding convention for texts that state &#39;no transactions&#39;.</p></div>
-  <div class="card"><h3>H3 — governance</h3><p class="small">Fraud firms have weaker governance: odds ratio 1.70 per standard deviation [1.22, 2.37], as predicted; p = 0.002 (Holm = 0.006) with model-based errors, p = 0.153 with the firm-clustered errors the design asks for; 284 firm-years of 71 firms in 18 sets. supported with model-based errors; not supported with firm-clustered errors. The layer is carried by CEO duality.</p></div>
-  <div class="card"><h3>H4 and H5</h3><p class="small">H4 (differences in earlier years): the design rule is met for no layer with the conditional logit as the primary test. H5 (the layers add to audit and internal-control signals): not supported for the design&#39;s AI risk score — Model B&#39;s out-of-set AUC 0.52 against Model A 0.45 and the traditional index alone 0.60; at an equal false-alarm rate the AI rule flags 0 of 31 cases, the traditional rule 3.</p></div>
-</div>
-<div class="notice">
-  <b>How to read everything on this site.</b> The design tests (H1–H5, P1, A1–A3) are the primary results and use the design's rank-averaged AI risk score. The fitted 36-input model is exploratory: it contains the audit and internal-control signals, so it cannot test whether the RPT layers add to them. All results are associations within matched sets; the five-year window usually contains the fraud years, so the study identifies fraud already under way rather than predicting it. Matched firms are firms without enforcement, not firms known to be clean. The reliability check of the machine coding against human coding (M2) is still to be done.
-</div>
-
-<h2>What you can do here</h2>
-<div class="grid">
-  <a class="card link" href="run.html"><h3>Run the model</h3><p class="small">Pick any of the 176 firms. For each window year see the filings used, every coded value with its evidence sentence, the ranks and layer scores computed live in your browser, the AI risk score against its threshold, and the exploratory fitted model's probability with each input's contribution.</p></a>
-  <a class="card link" href="methodology.html"><h3>Methodology (Chapter 3)</h3><p class="small">Design, data sources with the exact EDGAR endpoints, every measurement rule, every test and every statistic, with a glossary.</p></a>
-  <a class="card link" href="results.html"><h3>Results (Chapter 4)</h3><p class="small">All tables and figures: coverage, H1–H5, P1, A1–A3, power, the sample sensitivity and the exploratory model.</p></a>
-  <a class="card link" href="review-response.html"><h3>Review response</h3><p class="small">How the supervisor's review of 9 October 2026 was answered, point by point.</p></a>
-  <a class="card link" href="companies.html"><h3>Companies</h3><p class="small">Every case and every matched firm with its enforcement record, revelation date and matching details.</p></a>
-  <a class="card link" href="code.html"><h3>Code &amp; data</h3><p class="small">The two code repositories as zip files, the fitted model files, and how to reproduce every table.</p></a>
-</div>
+<section class="paths">
+  <a class="path" href="run.html"><h3>Run the model</h3><p>Pick one of 176 firms and watch every value, rank and probability be rebuilt from its filings.</p></a>
+  <a class="path" href="results.html"><h3>Results</h3><p>Every test as a chart, with its data in Excel.</p></a>
+  <a class="path" href="methodology.html"><h3>Methodology</h3><p>The three stages in one diagram, block by block.</p></a>
+  <a class="path" href="screening.html"><h3>Sample</h3><p>How 58 candidates became 31 cases and 145 matched firms.</p></a>
+</section>
 
 </main>
 <footer class="site"><div class="inner">
-  Generated 2026-10-10 14:55 UTC from run <code>outputs/full_all</code> / design tests <code>design_tests_v2/main31</code>
-  (TrainingPipeline a5836a9, DatePreparedPipeline f754840).
-  Design tests are the primary results; the fitted score is exploratory; every result is an association that identifies fraud already under way, not a prediction.
-  Only public SEC filing excerpts are shown.
+  <p>Generated 2026-10-10 15:31 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations that identify fraud already under way, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a></p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
-
+<script type="module" src="assets/js/results.js"></script>
 </body>
 </html>

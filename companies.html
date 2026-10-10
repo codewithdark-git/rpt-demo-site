@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Companies · RPT fraud-risk study</title>
 <meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 
 </head>
 <body>
 <header class="topnav">
   <div class="inner">
-    <a class="brand" href="index.html">RPT <span>fraud-risk</span> study</a>
+    <a class="brand" href="index.html">RPT fraud-risk study</a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Site">
-      <a href="index.html" data-page="index">Home</a>
       <a href="run.html" data-page="run">Run the model</a>
-      <a href="methodology.html" data-page="methodology">Methodology</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="review-response.html" data-page="review-response">Review response</a>
+      <a href="methodology.html" data-page="methodology">Methodology</a>
+      <a href="screening.html" data-page="screening">Sample</a>
       <a href="companies.html" data-page="companies">Companies</a>
       <a href="code.html" data-page="code">Code &amp; data</a>
     </nav>
@@ -100,7 +102,7 @@
     <p style="margin-top:1rem"><a class="btn" href="docs/THESIS_Companies_Used_in_the_Research.docx" download>Download .docx</a></p>
   </nav>
   <article>
-    
+    <div class="notice info">Every case and matched firm with its enforcement record, revelation date and matching details. The <a href="screening.html">sample page</a> summarises this in charts; use the contents list or search the page.</div>
     <h1 id="companies-used-in-the-research">Companies used in the research</h1>
 <p>This document lists every firm in the study: the 31 qualifying RPT-fraud cases of the main sample (21 misstatement/misappropriation, 10 disclosure-only including Gulfport Energy, approved on 10 October 2026; all FRAUD = 1 in the design tests) with their rule-matched firms, the 10 external-validation cases with theirs, and the five pilot anchors with the hand-picked competitors used in the pilot. Facts are taken from the project's own files: the cases files, the Phase A screen (<code>scripts/phase_a_screen_v2.csv</code>), the candidate notes (<code>scripts/candidates_v02.csv</code>), the matching tables (<code>scripts/peers_matched_*.csv</code>), the EDGAR company tables of the builds, and the run-3 model outputs. Matching rule D4: same four-digit SIC code (fallback three-, then two-digit), nearest log total assets in the fiscal year before revelation, a 10-K on file in every window year, and no SEC accounting enforcement match. 'Gap in ln(assets)' is the absolute difference between the matched firm's and the case's log total assets at the anchor year (0.69 = a factor of two).</p>
 <h2 id="summary">Summary</h2>
@@ -7810,10 +7812,8 @@
 
 </main>
 <footer class="site"><div class="inner">
-  Generated 2026-10-10 14:55 UTC from run <code>outputs/full_all</code> / design tests <code>design_tests_v2/main31</code>
-  (TrainingPipeline a5836a9, DatePreparedPipeline f754840).
-  Design tests are the primary results; the fitted score is exploratory; every result is an association that identifies fraud already under way, not a prediction.
-  Only public SEC filing excerpts are shown.
+  <p>Generated 2026-10-10 15:31 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations that identify fraud already under way, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a></p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
 

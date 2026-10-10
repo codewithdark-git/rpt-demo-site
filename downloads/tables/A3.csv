@@ -1,0 +1,4 @@
+layer,agency_idea,mean_fraud,mean_matched,direction,flagged_fraud_firm_years_where_largest,flagged_fraud_firm_years,flagged_cases
+L1,financial (conflict of interest),0.51,0.476,fraud firms higher (as predicted),0,5,2
+L2,disclosure (information asymmetry),0.454,0.511,fraud firms LOWER (against the prediction),5,5,2
+L3,governance (weak monitoring),0.572,0.483,fraud firms higher (as predicted),0,5,2
