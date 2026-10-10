@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home · RPT fraud-risk study</title>
+<title>Overview · RPT fraud-risk study</title>
 <meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,58 +11,91 @@
 <link rel="stylesheet" href="assets/css/site.css">
 
 </head>
-<body>
+<body data-page="index">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
     <a class="brand" href="index.html">RPT fraud-risk study</a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
-    <nav class="navlinks" aria-label="Site">
-      <a href="run.html" data-page="run">Run the model</a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="index.html" data-page="index">Overview</a>
+      <a href="sample.html" data-page="sample">Sample</a>
+      <a href="methodology.html" data-page="methodology">Method</a>
+      <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="methodology.html" data-page="methodology">Methodology</a>
-      <a href="screening.html" data-page="screening">Sample</a>
-      <a href="companies.html" data-page="companies">Companies</a>
-      <a href="code.html" data-page="code">Code &amp; data</a>
+      <a href="robustness.html" data-page="robustness">Robustness</a>
+      <a href="explore.html" data-page="explore">Firms</a>
+      <a href="limitations.html" data-page="limitations">Limitations</a>
+      <a href="code.html" data-page="code">Downloads</a>
+      <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
 </header>
 <main class="page" id="main">
 
 <div id="banner" class="banner error" hidden></div>
-<section class="hero">
+<section class="hero" data-slide="Overview" id="overview">
+  <p class="kicker">A matched case-control study of SEC enforcement cases</p>
   <h1>Do related-party transactions give fraud away before the SEC does?</h1>
-  <p class="lede">31 US firms later charged over a related-party transaction, each matched with firms from the same industry and size that were never charged. Five fiscal years before the problem became public, read from 2664 annual reports and proxy statements. Every number below can be traced to a sentence in a filing.</p>
-  <div class="viz-block">
-    <div id="v-strip" class="chart"></div>
-    <p class="caption">Each dot is one firm-year's AI risk score (the design's rank-averaged score of eight related-party characteristics). The threshold is the 95th percentile of the matched firm-years. The two distributions overlap almost entirely: the score alone does not separate the groups.</p>
-  </div>
+  <p class="lede">Firms later charged by the SEC over a related-party transaction are compared with firms from the same industry and of similar size that were never charged, using only what each firm had already published. The observation window is the five fiscal years before the case became public; the misconduct is usually already under way in those years.</p>
+  <dl class="metrics">
+    <div><dt>31</dt><dd>observed case firms</dd></div>
+    <div><dt>145</dt><dd>matched comparison firms</dd></div>
+    <div><dt>2,664</dt><dd>annual reports and proxy statements read, FY2004–FY2024</dd></div>
+    <div><dt>5</dt><dd>fiscal years before public disclosure, 862 firm-years analysed</dd></div>
+  </dl>
+  <p class="actions"><a class="btn primary" href="results.html">Explore the results</a> <a class="btn" href="methodology.html">Inspect the methodology</a> <a class="btn" href="run.html">Run the model on a firm</a></p>
 </section>
 
-<section class="findings">
-  <h2>What the tests found</h2>
+<section class="summary-steps" data-slide="How the study works" id="how">
+  <h2>How the study works, in seven steps</h2>
+  <div id="v-pipeline" class="chart" aria-describedby="pipe-note"></div>
+  <ol class="steplist" id="pipe-note">
+    <li><b>Research question.</b> Can the financial, governance and disclosure characteristics of a firm's related-party transactions identify elevated fraud risk earlier than audit and internal-control signals do?</li>
+    <li><b>Data collection.</b> Public EDGAR filings only: 10-Ks, proxy statements, XBRL values, 8-K items and amended 10-K/As.</li>
+    <li><b>Case and control matching.</b> Each case firm is matched with up to five firms of the same industry and size that had no enforcement; the five fiscal years before revelation form the window.</li>
+    <li><b>Characteristic extraction.</b> Eight characteristics are coded from the filings with the evidence sentence kept: four related-party amounts, two disclosure measures, two governance measures.</li>
+    <li><b>Risk-score construction.</b> Each characteristic is ranked 0–1 across the analysed firm-years, averaged within its layer, and the three layers averaged into a 0–10 score.</li>
+    <li><b>Hypothesis testing.</b> Five pre-registered hypotheses are tested within matched sets (conditional logit, Holm-adjusted, firm-clustered errors) and against the traditional audit signals.</li>
+    <li><b>Findings and limitations.</b> Reported as associations observed before public disclosure, with their uncertainty, and with the checks still outstanding.</li>
+  </ol>
+</section>
+
+<section class="finds" data-slide="What this study finds" id="finds">
+  <h2>What this study finds</h2>
   <div class="chips">
-    <a class="chip" href="results.html#h13"><span>H1 financial layer</span><b id="chip-H1">…</b></a>
-    <a class="chip" href="results.html#h13"><span>H2 disclosure layer</span><b id="chip-H2">…</b></a>
-    <a class="chip" href="results.html#h13"><span>H3 governance layer</span><b id="chip-H3">…</b></a>
-    <a class="chip" href="results.html#h4"><span>H4 earlier years</span><b id="chip-H4">…</b></a>
+    <a class="chip" href="results.html#dashboard"><span>H1 financial exposure</span><b id="chip-H1">…</b></a>
+    <a class="chip" href="results.html#dashboard"><span>H2 disclosure</span><b id="chip-H2">…</b></a>
+    <a class="chip" href="results.html#dashboard"><span>H3 governance</span><b id="chip-H3">…</b></a>
+    <a class="chip" href="results.html#time"><span>H4 earlier years</span><b id="chip-H4">…</b></a>
     <a class="chip" href="results.html#h5"><span>H5 adds to audit signals</span><b id="chip-H5">…</b></a>
   </div>
-  <p class="small muted">"Supported" means the predicted direction with Holm-adjusted p &lt; 0.05 using the firm-clustered standard errors the design asks for. Governance separates the groups with model-based errors only; the disclosure layer runs the opposite way; the combined score adds nothing to the audit and internal-control signals.</p>
-</section>
-
-<section class="paths">
-  <a class="path" href="run.html"><h3>Run the model</h3><p>Pick one of 176 firms and watch every value, rank and probability be rebuilt from its filings.</p></a>
-  <a class="path" href="results.html"><h3>Results</h3><p>Every test as a chart, with its data in Excel.</p></a>
-  <a class="path" href="methodology.html"><h3>Methodology</h3><p>The three stages in one diagram, block by block.</p></a>
-  <a class="path" href="screening.html"><h3>Sample</h3><p>How 58 candidates became 31 cases and 145 matched firms.</p></a>
+  <div class="viz-block">
+    <div id="v-strip" class="chart"></div>
+    <p class="caption">Each dot is one analysed firm-year's rank-averaged risk score. The two distributions overlap substantially; the median of the case firm-years is only slightly higher, and the 95th-percentile threshold of the matched firms separates two of the 31 cases. The score does not distinguish the groups on its own.</p>
+  </div>
+  <div class="findgrid">
+    <p><b>Governance</b> (CEO duality, board independence) is higher in case firm-years than in their matched firms, but only with model-based standard errors; with the firm-clustered errors the design asks for, the evidence is not significant.</p>
+    <p><b>Disclosure</b> runs the other way: case firms' related-party disclosures are, if anything, more complete and plainer than their matched firms'. Part of this is a coding convention for texts that state "no transactions".</p>
+    <p><b>Financial exposure</b> is tested only on the firm-years that state an amount, a subset in which case firms are over-represented; the association is not significant with firm-clustered errors.</p>
+    <p><b>The combined score adds nothing</b> to the material-weakness, audit-opinion, auditor-change and restatement signals, in strength or in timing. These are associations observed before public disclosure, not predictions.</p>
+  </div>
 </section>
 
 </main>
+<div class="present-controls" id="present-controls" hidden>
+  <button type="button" id="present-prev" class="btn">← Previous</button>
+  <span id="present-pos" class="small muted"></span>
+  <button type="button" id="present-next" class="btn">Next →</button>
+  <button type="button" id="present-exit" class="btn">Exit</button>
+</div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 15:31 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations that identify fraud already under way, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a></p>
+  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
-<script type="module" src="assets/js/results.js"></script>
+<script type="module" src="assets/js/present.js"></script>
+<script type="module" src="assets/js/results.js"></script><script type="module" src="assets/js/home.js"></script>
 </body>
 </html>

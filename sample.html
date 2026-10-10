@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dataset and sample · RPT fraud-risk study</title>
+<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+</head>
+<body data-page="sample">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="index.html">RPT fraud-risk study</a>
+    <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="index.html" data-page="index">Overview</a>
+      <a href="sample.html" data-page="sample">Sample</a>
+      <a href="methodology.html" data-page="methodology">Method</a>
+      <a href="run.html" data-page="run">Explore the model</a>
+      <a href="results.html" data-page="results">Results</a>
+      <a href="robustness.html" data-page="robustness">Robustness</a>
+      <a href="explore.html" data-page="explore">Firms</a>
+      <a href="limitations.html" data-page="limitations">Limitations</a>
+      <a href="code.html" data-page="code">Downloads</a>
+      <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
+    </nav>
+  </div>
+</header>
+<main class="page" id="main">
+
+<div id="banner" class="banner error" hidden></div>
+<header class="pagehead" data-slide="Dataset and sample" id="sample-head">
+  <p class="kicker">Dataset and sample selection</p>
+  <h1>From 58 candidate firms to 31 cases and 145 matched firms</h1>
+  <p class="lede">Every candidate found in the enforcement record was screened by four rules; every case was matched by rule; every filing came from EDGAR. The <a href="screening-report.html">screening report</a> and the <a href="companies.html">companies document</a> hold the firm-by-firm detail.</p>
+</header>
+
+<article class="finding" data-slide="Sample funnel" id="funnel">
+  <div class="verdict"><h2>Four rules turn 58 candidates into 31 cases</h2><p>D1: the order describes a misstatement or misappropriation through an RPT, or a charge for not disclosing one. D2: a dated first public revelation. D3: at least four annual reports in the five years before it. D4: matched firms by rule. Counts are the screening file's own.</p><a class="data" href="downloads/tables/screening_funnel.csv">data (CSV)</a></div>
+  <div><div id="v-funnel" class="chart"></div><details class="tbl"><summary>Data table</summary><div id="t-funnel"></div></details></div>
+</article>
+
+<article class="finding" data-slide="Where the candidates came from" id="sources">
+  <div class="verdict"><h2>Four systematic sources</h2><p>The client workbook was the starting list; full-text sweeps of every AAER and litigation release and EDGAR full-text search added the rest.</p></div>
+  <div id="v-sources" class="chart"></div>
+</article>
+
+<article class="finding" data-slide="Matching" id="matching">
+  <div class="verdict"><h2>How the comparison firms were chosen</h2><p>For each case: every EDGAR registrant with the same four-digit industry code (three- or two-digit when fewer than eight remain), a 10-K in every window year, no enforcement match, and XBRL total assets in the year before revelation; the five nearest in log assets, without replacement.</p><a class="data" href="downloads/tables/peer_matches.csv">data (CSV)</a></div>
+  <div><div id="v-matching" class="chart"></div><div id="v-gap" class="chart" style="margin-top:1rem"></div><div id="v-sic" class="chart" style="margin-top:1rem"></div></div>
+</article>
+
+<article class="finding" data-slide="The observation window" id="window">
+  <div class="verdict"><h2>Five fiscal years before public disclosure</h2><p>Event time counts fiscal years back from the revelation year. The misconduct period named in the enforcement document usually overlaps the window, so the study observes firms while the problem is under way, not before it begins.</p></div>
+  <div id="v-window" class="chart"></div>
+</article>
+
+<article class="finding" data-slide="When the cases became public" id="timeline">
+  <div class="verdict"><h2>Revelation years, 2010–2025</h2><p>Each mark is one case at its revelation year; windows run back five fiscal years from here. Confidence in the date: high for a dated SEC filing or order, medium for a documented public event, low where the SEC action date stands in.</p><a class="data" href="downloads/tables/cases.csv">data (CSV)</a></div>
+  <div><div id="v-timeline" class="chart"></div><div id="v-conf" class="chart" style="margin-top:1rem"></div><details class="tbl"><summary>Data table</summary><div id="t-cases"></div></details></div>
+</article>
+
+</main>
+<div class="present-controls" id="present-controls" hidden>
+  <button type="button" id="present-prev" class="btn">← Previous</button>
+  <span id="present-pos" class="small muted"></span>
+  <button type="button" id="present-next" class="btn">Next →</button>
+  <button type="button" id="present-exit" class="btn">Exit</button>
+</div>
+<footer class="site"><div class="inner">
+  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
+</div></footer>
+<script src="assets/js/nav.js"></script>
+<script type="module" src="assets/js/present.js"></script>
+<script type="module" src="assets/js/sample.js"></script>
+</body>
+</html>

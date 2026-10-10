@@ -11,18 +11,24 @@
 <link rel="stylesheet" href="assets/css/site.css">
 
 </head>
-<body>
+<body data-page="404">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
     <a class="brand" href="index.html">RPT fraud-risk study</a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
-    <nav class="navlinks" aria-label="Site">
-      <a href="run.html" data-page="run">Run the model</a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="index.html" data-page="index">Overview</a>
+      <a href="sample.html" data-page="sample">Sample</a>
+      <a href="methodology.html" data-page="methodology">Method</a>
+      <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="methodology.html" data-page="methodology">Methodology</a>
-      <a href="screening.html" data-page="screening">Sample</a>
-      <a href="companies.html" data-page="companies">Companies</a>
-      <a href="code.html" data-page="code">Code &amp; data</a>
+      <a href="robustness.html" data-page="robustness">Robustness</a>
+      <a href="explore.html" data-page="explore">Firms</a>
+      <a href="limitations.html" data-page="limitations">Limitations</a>
+      <a href="code.html" data-page="code">Downloads</a>
+      <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
 </header>
@@ -35,11 +41,18 @@
 </div>
 
 </main>
+<div class="present-controls" id="present-controls" hidden>
+  <button type="button" id="present-prev" class="btn">← Previous</button>
+  <span id="present-pos" class="small muted"></span>
+  <button type="button" id="present-next" class="btn">Next →</button>
+  <button type="button" id="present-exit" class="btn">Exit</button>
+</div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 15:31 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations that identify fraud already under way, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a></p>
+  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
+<script type="module" src="assets/js/present.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,19 @@
+variable,type,definition,source
+cik,id,"SEC Central Index Key, ten digits",EDGAR
+role,text,observed case firm (named in an SEC action) or matched comparison firm (no enforcement),cases_core.csv
+stratum,text,core = misstatement or misappropriation through an RPT; disclosure_only = charge is the missing or incomplete disclosure,enforcement document (D1)
+fiscal_year / event_time,int,fiscal year of the annual report; event time = fiscal year minus revelation year (−5 … −1),filing manifest; revelation date (D2)
+label,0/1,"FRAUD = 1 for a case firm's window years, 0 for matched firms",design
+"RP_LEND, RP_PAY, RP_SALES, RP_PURCH",ratio,"largest stated amount of the flow ÷ XBRL total assets (revenue for sales), clipped at 1; blank when no amount is stated",related-party text (rule-coded) ÷ XBRL
+RP_INCOMP,0–1,"(4 − disclosure items stated) ÷ 4; items: counterparty, amount, terms, purpose",related-party text (rule-coded)
+RP_VAGUE,ratio,uncertainty and weak-modal words ÷ total words of the related-party text,related-party text (Loughran–McDonald lists)
+BRD_NONIND,0–1,1 − independent directors ÷ board size,DEF 14A (rule-coded)
+DUAL,0/1,1 if the chief executive also chairs the board,DEF 14A (rule-coded)
+rank_<code>,0–1,percentile rank of the characteristic against all analysed firm-years (average ranks for ties),design step 3
+"L1_SCORE, L2_SCORE, L3_SCORE",0–1,mean rank of the characteristics observed in the layer; blank when none is observed,design step 4
+AI_SCORE,0–10,10 × mean of the layer scores that exist (rank-averaged AI risk score),design step 5
+AI_FLAG_5,0/1,AI_SCORE at or above the matched firm-years' 95th percentile (threshold 7.920),design (H5 timing rule)
+"ICFR_MW, AUD_OPIN, AUD_CHG, RESTATE, TRAD_INDEX",0/1; 0–4,material weakness (Item 9A); modified or going-concern opinion; 8-K Item 4.01; 8-K Item 4.02 or restating 10-K/A; their sum,"10-K, audit report, submissions API, 10-K/A"
+"ensemble_oof, logit_oof",probability,exploratory fitted-model score for the firm-year from a model fitted without its matched set; blank for the set added after the fit,outputs/full_all/oof_scores.csv
+"largest_layer, named_evidence",text,A1 division of the AI risk score: the layer with the largest share and the two largest characteristics,design A1
+"odds_ratio_per_sd, or_ci_*, p_*",statistics,"conditional logit within matched sets, predictors standardised; model-based and firm-clustered errors; Holm across H1–H3",scripts/design_tests_v2.py

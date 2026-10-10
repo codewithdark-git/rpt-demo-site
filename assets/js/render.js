@@ -36,7 +36,7 @@ const table = (head, rows, numCols = []) => {
 export function renderHeader(co, G) {
   const isCase = co.role === "case";
   const wrap = h("div");
-  wrap.appendChild(h("h2", { style: "border:0;margin-top:0" }, [co.name + " ", h("span", { class: "badge " + co.role, text: isCase ? "fraud case" : "matched firm" }), " ", h("span", { class: "badge " + (co.stratum === "core" ? "core" : "disc"), text: co.stratum === "core" ? "misstatement / misappropriation" : "disclosure-only" })]));
+  wrap.appendChild(h("h2", { style: "border:0;margin-top:0" }, [co.name + " ", h("span", { class: "badge " + co.role, text: isCase ? "observed case firm" : "matched firm" }), " ", h("span", { class: "badge " + (co.stratum === "core" ? "core" : "disc"), text: co.stratum === "core" ? "misstatement / misappropriation" : "disclosure-only" })]));
   const dl = h("dl", { class: "kv" });
   const add = (k, v) => { dl.appendChild(h("dt", { text: k })); dl.appendChild(h("dd", {}, v)); };
   add("CIK / EDGAR name", [h("span", { class: "mono", text: co.cik }), " · " + co.edgar_name + " · ", link(`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${co.cik}&type=10-K`, "EDGAR filings")]);
@@ -56,7 +56,7 @@ export function renderHeader(co, G) {
 }
 
 export function renderStage1(co, y, G) {
-  const s = h("section", { class: "stage" });
+  const s = h("section", { class: "stage", id: "stage-1" });
   s.appendChild(h("h2", {}, [h("span", { class: "step", text: "1" }), `Data processing — FY${y.fiscal_year} (event time ${y.event_time})`]));
   const f = y.filings;
   const rows = [];
@@ -85,7 +85,7 @@ export function renderStage1(co, y, G) {
 }
 
 export function renderStage2(co, y, G) {
-  const s = h("section", { class: "stage" });
+  const s = h("section", { class: "stage", id: "stage-2" });
   s.appendChild(h("h2", {}, [h("span", { class: "step", text: "2" }), "Variable derivation"]));
   const c = y.coded, x = y.xbrl || {};
   const xv = (k) => x[k] ? [fmtMoney(x[k].value), " ", h("span", { class: "small muted", text: x[k].tag ? `us-gaap:${x[k].tag} · ${x[k].accession || ""}` : "no XBRL value" })] : "—";
@@ -139,7 +139,7 @@ export function renderStage2(co, y, G) {
 }
 
 export function renderStage3(co, y, G) {
-  const s = h("section", { class: "stage" });
+  const s = h("section", { class: "stage", id: "stage-3" });
   s.appendChild(h("h2", {}, [h("span", { class: "step", text: "3" }), "How the values enter the model"]));
   // (a) design score
   s.appendChild(h("h3", { text: "(a) The design's AI risk score — recomputed live" }));
@@ -200,4 +200,26 @@ export function renderStage3(co, y, G) {
   }
   s.appendChild(h("div", { class: "legend" }, [h("span", {}, [h("span", { class: "swatch", style: "background:#b3261e" }), "selected firm (case)"]), h("span", {}, [h("span", { class: "swatch", style: "background:#1f5f8b" }), "selected firm (matched)"]), h("span", {}, [h("span", { class: "swatch", style: "background:#9aa5b1" }), "other firms of the set"])]));
   return s;
+}
+
+
+/** Stage 4: side-by-side comparison of two firms of the same set in the same fiscal year. */
+export function renderCompare(co, y, other, G) {
+  const oy = other.years.find((q) => q.fiscal_year === y.fiscal_year) || other.years.find((q) => q.event_time === y.event_time);
+  if (!oy) return h("p", { class: "muted small", text: "The other firm has no analysed firm-year for this fiscal year." });
+  const rows = [];
+  const vA = {}, vB = {};
+  for (const c of G.characteristics) { vA[c.code] = y.characteristics[c.code].value; vB[c.code] = oy.characteristics[c.code].value; }
+  const dA = designScore(G.characteristics, vA), dB = designScore(G.characteristics, vB);
+  for (const c of G.characteristics) {
+    const ra = dA.ranks[c.code], rb = dB.ranks[c.code];
+    rows.push([h("span", { class: "badge " + c.layer.toLowerCase(), text: c.layer }), c.code, fmt(vA[c.code], 4), ra ? fmt(ra.rank, 3) : "not observed", fmt(vB[c.code], 4), rb ? fmt(rb.rank, 3) : "not observed"]);
+  }
+  for (const L of LAYERS) rows.push(["", LAYER_NAME[L], "", fmt(dA.layer[L], 3), "", fmt(dB.layer[L], 3)]);
+  rows.push(["", "AI risk score", "", fmt(dA.AI_SCORE, 3) + (aiFlag(dA.AI_SCORE, G.ai_flag.thr_5pct_far) ? " ▲" : ""), "", fmt(dB.AI_SCORE, 3) + (aiFlag(dB.AI_SCORE, G.ai_flag.thr_5pct_far) ? " ▲" : "")]);
+  rows.push(["", "traditional index", "", fmt(y.design_recorded.TRAD_INDEX, 0), "", fmt(oy.design_recorded.TRAD_INDEX, 0)]);
+  const wrap = h("div");
+  wrap.appendChild(h("p", { class: "small" }, [h("b", { text: co.name }), ` (${co.role === "case" ? "observed case" : "matched"}) against `, h("b", { text: other.name }), ` (${other.role === "case" ? "observed case" : "matched"}), FY${y.fiscal_year} / FY${oy.fiscal_year}, event time ${y.event_time} / ${oy.event_time}. ▲ marks a score above the 5 % matched-firm threshold.`]));
+  wrap.appendChild(table(["Layer", "Characteristic", co.name + " value", "rank", other.name + " value", "rank"], rows, [2, 3, 4, 5]));
+  return wrap;
 }

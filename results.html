@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Results · RPT fraud-risk study</title>
+<title>Results and hypotheses · RPT fraud-risk study</title>
 <meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,95 +11,143 @@
 <link rel="stylesheet" href="assets/css/site.css">
 
 </head>
-<body>
+<body data-page="results">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
     <a class="brand" href="index.html">RPT fraud-risk study</a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
-    <nav class="navlinks" aria-label="Site">
-      <a href="run.html" data-page="run">Run the model</a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="index.html" data-page="index">Overview</a>
+      <a href="sample.html" data-page="sample">Sample</a>
+      <a href="methodology.html" data-page="methodology">Method</a>
+      <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="methodology.html" data-page="methodology">Methodology</a>
-      <a href="screening.html" data-page="screening">Sample</a>
-      <a href="companies.html" data-page="companies">Companies</a>
-      <a href="code.html" data-page="code">Code &amp; data</a>
+      <a href="robustness.html" data-page="robustness">Robustness</a>
+      <a href="explore.html" data-page="explore">Firms</a>
+      <a href="limitations.html" data-page="limitations">Limitations</a>
+      <a href="code.html" data-page="code">Downloads</a>
+      <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
 </header>
 <main class="page" id="main">
 
 <div id="banner" class="banner error" hidden></div>
-<header class="pagehead">
-  <h1>Results</h1>
-  <p class="lede">31 cases, 145 matched firms, 862 firm-years in the five-year windows. Each finding is one chart; the numbers behind every chart are in the <a href="downloads/results_tables.xlsx">Excel workbook</a> (one sheet per table) and in the <a href="results-chapter.html">full chapter</a>.</p>
+<header class="pagehead" data-slide="Results" id="results-head">
+  <p class="kicker">Results and hypotheses</p>
+  <h1>The score overlaps; governance leans the predicted way; disclosure leans the other</h1>
+  <p class="lede">31 case firms, 145 matched firms, 862 firm-years. Each finding below states the question, the answer, the chart, how to read it, the numbers and the caveat. All numbers are in the <a href="downloads/results_tables.xlsx">Excel workbook</a>; the <a href="results-chapter.html">full chapter</a> has every table.</p>
 </header>
 
-<article class="finding" id="m1">
-  <div class="verdict"><h2>Coverage</h2><p>Amounts of related-party transactions are stated in about a quarter of fraud firm-years and a tenth of matched firm-years. The financial layer is therefore tested on a subset selected on the outcome.</p><a class="data" href="downloads/tables/m1_coverage_by_group.csv">data</a></div>
-  <div id="v-m1" class="chart"></div>
+<article class="finding" data-slide="Score distributions" id="distributions">
+  <div class="verdict">
+    <h2>The two risk-score distributions overlap substantially</h2>
+    <p><b>Question.</b> Does the rank-averaged AI risk score separate case firm-years from matched firm-years?</p>
+    <p><b>Finding.</b> No. The case median is a little higher, but the histograms sit on top of each other and only two of 31 cases ever cross the matched firms' 95th percentile.</p>
+    <p class="small"><b>How to read.</b> Density per group (left axis), box plots with median and interquartile range, and every firm-year as a dot. The dashed line is the threshold fixed by construction at the 5 % matched-firm rate. Use the controls to look at one event year or one layer.</p>
+    <p class="small"><b>Caveat.</b> Firm-years without any observed characteristic have no score and are not drawn (862 analysed, 813 scored).</p>
+    <a class="data" href="downloads/tables/scores_by_firm_year.csv">data (CSV)</a>
+  </div>
+  <div>
+    <div class="controls" role="group" aria-label="Distribution controls">
+      <label>Event year <select id="f-year"><option value="all">all years</option><option value="-5">t−5</option><option value="-4">t−4</option><option value="-3">t−3</option><option value="-2">t−2</option><option value="-1">t−1</option></select></label>
+      <label>Score <select id="f-score"><option value="AI_SCORE">AI risk score (0–10)</option><option value="L1_SCORE">financial layer (0–1)</option><option value="L2_SCORE">disclosure layer (0–1)</option><option value="L3_SCORE">governance layer (0–1)</option></select></label>
+      <label>Case group <select id="f-stratum"><option value="all">all cases</option><option value="core">misstatement / misappropriation</option><option value="disclosure_only">disclosure-only</option></select></label>
+    </div>
+    <div id="v-hist" class="chart"></div>
+    <div id="v-box" class="chart"></div>
+    <div id="v-strip" class="chart"></div>
+    <p class="small muted" id="dist-note"></p>
+  </div>
 </article>
 
-<article class="finding" id="m3">
-  <div class="verdict"><h2>Distinctness</h2><p>The three layer scores are nearly uncorrelated. Each layer carries its own information.</p><a class="data" href="downloads/tables/m3_layer_correlations.csv">data</a></div>
-  <div id="v-m3" class="chart"></div>
+<section data-slide="Hypothesis dashboard" id="dashboard">
+  <h2>Five hypotheses, one reading each</h2>
+  <p class="small muted">Status uses the design's rule: predicted direction and Holm-adjusted p &lt; 0.05 with firm-clustered standard errors. Statistical significance is not practical importance; odds ratios are per one standard deviation of a 0–1 rank score.</p>
+  <div class="dash" id="dash"></div>
+</section>
+
+<article class="finding" data-slide="Effect sizes" id="h13">
+  <div class="verdict">
+    <h2>Within matched sets, only governance points the predicted way and clears the model-based test</h2>
+    <p><b>Question.</b> Is each layer higher in case firm-years than in the same set's matched firm-years?</p>
+    <p><b>Finding.</b> Governance: odds ratio above one with both error types but significant only with model-based errors. Financial: above one on the disclosing subset, not significant with firm-clustered errors. Disclosure: below one, the opposite of the prediction.</p>
+    <p class="small"><b>How to read.</b> Points are odds ratios per standard deviation on a log axis; the line at 1 means no difference. Circles use model-based errors, squares the firm-clustered errors the design asks for; intervals that cross 1 are not significant.</p>
+    <p class="small"><b>Caveat.</b> The financial layer is observed in a subset selected on the outcome (amounts are stated about three times as often in case firm-years).</p>
+    <a class="data" href="downloads/tables/h1_h3_layer_tests.csv">data (CSV)</a>
+  </div>
+  <div><div id="v-h13" class="chart"></div><details class="tbl"><summary>Data table</summary><div id="t-h13"></div></details></div>
 </article>
 
-<article class="finding" id="h13">
-  <div class="verdict"><h2>H1–H3: the three layers within matched sets</h2><p>Odds of being a fraud firm-year per one standard deviation of the layer score, each case against its own matched firms. Governance points the predicted way; the financial layer only on the disclosing subset; the disclosure layer points the other way. The firm-clustered intervals are the design's test.</p><a class="data" href="downloads/tables/h1_h3_layer_tests.csv">data</a></div>
-  <div id="v-h13" class="chart"></div>
+<article class="finding" data-slide="Year by year" id="time">
+  <div class="verdict">
+    <h2>The governance gap is present in every window year and does not grow towards disclosure</h2>
+    <p><b>Question.</b> Are the differences present in the earlier years, not only the final year (H4)?</p>
+    <p><b>Finding.</b> With the conditional logit as the primary test, no year before the final year is significant for any layer; governance comes closest at t−3. A stable gap between firms fits the picture as well as fraud emerging.</p>
+    <p class="small"><b>How to read.</b> Left: mean layer score of case firms (solid) and matched firms (dashed) by event year. Right: the per-year odds ratio with its 95 % interval; years are fiscal years counted back from the revelation year, not calendar years.</p>
+    <p class="small"><b>Caveat.</b> Fifteen tests with 7–25 informative sets each; the observations precede public disclosure, not necessarily the misconduct.</p>
+    <a class="data" href="downloads/tables/h4_by_year.csv">data (CSV)</a>
+  </div>
+  <div><div id="v-h4" class="chart"></div><div id="v-h4f" class="chart" style="margin-top:1rem"></div><details class="tbl"><summary>Data table</summary><div id="t-h4"></div></details></div>
 </article>
 
-<article class="finding" id="h2">
-  <div class="verdict"><h2>H2 re-runs and single characteristics</h2><p>The design's second run without the disclosure-only cases, the run without texts that state "no transactions", and each characteristic on its own. Incompleteness carries the reversal; duality carries governance.</p><a class="data" href="downloads/tables/h1_h3_variants.csv">data</a></div>
-  <div id="v-h2" class="chart"></div>
-</article>
-
-<article class="finding" id="h4">
-  <div class="verdict"><h2>H4: year by year</h2><p>Mean layer score of fraud firms against matched firms in each of the five years before revelation. A mark shows a year in which the within-set test is significant in the predicted direction. The governance gap is present throughout and does not grow towards revelation.</p><a class="data" href="downloads/tables/h4_by_year.csv">data</a></div>
-  <div id="v-h4" class="chart"></div>
-</article>
-
-<article class="finding" id="h5">
-  <div class="verdict"><h2>H5: does the score add to audit and internal-control signals?</h2><p>Out-of-set discrimination of the traditional index with and without the AI risk score, and how many cases each rule flags at the same false-alarm rate. Not supported.</p><a class="data" href="downloads/tables/h5_model_ab.csv">data</a></div>
+<article class="finding" data-slide="Added value" id="h5">
+  <div class="verdict">
+    <h2>The combined score does not add to the audit and internal-control signals</h2>
+    <p><b>Question.</b> Does the AI risk score add to the traditional index (material weakness, audit opinion, auditor change, restatement), in strength or in timing (H5)?</p>
+    <p><b>Finding.</b> Model B beats Model A out of set, but both are below the traditional index used alone; the score's coefficient is not significant with firm-clustered errors; at an equal false-alarm rate the AI rule flags no case the traditional rule does not.</p>
+    <p class="small"><b>How to read.</b> Left: out-of-set AUC (0.5 = chance). Right: cases flagged by each rule at the same false-alarm rate among matched firm-years.</p>
+    <a class="data" href="downloads/tables/h5_model_ab.csv">data (CSV)</a>
+  </div>
   <div class="chart-pair"><div id="v-h5" class="chart"></div><div id="v-h5timing" class="chart"></div></div>
 </article>
 
-<article class="finding" id="lead">
-  <div class="verdict"><h2>Earliest year the score separated each case</h2><p>At the 5 % matched-firm rate the score separates two cases; the rest are never flagged. Reported as identification within the window, not as advance warning.</p><a class="data" href="downloads/tables/lead_time_by_case.csv">data</a></div>
+<article class="finding" data-slide="Characteristics heatmap" id="characteristics">
+  <div class="verdict">
+    <h2>What each case's score is made of</h2>
+    <p><b>Question.</b> Which of the eight measured characteristics rank high for which case firm?</p>
+    <p><b>Finding.</b> Amounts are rarely stated, so most scores rest on the two disclosure items and CEO duality; the heatmap shows where the eight characteristics are observed and how they rank.</p>
+    <p class="small"><b>How to read.</b> Each cell is the case firm's mean 0–1 rank over its window years (darker = higher); empty cells are characteristics never observed for that firm. The last row is the mean over all matched firm-years. Ranks are measured filing characteristics; the score in the final column is model-derived.</p>
+    <a class="data" href="downloads/tables/characteristics_heatmap.csv">data (CSV)</a>
+  </div>
+  <div><div id="v-heat" class="chart"></div><div id="v-a1" class="chart" style="margin-top:1rem"></div><details class="tbl"><summary>Data table</summary><div id="t-heat"></div></details></div>
+</article>
+
+<article class="finding" data-slide="Earliest separation" id="lead">
+  <div class="verdict">
+    <h2>Two cases are separated at the 5 % rate; the rest never are</h2>
+    <p><b>Question.</b> In which window year, if any, did the score first exceed the matched firms' 95th percentile for each case?</p>
+    <p class="small"><b>How to read.</b> One row per case; a dot marks the earliest window year of separation. "Never" means the score stayed below the threshold in all window years. This is identification inside the observation window, not advance warning.</p>
+    <a class="data" href="downloads/tables/lead_time_by_case.csv">data (CSV)</a>
+  </div>
   <div id="v-lead" class="chart"></div>
 </article>
 
-<article class="finding" id="p1">
-  <div class="verdict"><h2>P1: transaction types by form of fraud</h2><p>Share of cases with a stated amount of each type. Lending is the most frequent in both forms; the predicted contrast appears for sales only. A pattern, not a test.</p><a class="data" href="downloads/tables/p1_rpt_types_by_form.csv">data</a></div>
+<article class="finding" data-slide="Transaction types" id="p1">
+  <div class="verdict">
+    <h2>Lending is the most frequent transaction type in both forms of fraud</h2>
+    <p><b>Question.</b> Do managerial and corporate fraud use different related-party transactions (P1)?</p>
+    <p class="small"><b>How to read.</b> Share of cases with a stated amount of each type in any window year. A pattern; the groups are too small to test.</p>
+    <a class="data" href="downloads/tables/p1_rpt_types_by_form.csv">data (CSV)</a>
+  </div>
   <div id="v-p1" class="chart"></div>
 </article>
 
-<article class="finding" id="a1">
-  <div class="verdict"><h2>A1: what the score is made of</h2><p>Average share of the AI risk score contributed by each characteristic. Because amounts are rarely stated, the disclosure items and CEO duality carry most of the score.</p><a class="data" href="downloads/tables/a1_attribution_summary.csv">data</a></div>
-  <div id="v-a1" class="chart"></div>
-</article>
-
-<article class="finding" id="power">
-  <div class="verdict"><h2>Power</h2><p>Simulated power of the within-set test with firm-clustered errors. The layer tests use 16–25 informative sets, so their power is nearer the 21-set bars.</p><a class="data" href="downloads/tables/power_simulation.csv">data</a></div>
-  <div id="v-power" class="chart"></div>
-</article>
-
-<article class="finding" id="samples">
-  <div class="verdict"><h2>Does the sample change the answer?</h2><p>The same tests on 21, 30, 31 and 36 cases and with a different ranking population. Directions never change; adding the disclosure-only cases halves the governance odds ratio.</p><a class="data" href="downloads/tables/sample_comparison.csv">data</a></div>
-  <div id="v-samples" class="chart"></div>
-</article>
-
-<article class="finding exploratory" id="exploratory">
-  <div class="verdict"><h2>Exploratory: the fitted 36-input model</h2><p>Leave-one-set-out discrimination of the exploratory models on the 21 misstatement/misappropriation cases, and each case's highest out-of-fold score. The model contains the audit signals, so it does not test H5. External set of ten unseen cases: AUC 0.73, 1 of 10 flagged.</p><a class="data" href="downloads/tables/oof_metrics.csv">data</a></div>
-  <div class="chart-pair"><div id="v-oof" class="chart"></div><div id="v-cases" class="chart"></div></div>
-</article>
-
 </main>
+<div class="present-controls" id="present-controls" hidden>
+  <button type="button" id="present-prev" class="btn">← Previous</button>
+  <span id="present-pos" class="small muted"></span>
+  <button type="button" id="present-next" class="btn">Next →</button>
+  <button type="button" id="present-exit" class="btn">Exit</button>
+</div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 15:31 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations that identify fraud already under way, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a></p>
+  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
+  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
+<script type="module" src="assets/js/present.js"></script>
 <script type="module" src="assets/js/results.js"></script>
 </body>
 </html>
