@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Firm explorer · RPT fraud-risk study</title>
-<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<title>Firms · RPT Signals</title>
+<meta name="description" content="RPT Signals: do the related-party transactions of US listed firms carry signals of fraud risk? A matched case-control study built from public SEC filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
-    <a class="brand" href="index.html">RPT fraud-risk study</a>
+    <a class="brand" href="index.html"><span class="brand-name">RPT Signals</span><span class="brand-sub">Related-party transactions and fraud risk</span></a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Sections">
       <a href="index.html" data-page="index">Overview</a>
@@ -24,10 +24,7 @@
       <a href="methodology.html" data-page="methodology">Method</a>
       <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="robustness.html" data-page="robustness">Robustness</a>
       <a href="explore.html" data-page="explore">Firms</a>
-      <a href="limitations.html" data-page="limitations">Limitations</a>
-      <a href="code.html" data-page="code">Downloads</a>
       <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
@@ -36,9 +33,9 @@
 
 <div id="banner" class="banner error" hidden></div>
 <header class="pagehead" data-slide="Firm explorer" id="explore-head">
-  <p class="kicker">Company-level exploration</p>
+  <p class="kicker">Firms</p>
   <h1>Every analysed firm-year, as a spreadsheet</h1>
-  <p class="lede">862 firm-years of 176 firms. Search, sort and filter; select a row for its evidence; export what you have selected. Observed case firms are the firms named in an SEC action; matched comparison firms had no enforcement; the relative risk score is a rank within this sample, not a judgement about any firm.</p>
+  <p class="lede">862 firm-years of 176 firms. Search, sort and filter; select a row for its evidence. Observed case firms are the firms named in an SEC action; matched comparison firms had no enforcement; the risk score is a rank within this sample, not a judgement about any firm.</p>
 </header>
 
 <section data-slide="Firm-year table" id="table">
@@ -48,12 +45,11 @@
     <label>Event year <select id="x-year"><option value="all">all</option><option value="-5">t−5</option><option value="-4">t−4</option><option value="-3">t−3</option><option value="-2">t−2</option><option value="-1">t−1</option></select></label>
     <label>Flag <select id="x-flag"><option value="all">all</option><option value="1">above threshold</option><option value="0">below threshold</option></select></label>
     <label>Rows <select id="x-page"><option>25</option><option>50</option><option>100</option></select></label>
-    <button type="button" class="btn" id="x-export">Export selected rows (CSV)</button>
     <span id="x-count" class="small muted"></span>
   </div>
   <div class="table-wrap"><table class="xl" id="x-table"><thead><tr id="x-head"></tr></thead><tbody id="x-body"></tbody></table></div>
   <div class="pager"><button type="button" class="btn" id="x-prev">← Previous</button><span id="x-pos" class="small muted"></span><button type="button" class="btn" id="x-next">Next →</button></div>
-  <p class="small muted">Columns: measured characteristics (0–1 ranks, blank when not stated), derived layer scores, the AI risk score (0–10) and its flag, the traditional index (0–4), and the exploratory out-of-fold ensemble score. Conditional shading scales within each column. Select a row to open its details.</p>
+  <p class="small muted">Columns: measured characteristics (0–1 ranks, blank when not stated), derived layer scores, the risk score (0–10) and its flag, and the traditional index (0–4). Shading scales within each column. Select a row to open its details.</p>
   <div id="x-detail" class="detail" hidden></div>
 </section>
 
@@ -61,13 +57,13 @@
   <h2>Compare a case firm with its matched firms</h2>
   <div class="controls"><label>Matched set <select id="x-set"></select></label></div>
   <div id="v-setheat" class="chart"></div>
-  <p class="small muted">Rows are the firms of the set (the case first); columns the window years; cells the AI risk score. Open a firm-year in <a href="run.html">Run the model</a> to see its evidence.</p>
+  <p class="small muted">Rows are the firms of the set (the case first); columns the window years; cells the risk score. Open a firm-year in <a href="run.html">Explore the model</a> to see its evidence.</p>
 </section>
 
 <section data-slide="Score by case and year" id="pivot">
-  <h2>AI risk score of every case firm by event year</h2>
+  <h2>Risk score of every case firm by event year</h2>
   <div id="v-pivot" class="chart"></div>
-  <p class="small muted">Pivot of the case firms' scores; darker is higher. Empty cells are firm-years without an observed characteristic.</p>
+  <p class="small muted">Darker is higher. Empty cells are firm-years without an observed characteristic.</p>
 </section>
 
 </main>
@@ -78,8 +74,8 @@
   <button type="button" id="present-exit" class="btn">Exit</button>
 </div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
+  <div class="foot-brand"><span class="brand-name">RPT Signals</span><span>Related-party transactions and fraud risk · a matched case-control study of SEC enforcement cases</span></div>
+  <p>Built from public SEC EDGAR filings. The results are associations observed in the five fiscal years before each case became public, not predictions. The underlying datasets and code will be released when the research is published.</p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
 <script type="module" src="assets/js/present.js"></script>

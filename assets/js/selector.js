@@ -21,7 +21,7 @@ export function buildSelector(root, index, onSelect) {
         const b = h("button", "firm");
         b.type = "button";
         b.dataset.cik = f.cik;
-        const dot = h("span", "dot " + (f.ai_flag_any ? "flag" : (f.oof_available === false ? "nooof" : "none")));
+        const dot = h("span", "dot " + (f.ai_flag_any ? "flag" : "none"));
         b.appendChild(dot);
         b.appendChild(h("span", "", f.name));
         b.appendChild(h("span", "badge " + f.role, f.role === "case" ? "case" : "matched"));

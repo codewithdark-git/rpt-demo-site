@@ -1,2 +1,0 @@
-firm_years,spearman_ai_score_full_vs_loso,mean_abs_ai_score_change,median_max_abs_layer_share_change,share_largest_layer_unchanged,share_named_evidence_unchanged,method
-862,0.9994508498846516,0.0378095768358698,0.0015330605510697,0.9895591647331786,0.980278422273782,ranks recomputed without each matched set in turn; the held-out firm-years scored against the remaining firm-years' distributions

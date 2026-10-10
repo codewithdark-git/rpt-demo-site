@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Explore the model · RPT fraud-risk study</title>
-<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<title>Explore the model · RPT Signals</title>
+<meta name="description" content="RPT Signals: do the related-party transactions of US listed firms carry signals of fraud risk? A matched case-control study built from public SEC filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
-    <a class="brand" href="index.html">RPT fraud-risk study</a>
+    <a class="brand" href="index.html"><span class="brand-name">RPT Signals</span><span class="brand-sub">Related-party transactions and fraud risk</span></a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Sections">
       <a href="index.html" data-page="index">Overview</a>
@@ -24,10 +24,7 @@
       <a href="methodology.html" data-page="methodology">Method</a>
       <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="robustness.html" data-page="robustness">Robustness</a>
       <a href="explore.html" data-page="explore">Firms</a>
-      <a href="limitations.html" data-page="limitations">Limitations</a>
-      <a href="code.html" data-page="code">Downloads</a>
       <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
@@ -37,13 +34,13 @@
 <header class="pagehead">
   <p class="kicker">Explore the model</p>
   <h1>Watch a firm-year's score be rebuilt from its filings</h1>
-  <p class="lede">Choose a firm. Each window year is rebuilt in three stages: the filings and sections the data came from, every variable with its evidence, and the live recomputation of the design score and the exploratory model, checked against the recorded numbers. The model is deterministic, so the steps appear at once; nothing is simulated.</p>
+  <p class="lede">Choose a firm. Each window year is rebuilt in three stages: the filings and sections the data came from, every variable with its evidence, and the live recomputation of the risk score, checked against the recorded numbers. The score is deterministic, so the steps appear at once; nothing is simulated.</p>
 </header>
 <div id="banner" class="banner error" hidden></div>
 <div class="run">
   <aside class="selector" aria-label="Company selector">
     <input id="search" type="search" placeholder="Search firm, set or CIK" aria-label="Search firms">
-    <div class="small muted" style="margin:.2rem 0 .5rem"><span class="dot flag"></span> above threshold in a year &nbsp; <span class="dot nooof"></span> no out-of-fold score</div>
+    <div class="small muted" style="margin:.2rem 0 .5rem"><span class="dot flag"></span> above threshold in a year</div>
     <div id="sets"></div>
   </aside>
   <section class="content" id="content">
@@ -51,7 +48,7 @@
   </section>
 </div>
 <nav class="stepper" id="stepper" aria-label="Stages" hidden>
-  <a href="#stage-1"><span class="step">1</span>Evidence</a><a href="#stage-2"><span class="step">2</span>Variables</a><a href="#stage-3"><span class="step">3</span>Score and model</a><a href="#stage-4"><span class="step">4</span>Compare</a>
+  <a href="#stage-1"><span class="step">1</span>Evidence</a><a href="#stage-2"><span class="step">2</span>Variables</a><a href="#stage-3"><span class="step">3</span>Score</a><a href="#stage-4"><span class="step">4</span>Compare</a>
 </nav>
 
 </main>
@@ -62,8 +59,8 @@
   <button type="button" id="present-exit" class="btn">Exit</button>
 </div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
+  <div class="foot-brand"><span class="brand-name">RPT Signals</span><span>Related-party transactions and fraud risk · a matched case-control study of SEC enforcement cases</span></div>
+  <p>Built from public SEC EDGAR filings. The results are associations observed in the five fiscal years before each case became public, not predictions. The underlying datasets and code will be released when the research is published.</p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
 <script type="module" src="assets/js/present.js"></script>

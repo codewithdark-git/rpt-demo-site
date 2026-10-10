@@ -6,7 +6,7 @@ const COLS = [
   { k: "rank_RP_LEND", label: "lend", type: "num" }, { k: "rank_RP_PAY", label: "pay", type: "num" }, { k: "rank_RP_SALES", label: "sales", type: "num" }, { k: "rank_RP_PURCH", label: "purch", type: "num" },
   { k: "rank_RP_INCOMP", label: "incomp", type: "num" }, { k: "rank_RP_VAGUE", label: "vague", type: "num" }, { k: "rank_BRD_NONIND", label: "board", type: "num" }, { k: "rank_DUAL", label: "dual", type: "num" },
   { k: "L1_SCORE", label: "L1", type: "num" }, { k: "L2_SCORE", label: "L2", type: "num" }, { k: "L3_SCORE", label: "L3", type: "num" }, { k: "AI_SCORE", label: "AI score", type: "num" },
-  { k: "AI_FLAG_5", label: "flag", type: "flag" }, { k: "TRAD_INDEX", label: "trad", type: "int" }, { k: "ensemble_oof", label: "ensemble (expl.)", type: "num" },
+  { k: "AI_FLAG_5", label: "flag", type: "flag" }, { k: "TRAD_INDEX", label: "trad", type: "int" },
 ];
 let FY = [], view = [], sortKey = "AI_SCORE", sortDir = -1, page = 0, selected = new Set();
 const ranges = {};
@@ -56,22 +56,13 @@ function detail(r) {
   d.appendChild(h("h3", "", `${r.name} · FY${r.fiscal_year} (t${r.event_time}) · ${r.role === "case" ? "observed case firm" : "matched comparison firm"} of ${r.case_name}`));
   const dl = h("dl", "kv");
   const add = (k, v) => { dl.appendChild(h("dt", "", k)); dl.appendChild(h("dd", "", v)); };
-  add("AI risk score", `${fmt(r.AI_SCORE)} ${r.AI_FLAG_5 ? "(above the 5 % matched-firm threshold)" : "(below threshold)"} · layers L1 ${fmt(r.L1_SCORE)}, L2 ${fmt(r.L2_SCORE)}, L3 ${fmt(r.L3_SCORE)}`);
+  add("Risk score", `${fmt(r.AI_SCORE)} ${r.AI_FLAG_5 ? "(above the 5 % matched-firm threshold)" : "(below threshold)"} · layers L1 ${fmt(r.L1_SCORE)}, L2 ${fmt(r.L2_SCORE)}, L3 ${fmt(r.L3_SCORE)}`);
   add("Named evidence (A1)", r.named_evidence || "—");
   add("Traditional signals", `index ${r.TRAD_INDEX}: material weakness ${r.ICFR_MW}, audit opinion ${r.AUD_OPIN}, auditor change ${r.AUD_CHG}, restatement ${r.RESTATE}`);
-  add("Exploratory out-of-fold", r.ensemble_oof === null ? "no score (set added after the fit)" : `ensemble ${fmt(r.ensemble_oof)}, logit ${fmt(r.logit_oof)}`);
   d.appendChild(dl);
   const a = h("a", "btn", "Open the filings, evidence and live recomputation for this firm-year");
   a.href = `run.html?cik=${r.cik}&fy=${r.fiscal_year}`;
   d.appendChild(a);
-}
-function exportCSV() {
-  const rows = FY.filter((r) => selected.has(r.cik + ":" + r.fiscal_year));
-  if (!rows.length) { alert("Select rows first (click a row)."); return; }
-  const cols = Object.keys(rows[0]);
-  const esc = (v) => v === null || v === undefined ? "" : /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
-  const csv = [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "selected_firm_years.csv"; a.click();
 }
 function setHeat(setId) {
   const rows = FY.filter((r) => r.cluster_id === setId);
@@ -90,7 +81,6 @@ async function main() {
   }
   ["x-search", "x-role", "x-year", "x-flag", "x-page"].forEach((id) => $(id).addEventListener("input", applyFilters));
   $("x-prev").addEventListener("click", () => { page--; render(); }); $("x-next").addEventListener("click", () => { page++; render(); });
-  $("x-export").addEventListener("click", exportCSV);
   applyFilters();
   const sets = [...new Map(FY.filter((r) => r.role === "case").map((r) => [r.cluster_id, r.case_name])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
   const sel = $("x-set");

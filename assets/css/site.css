@@ -205,3 +205,10 @@ table.datatable { font-size: .8rem; display: block; overflow-x: auto; max-height
 
 .present-controls[hidden] { display: none; }
 .stepper[hidden] { display: none; }
+
+.brand { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-name { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; color: var(--ink); }
+.brand-sub { font-size: .72rem; color: var(--ink-2); font-weight: 400; }
+.foot-brand { display: flex; flex-direction: column; gap: .15rem; margin-bottom: .5rem; }
+.foot-brand .brand-name { font-size: 1.05rem; }
+.scope { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: .5rem; }

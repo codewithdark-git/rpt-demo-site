@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methodology · RPT fraud-risk study</title>
-<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<title>Methodology · RPT Signals</title>
+<meta name="description" content="RPT Signals: do the related-party transactions of US listed firms carry signals of fraud risk? A matched case-control study built from public SEC filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="topnav">
   <div class="inner">
-    <a class="brand" href="index.html">RPT fraud-risk study</a>
+    <a class="brand" href="index.html"><span class="brand-name">RPT Signals</span><span class="brand-sub">Related-party transactions and fraud risk</span></a>
     <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Sections">
       <a href="index.html" data-page="index">Overview</a>
@@ -24,10 +24,7 @@
       <a href="methodology.html" data-page="methodology">Method</a>
       <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="results">Results</a>
-      <a href="robustness.html" data-page="robustness">Robustness</a>
       <a href="explore.html" data-page="explore">Firms</a>
-      <a href="limitations.html" data-page="limitations">Limitations</a>
-      <a href="code.html" data-page="code">Downloads</a>
       <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
     </nav>
   </div>
@@ -37,20 +34,20 @@
 <header class="pagehead" data-slide="Methodology" id="method-head">
   <p class="kicker">Methodology</p>
   <h1>From public filings to tested hypotheses</h1>
-  <p class="lede">The analysis is one pipeline. Select a step for its explanation; the written chapter with every formula and rule is <a href="methodology-chapter.html">here</a>.</p>
+  <p class="lede">The analysis is one pipeline. Select a step for its explanation.</p>
 </header>
 
 <section data-slide="The analysis pipeline" id="pipeline">
   <div id="v-method" class="chart"></div>
   <div class="steps-explain" id="steps-explain">
-    <details open><summary>1 · Public SEC filings</summary><p>Filing lists from the submissions API; the primary 10-K of every fiscal year FY2004–2024; the DEF 14A of every filing year; XBRL company facts; 8-K Items 4.01 and 4.02; every 10-K/A. Every request carries a research User-Agent and stays under the SEC's rate limit.</p></details>
+    <details open><summary>1 · Public SEC filings</summary><p>Filing lists from the EDGAR submissions API; the primary annual report of every fiscal year FY2004–2024; the proxy statement of every filing year; XBRL company facts; 8-K Items 4.01 and 4.02; every amended annual report.</p></details>
     <details><summary>2 · Filing and evidence extraction</summary><p>Item 1, Item 9A, Item 13, the related-party note and the audit report are located by heading; the proxy's related-party section replaces Item 13 when it is incorporated by reference. Every coded value keeps the sentence it came from. Texts under 40 words are treated as missing.</p></details>
     <details><summary>3 · Eight related-party characteristics</summary><p>Financial: lending to, payables to, sales to and purchases from related parties, scaled by assets or revenue. Disclosure: incompleteness (counterparty, amount, terms, purpose) and vagueness (Loughran–McDonald uncertainty and weak-modal words). Governance: board non-independence and CEO duality from the proxy statement.</p></details>
-    <details><summary>4 · Rank-based score construction</summary><p>Each characteristic is ranked 0–1 against the 862 analysed firm-years (average ranks for ties); a layer score is the mean rank of the characteristics observed; the AI risk score is ten times the mean of the layer scores that exist. Nothing is imputed.</p></details>
+    <details><summary>4 · Rank-based score construction</summary><p>Each characteristic is ranked 0–1 against the 862 analysed firm-years (average ranks for ties); a layer score is the mean rank of the characteristics observed; the risk score is ten times the mean of the layer scores that exist. Nothing is imputed.</p></details>
     <details><summary>5 · Matched case/control comparison</summary><p>Pr(case firm-year) = Λ(α<sub>set</sub> + β·layer + γ·leverage + δ·ROA), conditional on the matched set, so each case is compared only with its own matched firms. β is per standard deviation; standard errors are clustered by firm because a firm's five years are not independent.</p></details>
-    <details><summary>6 · Five hypothesis tests</summary><p>H1–H3: one layer each. H4: the same tests in each event year. H5: Model A (traditional index + controls) against Model B (plus the AI risk score), each matched set scored by a model fitted without it, and the first year each rule flags a case at an equal false-alarm rate. P1 and A1–A3 are descriptive.</p></details>
+    <details><summary>6 · Five hypothesis tests</summary><p>H1–H3: one layer each. H4: the same tests in each event year. H5: Model A (traditional index + controls) against Model B (plus the risk score), each matched set scored by a model fitted without it, and the first year each rule flags a case at an equal false-alarm rate.</p></details>
     <details><summary>7 · Multiple-testing correction</summary><p>H1–H3 are three tests of one idea, so Holm's step-down adjustment is applied and reported beside the unadjusted p-values. H4 runs fifteen year-by-layer tests and is read as limited evidence either way.</p></details>
-    <details><summary>8 · Interpretation and limitations</summary><p>Results are associations within matched sets, observed before public disclosure. Matched firms are firms without enforcement, not firms known to be clean. The reliability check of the machine coding against human coding (M2) is still to be done.</p></details>
+    <details><summary>8 · Interpretation</summary><p>Results are associations within matched sets, observed before public disclosure. Matched firms are firms without enforcement, not firms known to be clean.</p></details>
   </div>
 </section>
 
@@ -60,13 +57,13 @@
     <tr><th>Layer</th><th>Code</th><th>Measured as</th><th>Source in the filings</th></tr>
     <tr><td><span class="dot l1"></span>L1 financial</td><td>RP_LEND</td><td>largest lending amount in the related-party text ÷ XBRL total assets (clipped at 1)</td><td>related-party text amount ÷ XBRL total</td></tr><tr><td><span class="dot l1"></span>L1 financial</td><td>RP_PAY</td><td>largest payable amount ÷ XBRL total assets (clipped at 1)</td><td>related-party text amount ÷ XBRL total</td></tr><tr><td><span class="dot l1"></span>L1 financial</td><td>RP_SALES</td><td>largest sales amount ÷ XBRL revenue (clipped at 1)</td><td>related-party text amount ÷ XBRL total</td></tr><tr><td><span class="dot l1"></span>L1 financial</td><td>RP_PURCH</td><td>largest purchase amount ÷ XBRL total assets (clipped at 1)</td><td>related-party text amount ÷ XBRL total</td></tr><tr><td><span class="dot l2"></span>L2 disclosure</td><td>RP_INCOMP</td><td>(4 − items stated) ÷ 4; items: counterparty named, amount stated, terms stated, purpose stated</td><td>related-party text (Item 13, DEF 14A section, note)</td></tr><tr><td><span class="dot l2"></span>L2 disclosure</td><td>RP_VAGUE</td><td>(uncertainty + weak-modal words) ÷ total words</td><td>related-party text (Item 13, DEF 14A section, note)</td></tr><tr><td><span class="dot l3"></span>L3 governance</td><td>BRD_NONIND</td><td>1 − (independent directors ÷ board size), from the proxy statement</td><td>proxy statement (DEF 14A)</td></tr><tr><td><span class="dot l3"></span>L3 governance</td><td>DUAL</td><td>1 if the chief executive also chairs the board</td><td>proxy statement (DEF 14A)</td></tr>
   </table></div>
-  <p class="small muted">Measured filing characteristics (these eight, the traditional signals and the controls) are distinct from model-derived scores (the rank-averaged AI risk score and the exploratory fitted probability).</p>
+  <p class="small muted">Measured filing characteristics (these eight, the traditional signals and the controls) are distinct from the derived risk score.</p>
 </section>
 
 <section data-slide="Design diagram" id="diagram">
   <h2>The full design in one figure</h2>
-  <figure class="diagram"><img src="assets/img/thesis/fig_methodology_blocks.png" alt="Three-stage methodology diagram with eighteen numbered blocks"><figcaption>Figure 3.1 of the thesis: sample and data, measurement, tests and validation.</figcaption></figure>
-  <figure class="diagram"><img src="assets/img/thesis/fig_variable_framework.png" alt="Variable framework: three layers, benchmark, controls and outcome"><figcaption>Figure 3.2: the three agency ideas as layers, the audit and internal-control benchmark, the controls and the outcome.</figcaption></figure>
+  <figure class="diagram"><img src="assets/img/thesis/fig_methodology_blocks.png" alt="Three-stage methodology diagram with eighteen numbered blocks"><figcaption>Sample and data, measurement, tests and validation.</figcaption></figure>
+  <figure class="diagram"><img src="assets/img/thesis/fig_variable_framework.png" alt="Variable framework: three layers, benchmark, controls and outcome"><figcaption>The three agency ideas as layers, the audit and internal-control benchmark, the controls and the outcome.</figcaption></figure>
 </section>
 
 </main>
@@ -77,8 +74,8 @@
   <button type="button" id="present-exit" class="btn">Exit</button>
 </div>
 <footer class="site"><div class="inner">
-  <p>Generated 2026-10-10 16:13 UTC from run <code>outputs/full_all</code>, battery <code>design_tests_v2/main31</code> (TrainingPipeline dca7c38, DatePreparedPipeline f754840). Design tests are the primary results; the fitted score is exploratory; results are associations observed in the five years before public disclosure, not predictions. Only public SEC filing excerpts are shown.</p>
-  <p><a href="review-response.html">Response to the 9 October review</a> · <a href="results-chapter.html">Full results chapter</a> · <a href="methodology-chapter.html">Full methodology chapter</a> · <a href="screening-report.html">Full screening report</a> · <a href="companies.html">Companies document</a></p>
+  <div class="foot-brand"><span class="brand-name">RPT Signals</span><span>Related-party transactions and fraud risk · a matched case-control study of SEC enforcement cases</span></div>
+  <p>Built from public SEC EDGAR filings. The results are associations observed in the five fiscal years before each case became public, not predictions. The underlying datasets and code will be released when the research is published.</p>
 </div></footer>
 <script src="assets/js/nav.js"></script>
 <script type="module" src="assets/js/present.js"></script>

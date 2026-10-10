@@ -1,6 +1,6 @@
 // DOM rendering of the three stages for one firm-year. All filing text is inserted with textContent.
-import { designScore, aiFlag, logit, topContrib, approxEqual, LAYERS } from "./compute.js";
-import { lineChart, barChart } from "./charts.js";
+import { designScore, aiFlag, approxEqual, LAYERS } from "./compute.js";
+import { lineChart } from "./charts.js";
 
 const LAYER_NAME = { L1: "Layer 1 — financial (conflict of interest)", L2: "Layer 2 — disclosure (information asymmetry)", L3: "Layer 3 — governance (weak monitoring)" };
 const LAYER_COLOR = { L1: "#c8781a", L2: "#2f7d6f", L3: "#5a4fcf" };
@@ -51,7 +51,6 @@ export function renderHeader(co, G) {
   }
   add("Window", `FY${co.years[0].fiscal_year}–FY${co.years[co.years.length - 1].fiscal_year} (event time −${co.years.length}…−1); FRAUD = ${isCase ? 1 : 0} in every window year`);
   wrap.appendChild(dl);
-  if (!co.oof_available) wrap.appendChild(h("div", { class: "notice", text: "This matched set was added after the exploratory model was fitted (Gulfport Energy, approved 10 October 2026). It has no out-of-fold scores, SHAP values or traceability rows; the fitted-model probability shown in Stage 3 is therefore genuinely out-of-sample. The design-score results are complete." }));
   return wrap;
 }
 
@@ -128,21 +127,14 @@ export function renderStage2(co, y, G) {
     ["ln_assets", "natural log of total assets", fmt(y.features.ln_assets, 4), xv("total_assets")],
     ["listing_age", "years since the first annual report on EDGAR", fmt(y.features.listing_age, 0), "filing manifest"],
   ]));
-  // remaining features
-  const det = h("details");
-  det.appendChild(h("summary", { text: "All 36 inputs of the exploratory fitted model for this firm-year" }));
-  const meta = G.logit.feature_meta || {};
-  det.appendChild(table(["Feature", "Group", "Definition", "Value"], G.logit.features.map((f) => [f, (meta[f] || {}).group || "", (meta[f] || {}).formula || "", fmt(y.features[f], 4)]), [3]));
-  if (y.text_terms && (y.text_terms.risk_hits.length || y.text_terms.protective_hits.length)) det.appendChild(h("p", { class: "small" }, [h("b", { text: "text_risk " }), "is the stacked TF-IDF text model's probability for this related-party text (fitted in nested folds; not recomputable in the browser). Risk terms present: ", y.text_terms.risk_hits.join(", ") || "none", "; protective terms present: ", y.text_terms.protective_hits.join(", ") || "none", "."]));
-  s.appendChild(det);
   return s;
 }
 
 export function renderStage3(co, y, G) {
   const s = h("section", { class: "stage", id: "stage-3" });
-  s.appendChild(h("h2", {}, [h("span", { class: "step", text: "3" }), "How the values enter the model"]));
+  s.appendChild(h("h2", {}, [h("span", { class: "step", text: "3" }), "How the values enter the score"]));
   // (a) design score
-  s.appendChild(h("h3", { text: "(a) The design's AI risk score — recomputed live" }));
+  s.appendChild(h("h3", { text: "(a) The risk score — recomputed live" }));
   s.appendChild(h("p", { class: "small muted", text: `Step 3: each characteristic is ranked 0–1 against all ${G.sample.window_firm_years} analysed window firm-years (average ranks for ties: rank = (below + 1 + at-or-below) ÷ (2 n)). Step 4: ranks averaged within layer over the characteristics observed. Step 5: AI_SCORE = 10 × mean of the layer scores that exist.` }));
   const values = {};
   for (const ch of G.characteristics) values[ch.code] = y.characteristics[ch.code].value;
@@ -156,48 +148,18 @@ export function renderStage3(co, y, G) {
   const lrows = LAYERS.map((L) => [h("span", { style: `color:${LAYER_COLOR[L]};font-weight:600`, text: LAYER_NAME[L] }), `${ds.nObs[L]} of ${G.characteristics.filter((c) => c.layer === L).length} characteristics observed`, fmt(ds.layer[L], 4), check(d[`${L}_SCORE`], ds.layer[L])]);
   s.appendChild(table(["Layer", "Inputs", "Layer score (mean rank)", ""], lrows, [2]));
   const thr = G.ai_flag.thr_5pct_far;
-  s.appendChild(h("p", {}, [h("span", { class: "eq", text: `AI_SCORE = 10 × mean(${LAYERS.filter((L) => ds.layer[L] !== null).map((L) => fmt(ds.layer[L], 4)).join(", ") || "no layer"}) = ${fmt(ds.AI_SCORE, 4)}` }), " ", check(d.AI_SCORE, ds.AI_SCORE), " · threshold at the 5 % matched-firm rate = ", h("b", { text: fmt(thr, 3) }), " → ", h("b", { class: aiFlag(ds.AI_SCORE, thr) ? "bad" : "ok", text: aiFlag(ds.AI_SCORE, thr) ? "flagged" : "not flagged" }), " ", check(d.AI_FLAG_5 ? 1 : 0, aiFlag(ds.AI_SCORE, thr) ? 1 : 0, 0)]));
+  s.appendChild(h("p", {}, [h("span", { class: "eq", text: `score = 10 × mean(${LAYERS.filter((L) => ds.layer[L] !== null).map((L) => fmt(ds.layer[L], 4)).join(", ") || "no layer"}) = ${fmt(ds.AI_SCORE, 4)}` }), " ", check(d.AI_SCORE, ds.AI_SCORE), " · threshold at the 5 % matched-firm rate = ", h("b", { text: fmt(thr, 3) }), " → ", h("b", { class: aiFlag(ds.AI_SCORE, thr) ? "bad" : "ok", text: aiFlag(ds.AI_SCORE, thr) ? "flagged" : "not flagged" }), " ", check(d.AI_FLAG_5 ? 1 : 0, aiFlag(ds.AI_SCORE, thr) ? 1 : 0, 0)]));
   if (ds.AI_SCORE !== null) s.appendChild(h("p", { class: "small" }, [h("b", { text: "A1 traceability — share of the score by layer and characteristic: " }), LAYERS.map((L) => `${L} ${(100 * ds.shares[L]).toFixed(0)} %`).join(", "), "; named evidence: ", h("i", { text: ds.namedEvidence }), " ", check(d.named_evidence === ds.namedEvidence ? 1 : 0, 1, 0)]));
   else s.appendChild(h("p", { class: "small muted", text: "No characteristic is observed for this firm-year, so it has no AI risk score (the design leaves it blank; nothing is imputed)." }));
-  s.appendChild(h("p", { class: "small muted", text: "Design tests are the primary results. 'Flagged' means the score is above the matched-firm 95th percentile, a threshold fixed by construction; it is a comparison within the sample, not an accuracy claim." }));
+  s.appendChild(h("p", { class: "small muted", text: "'Flagged' means the score is above the matched-firm 95th percentile, a threshold fixed by construction; it is a comparison within the sample, not an accuracy claim." }));
 
-  // (b) fitted logit
-  s.appendChild(h("h3", { text: "(b) The exploratory fitted model — recomputed live" }));
-  const L = G.logit;
-  s.appendChild(h("p", { class: "small muted", text: `L2-penalised logistic regression on ${L.features.length} inputs, fitted on ${L.trained_on.rows} firm-years of ${L.trained_on.sets} matched sets (${L.trained_on.note}). Each input is imputed with the training median when missing, standardised with the training mean and scale, multiplied by its coefficient; the sum plus the intercept passes through the logistic function. The model contains the traditional signals, so it is reported as exploratory and does not test H5.` }));
-  const lg = logit(L, y.features);
-  const top = topContrib(lg.rows, 10);
-  const bc = h("div", { class: "chart" });
-  barChart(bc, top.map((r) => ({ label: r.feature, value: r.contrib })), { ariaLabel: "largest contributions" });
-  s.appendChild(bc);
-  const det = h("details");
-  det.appendChild(h("summary", { text: "All 36 rows: raw value → imputed → standardised → coefficient × z" }));
-  det.appendChild(table(["Feature", "Raw", "Imputed", "z", "Coefficient", "Contribution", "SHAP (out-of-fold)"], [...lg.rows].sort((a, b) => Math.abs(b.contrib) - Math.abs(a.contrib)).map((r) => [r.feature, r.missing ? "missing" : fmt(r.raw, 4), fmt(r.imputed, 4), fmt(r.z, 3), fmt(r.coef, 4), fmt(r.contrib, 4), y.shap_logit ? fmt(y.shap_logit[r.feature], 4) : "—"]), [1, 2, 3, 4, 5, 6]));
-  s.appendChild(det);
-  s.appendChild(h("p", {}, [h("span", { class: "eq", text: `linear = ${fmt(L.intercept, 4)} + Σ coef × z = ${fmt(lg.linear, 4)};  p = 1 / (1 + e^−linear) = ${fmt(lg.prob, 4)}` }), " ", check(y.logit_recorded.prob_full_fit, lg.prob, 1e-7), " · ensemble alert threshold ", h("b", { text: fmt(L.threshold, 4) }), " (", L.threshold_note, ")"]));
-  if (y.oof) {
-    s.appendChild(table(["Out-of-fold score (model fitted without this matched set)", "logit", "random forest", "XGBoost", "ensemble (alert score)", "text model alone"], [["score", fmt(y.oof.logit), fmt(y.oof.rf), fmt(y.oof.xgb), [fmt(y.oof.ensemble), " ", h("b", { class: y.oof.alert_fired ? "bad" : "ok", text: y.oof.alert_fired ? " alert fired" : " below threshold" })], fmt(y.oof.text_tfidf_only)]], [1, 2, 3, 4, 5]));
-  } else s.appendChild(h("p", { class: "small muted", text: "No out-of-fold score: this set was not part of the model fit." }));
-  if (y.traceability && y.traceability.length) {
-    s.appendChild(h("h4", { text: "Traceability of the three largest out-of-fold attributions (logit)" }));
-    s.appendChild(table(["#", "Feature", "SHAP", "Located source", "Evidence"], y.traceability.map((t) => [String(t.rank), t.feature, fmt(t.shap), t.locator || "—", evid(t.evidence)]), [2]));
-  }
-  if (co.waterfalls && co.role === "case" && y.is_waterfall_year) {
-    s.appendChild(h("h4", { text: "Local explanation of the recorded out-of-fold alert (waterfall, logit)" }));
-    s.appendChild(h("img", { src: co.waterfalls.logit, alt: `SHAP waterfall for ${co.name}` }));
-  }
   // (c) set chart
-  s.appendChild(h("h3", { text: "(c) This firm against its matched set" }));
+  s.appendChild(h("h3", { text: "(b) This firm against its matched set" }));
   const ser = co.set.series;
   const mk = (key, label) => co.set.firms.map((f) => ({ label: f.name, x: ser[f.cik].event_time, y: ser[f.cik][key], color: f.cik === co.cik ? (co.role === "case" ? "#b3261e" : "#1f5f8b") : "#9aa5b1", highlight: f.cik === co.cik }));
   const c1 = h("div", { class: "chart" });
-  lineChart(c1, mk("ai_score"), { thresholds: [{ y: thr, label: "5 % matched-firm rate" }], yLabel: "AI risk score (design)", ariaLabel: "AI risk score by event time" });
+  lineChart(c1, mk("ai_score"), { thresholds: [{ y: thr, label: "5 % matched-firm rate" }], yLabel: "risk score (0–10)", ariaLabel: "AI risk score by event time" });
   s.appendChild(c1);
-  if (co.oof_available) {
-    const c2 = h("div", { class: "chart" });
-    lineChart(c2, mk("ensemble_oof"), { thresholds: [{ y: L.threshold, label: "alert threshold" }], yLabel: "ensemble out-of-fold score (exploratory)", yMin: 0, yMax: 1, ariaLabel: "ensemble score by event time" });
-    s.appendChild(c2);
-  }
   s.appendChild(h("div", { class: "legend" }, [h("span", {}, [h("span", { class: "swatch", style: "background:#b3261e" }), "selected firm (case)"]), h("span", {}, [h("span", { class: "swatch", style: "background:#1f5f8b" }), "selected firm (matched)"]), h("span", {}, [h("span", { class: "swatch", style: "background:#9aa5b1" }), "other firms of the set"])]));
   return s;
 }

@@ -1,9 +1,0 @@
-label,n,note,color
-Candidates recorded,58,"workbook, AAER sweep, litigation-release sweep, EDGAR full-text search",all
-Screened against the enforcement record,51,order or complaint read for every candidate,all
-Excluded by D1 (no RPT element),2,,out
-Window before 2005 (no Item 9A),13,"one from the screen, twelve from the AAER sweep",out
-Fewer than four annual reports (D3),17,ten of them form the external validation set,out
-Misstatement / misappropriation cases,21,,case
-Disclosure-only cases,10,"including Gulfport Energy, dated and approved 10 Oct 2026",disc
-Matched firms (D4),145,five per case where the industry pool allows,all

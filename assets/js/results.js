@@ -1,4 +1,4 @@
-import { forest, bars, smallMultiples, dotStrip, histOverlay, boxPlot, heatmap, dotRows, dataTable, C, fmt } from "./viz.js";
+import { forest, bars, smallMultiples, dotStrip, histOverlay, boxPlot, heatmap, dataTable, C, fmt } from "./viz.js";
 
 const $ = (id) => document.getElementById(id);
 const fmtP = (p) => p === null || p === undefined ? "—" : (p < 0.001 ? "< 0.001" : p.toFixed(3));
@@ -37,8 +37,8 @@ function dashboard(R) {
     effect: `OR ${fmt(r.odds_ratio_per_sd)} per SD`, ci: `95 % CI ${fmt(r.or_ci_low)}–${fmt(r.or_ci_high)} (model-based); ${fmt(r.or_ci_low_firm_cluster)}–${fmt(r.or_ci_high_firm_cluster)} (firm-clustered)`,
     p: `p ${fmtP(r.p_unadjusted)}, Holm ${fmtP(r.p_holm)}; firm-clustered p ${fmtP(r.p_firm_cluster)}, Holm ${fmtP(r.p_holm_firm_cluster)}`,
     n: `${r.n_firm_years} firm-years · ${r.n_firms} firms · ${r.n_matched_sets} sets`, status: status(r),
-    read: { H1: "The association exists only among firm-years that state an amount, a subset in which case firms are over-represented; with firm-clustered errors it is not significant.",
-            H2: "Case firms' related-party text is more complete and plainer than their matched firms'; part of this is the coding of texts that state 'no transactions'.",
+    read: { H1: "Not supported means: among the firm-years that state a related-party amount, case firms do have higher scaled amounts (odds ratio above one), but the evidence does not reach the pre-registered standard once a firm's five years are treated as one cluster. The subset is also one in which case firms state amounts about three times as often, so the comparison is not of like with like.",
+            H2: "Not supported, and in the opposite direction: case firms' related-party disclosures are more complete and plainer than their matched firms', not less. The disclosure measures as designed therefore do not carry the predicted information-asymmetry signal.",
             H3: "Carried by CEO duality. Significant with model-based errors; not with the firm-clustered errors the design specifies." }[r.hypothesis],
   }));
   const h5 = R.h5;
@@ -70,7 +70,7 @@ async function main() {
   // home strip
   if ($("v-strip") && !$("f-year")) dotStrip($("v-strip"), [
     { name: "Case firm-years", values: R.ai_scores.fraud, color: C.case }, { name: "Matched firm-years", values: R.ai_scores.matched, color: C.matched },
-  ], { min: 0, max: 10, ticks: [0, 2, 4, 6, 8, 10], thresholds: [{ v: R.thr5, label: "5 % matched-firm rate" }], axisTitle: "AI risk score (design, 0–10)" });
+  ], { min: 0, max: 10, ticks: [0, 2, 4, 6, 8, 10], thresholds: [{ v: R.thr5, label: "5 % matched-firm rate" }], axisTitle: "risk score (0–10)" });
   if ($("f-year")) distributions(FY, R);
   dashboard(R);
   if ($("v-h13")) {
@@ -109,11 +109,9 @@ async function main() {
     heatmap($("v-heat"), R.heatmap.rows.map((r) => ({ label: r.label, values: r.values, bold: r.bold, color: r.stratum === "matched" ? C.ink2 : (r.stratum === "core" ? C.case : C.L3) })), R.heatmap.cols, { labelWidth: 230, cell: 52, rowH: 19 });
     $("t-heat").appendChild(dataTable(["label", ...R.heatmap.cols], R.heatmap.rows.map((r) => ({ label: r.label, ...Object.fromEntries(R.heatmap.cols.map((c, i) => [c, r.values[i]])) }))));
     bars($("v-a1"), R.a1.map((r) => ({ label: r.code, values: [{ v: r.all, color: C.matched, name: "all firm-years" }, { v: r.fraud, color: C.case, name: "case firm-years" }] })),
-      { max: 0.6, ticks: [0, 0.2, 0.4, 0.6], fmt: (v) => Math.round(v * 100) + " %", legend: [{ name: "all firm-years", color: C.matched }, { name: "case firm-years", color: C.case }], labelWidth: 110, axisTitle: "mean share of the AI risk score (A1)" });
+      { max: 0.6, ticks: [0, 0.2, 0.4, 0.6], fmt: (v) => Math.round(v * 100) + " %", legend: [{ name: "all firm-years", color: C.matched }, { name: "case firm-years", color: C.case }], labelWidth: 110, axisTitle: "mean share of the risk score" });
   }
-  if ($("v-lead")) dotRows($("v-lead"), R.lead.map((r) => ({ label: r.case_name, x: r.first_year, color: r.stratum === "core" ? C.case : C.L3, note: r.stratum })), { axisTitle: "earliest window year with AI risk score above the 5 % matched-firm threshold" });
-  if ($("v-p1")) bars($("v-p1"), R.p1.map((r) => ({ label: `${r.form_group} (${r.n} cases)`, values: [{ v: r.lending, color: C.L1, name: "lending" }, { v: r.sales, color: C.L2, name: "sales" }, { v: r.purchases, color: C.L3, name: "purchases" }] })),
-    { max: 1, ticks: [0, 0.5, 1], fmt: (v) => Math.round(v * 100) + " %", legend: [{ name: "lending", color: C.L1 }, { name: "sales", color: C.L2 }, { name: "purchases", color: C.L3 }], labelWidth: 190, axisTitle: "share of cases with a stated amount" });
+  if ($("v-samples")) forest($("v-samples"), R.samples.filter((q) => !/three-report/.test(q.name)).flatMap((q) => ["H1", "H2", "H3"].map((hh) => ({ label: `${hh} · ${q.name}`, sub: `${q.sets} sets · p ${fmtP(q[hh].p)} / firm-clustered ${fmtP(q[hh].pc)}`, or: q[hh].or, lo: q[hh].lo, hi: q[hh].hi, color: C[hh === "H1" ? "L1" : hh === "H2" ? "L2" : "L3"] }))), { rowH: 36, labelWidth: 330 });
   for (const r of R.h1_h3) { const e = $("chip-" + r.hypothesis); if (e) e.textContent = status(r); }
   if ($("chip-H4")) $("chip-H4").textContent = R.h4_rule_met.length ? "met for " + R.h4_rule_met.join(", ") : "not met";
   if ($("chip-H5")) $("chip-H5").textContent = "not supported";

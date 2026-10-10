@@ -1,6 +1,6 @@
 // node tools/verify.mjs  (run from the site root): recompute every firm-year with assets/js/compute.js and compare.
 import { readFileSync, readdirSync } from "node:fs";
-import { designScore, logit, aiFlag } from "../assets/js/compute.js";
+import { designScore, aiFlag } from "../assets/js/compute.js";
 const G = JSON.parse(readFileSync("data/global.json", "utf8"));
 let n = 0, maxAI = 0, maxP = 0, flagMismatch = 0, layerMax = 0;
 for (const f of readdirSync("data/companies")) {
@@ -12,8 +12,6 @@ for (const f of readdirSync("data/companies")) {
     if ((ds.AI_SCORE === null) !== (rec.AI_SCORE === null)) maxAI = 1; else if (ds.AI_SCORE !== null) maxAI = Math.max(maxAI, Math.abs(ds.AI_SCORE - rec.AI_SCORE));
     for (const L of ["L1", "L2", "L3"]) { const a = ds.layer[L], b = rec[L + "_SCORE"]; if ((a === null) !== (b === null)) layerMax = 1; else if (a !== null) layerMax = Math.max(layerMax, Math.abs(a - b)); }
     if (aiFlag(ds.AI_SCORE, G.ai_flag.thr_5pct_far) !== rec.AI_FLAG_5) flagMismatch++;
-    const lg = logit(G.logit, y.features);
-    maxP = Math.max(maxP, Math.abs(lg.prob - y.logit_recorded.prob_full_fit));
     n++;
   }
 }
