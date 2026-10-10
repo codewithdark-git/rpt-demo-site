@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidate screening report · RPT fraud-risk study</title>
+<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<link rel="stylesheet" href="assets/css/site.css">
+
+</head>
+<body>
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="index.html">RPT <span>fraud-risk</span> study</a>
+    <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Site">
+      <a href="index.html" data-page="index">Home</a>
+      <a href="run.html" data-page="run">Run the model</a>
+      <a href="methodology.html" data-page="methodology">Methodology</a>
+      <a href="results.html" data-page="results">Results</a>
+      <a href="review-response.html" data-page="review-response">Review response</a>
+      <a href="companies.html" data-page="companies">Companies</a>
+      <a href="code.html" data-page="code">Code &amp; data</a>
+    </nav>
+  </div>
+</header>
+<main class="page" id="main">
+
+<div class="doc">
+  <nav class="toc" aria-label="Contents">
+    <p class="small muted" style="margin:.2rem 0 .5rem">Contents</p>
+    <div class="toc">
+<ul>
+<li><a href="#candidate-screen-report-confirmatory-sample-for-the-rpt-fraud-risk-study">Candidate screen report — confirmatory sample for the RPT fraud-risk study</a><ul>
+<li><a href="#1-what-the-screen-had-to-decide">1. What the screen had to decide</a></li>
+<li><a href="#2-where-the-candidates-came-from">2. Where the candidates came from</a></li>
+<li><a href="#3-screen-outcome">3. Screen outcome</a><ul>
+<li><a href="#31-the-21-core-cases">3.1 The 21 core cases</a></li>
+<li><a href="#32-disclosure-only-stratum-9">3.2 Disclosure-only stratum (9)</a></li>
+</ul>
+</li>
+<li><a href="#4-peer-matching-outcome">4. Peer matching outcome</a></li>
+<li><a href="#5-what-is-provisional">5. What is provisional</a></li>
+<li><a href="#6-implications-for-the-thesis-and-the-paper">6. Implications for the thesis and the paper</a></li>
+<li><a href="#7-readiness-verdict">7. Readiness verdict</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <p style="margin-top:1rem"><a class="btn" href="docs/REPORT_Candidate_Screen_2026-10-08.docx" download>Download .docx</a></p>
+  </nav>
+  <article>
+    
+    <h1 id="candidate-screen-report-confirmatory-sample-for-the-rpt-fraud-risk-study">Candidate screen report — confirmatory sample for the RPT fraud-risk study</h1>
+<p>Date: 8 October 2026. Inputs: <code>SEC-EDGAR-Downloader/scripts/phase_a_screen_v2.csv</code> (51 screened candidates), <code>scripts/candidates_v02.csv</code> (58 raw candidates), <code>cases_core.csv</code> (final sample), the peer-matching files <code>scripts/peers_matched_*.csv</code>. Rules: decisions D1–D4 and D10 of <code>docs/PROJECT_CLOSURE_PLAN.md</code>, which implement the client's research design of 6 October 2026.</p>
+<h2 id="1-what-the-screen-had-to-decide">1. What the screen had to decide</h2>
+<p>The research design needs case firms whose SEC enforcement action involved related-party transactions (RPTs), observed for the five fiscal years before the misconduct became public, each matched to industry-and-size peers that were never subject to an enforcement action. Four rules were applied to every candidate, in this order:</p>
+<ol>
+<li><strong>D1 inclusion.</strong> The SEC order or complaint must describe an accounting misstatement or a misappropriation in which an RPT is the mechanism (class <code>misstatement</code>, <code>misappropriation</code>, or a combination). Cases where the only charge is a missing or incomplete RPT disclosure are a separate stratum (<code>disclosure_only</code>). Cases with no RPT element or with an internal-controls-only order are excluded.</li>
+<li><strong>D2 revelation date.</strong> The first public event that revealed the problem: an 8-K Item 4.02 non-reliance notice, an auditor resignation, an audit-committee investigation, a short-seller report, a restatement, or, when nothing earlier exists, the SEC action itself. Every date carries a confidence level (high = dated SEC filing or order; medium = documented public event still to be linked to a source document; low = SEC action date used as a placeholder).</li>
+<li><strong>D3 window and four-report rule.</strong> The assessment window is the five fiscal years before the revelation year. A case must have at least four annual reports (10-K, 10-K405, 10-KSB, 10-KT) in that window, and the window must start in 2005 or later so that Item 9A (SOX 404) exists and Layer 2 is observable.</li>
+<li><strong>D4 peer matching.</strong> Five peers per case from the EDGAR universe of the case's industry (same 4-digit SIC, falling back to 3- and 2-digit), nearest in log total assets in the fiscal year before revelation, with a 10-K in every window year and no AAER match.</li>
+</ol>
+<h2 id="2-where-the-candidates-came-from">2. Where the candidates came from</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Candidates</th>
+<th>What it contributed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client workbook of 2 October 2026</td>
+<td>39</td>
+<td>the starting list, including the five pilot anchors</td>
+</tr>
+<tr>
+<td>Every SEC AAER release 2005–2024 (2,383 documents, full text)</td>
+<td>14 new</td>
+<td>mostly pre-2005 windows (extended tier) and the D1 confirmations</td>
+</tr>
+<tr>
+<td>Every SEC litigation release 2010–2025 (5,086 documents, full text)</td>
+<td>2 new</td>
+<td>American Equity (disclosure stratum), Premier Holding (core)</td>
+</tr>
+<tr>
+<td>Issuers' own filings via EDGAR full-text search (1,354 issuers, 89 on ≥ 2 query families)</td>
+<td>0 new</td>
+<td>all hits were boilerplate co-occurrences of "related party" and "SEC"</td>
+</tr>
+</tbody>
+</table>
+<p>Fifty-eight candidates were recorded; 51 reached the screen (seven were duplicates, foreign private issuers without 10-Ks, or had no identifiable issuer).</p>
+<h2 id="3-screen-outcome">3. Screen outcome</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>n</th>
+<th>Firms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>INCLUDE (core)</strong></td>
+<td><strong>21</strong></td>
+<td>Ault Alliance, Co-Diagnostics, Eagle Bancorp, Ocwen, Valeant, Manitex, Singularity Future Technology, Puda Coal, General Employment, SAExploration, Ideanomics, UDF IV, FAT Brands, Ammo/Outdoor Holding, MusclePharm, China Valves, Cemtrex, Quadrant 4, Provectus, Corporate Resource Services, Premier Holding</td>
+</tr>
+<tr>
+<td><strong>STRATUM_DISCLOSURE_ONLY</strong></td>
+<td><strong>9</strong></td>
+<td>Skechers, American Electric Power, RCI Hospitality, Greenbrier, Energy XXI, Maximus, Shift4, First Bancorp (NC), American Equity</td>
+</tr>
+<tr>
+<td>FAIL_4_REPORTS (sensitivity set)</td>
+<td>17</td>
+<td>ProPetro, China Natural Gas, Ener1, Apple REIT Nine, China North East Petroleum, HLSS, ARCP, RINO, iFresh, ChinaCast, BioElectronics, HF Foods, Longfin, TVI, Proteonomix, Electronic Game Card, China Ruitai</td>
+</tr>
+<tr>
+<td>PRE_2005_WINDOW (extended tier)</td>
+<td>1 (+12 from the AAER sweep)</td>
+<td>infoUSA; Adelphia, Hollinger, Tyco, Enron, Refco, Buca, Natural Health Trends, Escala, Krispy Kreme, UTStarcom, Dyadic, Quest Resource</td>
+</tr>
+<tr>
+<td>EXCLUDE_D1</td>
+<td>2</td>
+<td>Live Ventures (no RPT element), Northwest Biotherapeutics (controls-only order)</td>
+</tr>
+<tr>
+<td>NEED_REVELATION_DATE</td>
+<td>1</td>
+<td>Gulfport Energy (disclosure-only; order date not yet established)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="31-the-21-core-cases">3.1 The 21 core cases</h3>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>SIC</th>
+<th>D1 class</th>
+<th>Revelation date</th>
+<th>Confidence</th>
+<th>Window</th>
+<th>10-Ks</th>
+<th>AAER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ault Alliance</td>
+<td>3533</td>
+<td>misappropriation + misstatement</td>
+<td>2023-04-14</td>
+<td>medium</td>
+<td>2018–2022</td>
+<td>5</td>
+<td>AAER-4440</td>
+</tr>
+<tr>
+<td>Co-Diagnostics</td>
+<td>3841</td>
+<td>misstatement</td>
+<td>2023-07-05</td>
+<td>low</td>
+<td>2018–2022</td>
+<td>5</td>
+<td>AAER-4428</td>
+</tr>
+<tr>
+<td>Eagle Bancorp</td>
+<td>6022</td>
+<td>misstatement</td>
+<td>2017-12-01</td>
+<td>medium</td>
+<td>2012–2016</td>
+<td>5</td>
+<td>AAER-4321</td>
+</tr>
+<tr>
+<td>Ocwen Financial</td>
+<td>6162</td>
+<td>disclosure + misstatement</td>
+<td>2014-08-18</td>
+<td>high</td>
+<td>2009–2013</td>
+<td>5</td>
+<td>AAER-3733</td>
+</tr>
+<tr>
+<td>Valeant Pharmaceuticals</td>
+<td>2834</td>
+<td>misstatement</td>
+<td>2015-10-21</td>
+<td>medium</td>
+<td>2010–2014</td>
+<td>5</td>
+<td>— (LR)</td>
+</tr>
+<tr>
+<td>Manitex International</td>
+<td>3559</td>
+<td>misstatement</td>
+<td>2018-04-03</td>
+<td>high</td>
+<td>2013–2017</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Singularity Future Technology</td>
+<td>4731</td>
+<td>misstatement</td>
+<td>2023-03-06</td>
+<td>high</td>
+<td>2018–2022</td>
+<td>5</td>
+<td>AAER-4557</td>
+</tr>
+<tr>
+<td>Puda Coal</td>
+<td>1221</td>
+<td>misappropriation</td>
+<td>2011-04-08</td>
+<td>medium</td>
+<td>2006–2010</td>
+<td>4</td>
+<td>— (LR)</td>
+</tr>
+<tr>
+<td>General Employment Enterprises</td>
+<td>7361</td>
+<td>misstatement</td>
+<td>2015-04-30</td>
+<td>low</td>
+<td>2010–2014</td>
+<td>5</td>
+<td>— (LR)</td>
+</tr>
+<tr>
+<td>SAExploration Holdings</td>
+<td>1382</td>
+<td>misstatement</td>
+<td>2019-08-15</td>
+<td>medium</td>
+<td>2014–2018</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Ideanomics</td>
+<td>3711</td>
+<td>misstatement</td>
+<td>2018-08-28</td>
+<td>medium</td>
+<td>2013–2017</td>
+<td>5</td>
+<td>AAER-4512</td>
+</tr>
+<tr>
+<td>United Development Funding IV</td>
+<td>6798</td>
+<td>misstatement</td>
+<td>2015-12-10</td>
+<td>medium</td>
+<td>2010–2014</td>
+<td>5</td>
+<td>— (LR-24185)</td>
+</tr>
+<tr>
+<td>FAT Brands</td>
+<td>5812</td>
+<td>misappropriation</td>
+<td>2024-05-10</td>
+<td>low</td>
+<td>2019–2023</td>
+<td>5</td>
+<td>— (LR-26001)</td>
+</tr>
+<tr>
+<td>Ammo Inc / Outdoor Holding</td>
+<td>7389</td>
+<td>disclosure + misstatement</td>
+<td>2024-07-29</td>
+<td>medium</td>
+<td>2019–2023</td>
+<td>5</td>
+<td>— (LR-26446)</td>
+</tr>
+<tr>
+<td>MusclePharm</td>
+<td>2834</td>
+<td>disclosure + misstatement</td>
+<td>2012-05-14</td>
+<td>high</td>
+<td>2007–2011</td>
+<td>4</td>
+<td>—</td>
+</tr>
+<tr>
+<td>China Valves Technology</td>
+<td>3490</td>
+<td>misstatement</td>
+<td>2012-02-28</td>
+<td>high</td>
+<td>2007–2011</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Cemtrex</td>
+<td>1700</td>
+<td>misappropriation</td>
+<td>2017-02-22</td>
+<td>medium</td>
+<td>2012–2016</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Quadrant 4 System</td>
+<td>3669</td>
+<td>misappropriation</td>
+<td>2016-09-23</td>
+<td>medium</td>
+<td>2011–2015</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Provectus Biopharmaceuticals</td>
+<td>2834</td>
+<td>misappropriation</td>
+<td>2016-02-29</td>
+<td>medium</td>
+<td>2011–2015</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Corporate Resource Services</td>
+<td>7363</td>
+<td>misstatement</td>
+<td>2015-02-10</td>
+<td>medium</td>
+<td>2010–2014</td>
+<td>4</td>
+<td>AAER-4007</td>
+</tr>
+<tr>
+<td>Premier Holding Corp</td>
+<td>4911</td>
+<td>misstatement</td>
+<td>2017-12-04</td>
+<td>low</td>
+<td>2012–2016</td>
+<td>5</td>
+<td>— (LR-24000)</td>
+</tr>
+</tbody>
+</table>
+<p>Eleven of the 21 are small or micro-cap issuers, three are Chinese reverse mergers (Puda, China Valves, Singularity's predecessor), two are financials (Eagle, Ocwen), one is a non-traded REIT (UDF IV). That spread is a strength for generalisation but a weakness for peer matching (Section 4).</p>
+<h3 id="32-disclosure-only-stratum-9">3.2 Disclosure-only stratum (9)</h3>
+<p>Skechers (2024, high), American Electric Power (2020, medium), RCI Hospitality (2020, low), Greenbrier (2023, high), Energy XXI (2016, medium), Maximus (2023, high), Shift4 (2025, high), First Bancorp NC (2015, high), American Equity (2010, high). These are kept out of the primary test (the dependent construct is misstatement or misappropriation) and analysed as a second stratum: the hypothesis there is weaker — a disclosure failure need not leave a trace in the financial layer — and the thesis should say so.</p>
+<h2 id="4-peer-matching-outcome">4. Peer matching outcome</h2>
+<p>140 peers, all EDGAR-verified (10-K on file for the window years). Per case: minimum 3, median 5, maximum 5.</p>
+<table>
+<thead>
+<tr>
+<th>Match level</th>
+<th>Peers</th>
+<th>Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4-digit SIC</td>
+<td>123</td>
+<td>26</td>
+</tr>
+<tr>
+<td>3-digit SIC</td>
+<td>5</td>
+<td>General Employment</td>
+</tr>
+<tr>
+<td>2-digit SIC</td>
+<td>12</td>
+<td>Ocwen, Skechers, Greenbrier</td>
+</tr>
+</tbody>
+</table>
+<p>Size match: median absolute gap in log total assets 0.40 (a factor of 1.5), interquartile range 0.07–0.91. Three clusters are poorly size-matched and must be flagged in the thesis: Ocwen (mean gap 5.4 log points — the mortgage-servicing SIC has almost no registrants of Ocwen's size), Energy XXI (3.8) and Singularity (2.8). A robustness run without these three clusters is pre-specified in the closure plan.</p>
+<p>Three cases have only three peers (Ocwen, MusclePharm, Puda Coal) because the industry pool with full 10-K coverage in the window is thin. Puda Coal's size anchor is hand-collected from its FY2010 10-K (XBRL did not cover it); American Equity's peers are anchored on 2011 assets because the XBRL frames begin in 2009 and its window is 2005–2009.</p>
+<h2 id="5-what-is-provisional">5. What is provisional</h2>
+<p>Revelation dates among the 30 cases: 15 high, 9 medium, 6 low confidence. The low-confidence rows use the SEC action date as a placeholder and may move earlier by one to three years once an earlier disclosure (SEC inquiry, audit-committee review) is found in the firm's 8-K/10-Q text. Each would shift that case's window and could change which fiscal years are labelled 1. The verification list:</p>
+<table>
+<thead>
+<tr>
+<th>Firm</th>
+<th>Confidence</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Co-Diagnostics</td>
+<td>low</td>
+<td>8-K/10-Q 2021–2023 for an SEC-inquiry disclosure</td>
+</tr>
+<tr>
+<td>General Employment</td>
+<td>low</td>
+<td>2011–2014 filings for an SEC-inquiry disclosure</td>
+</tr>
+<tr>
+<td>FAT Brands</td>
+<td>low</td>
+<td>2021–2023 10-Q/10-K for the DOJ/SEC investigation disclosure</td>
+</tr>
+<tr>
+<td>Premier Holding</td>
+<td>low</td>
+<td>2016–2017 8-Ks for an SEC-inquiry disclosure</td>
+</tr>
+<tr>
+<td>RCI Hospitality (stratum 2)</td>
+<td>low</td>
+<td>2019 10-K/10-Q for the SEC subpoena</td>
+</tr>
+<tr>
+<td>Ault Alliance</td>
+<td>medium</td>
+<td>FY2021 10-K for an earlier SEC-investigation disclosure</td>
+</tr>
+<tr>
+<td>Eagle Bancorp, Valeant, Cemtrex, Provectus, SAExploration, Ideanomics, UDF IV, Puda Coal, AEP, Energy XXI, Ammo</td>
+<td>medium</td>
+<td>attach the source document (8-K accession, report URL, order number) already identified in <code>phase_a_screen_v2.csv</code></td>
+</tr>
+</tbody>
+</table>
+<p>Two D1 confirmations remain open: Corporate Resource Services (was the issuer itself charged, or only Tri-State?) and Ammo (confirm the misstatement element in Order 33-11397). Both are in the core on the current reading of the complaints.</p>
+<p>None of this blocks the data build: filings are collected for FY2004–2024 regardless of the window, so a corrected date only re-labels firm-years.</p>
+<h2 id="6-implications-for-the-thesis-and-the-paper">6. Implications for the thesis and the paper</h2>
+<ul>
+<li><strong>Sample size.</strong> The design asked for 40 core cases; 21 exist under its own rules after an exhaustive search of every AAER (2005–2024) and litigation release (2010–2025). Section 12 of the design anticipated the shortfall. The thesis should restate power for 21 cases × 5 peers (about 105 case firm-years against 525 peer firm-years) and treat the 17-case sensitivity set (three-report rule) and the 13-case extended tier (pre-2005 windows; financial and text layers only) as robustness analyses, not as part of the confirmatory test.</li>
+<li><strong>Generalisation ("many more companies").</strong> The way to test the model on many companies is not to add them as labelled cases — there are no more verified RPT cases — but to score the labelled-free EDGAR universe of the 33 industries (12,615 registrants; 4,611 with XBRL assets) and report the external alert rate at the 5 % clean-firm false-positive threshold (decision D10). That is the thesis's generalisation evidence and it is already supported by the universe files built in Phase A.</li>
+<li><strong>Heterogeneity.</strong> With 21 cases across 18 industries, the within-cluster peer comparison is what makes the test meaningful; pooled cross-industry comparisons should not be the headline.</li>
+<li><strong>Disclosure-only stratum.</strong> Report separately; do not merge into the core count.</li>
+</ul>
+<h2 id="7-readiness-verdict">7. Readiness verdict</h2>
+<p>The candidate screen is complete and reproducible (<code>scripts/phase_a2_revelation_dates.py</code> regenerates the screen; <code>scripts/build_cases_core.py</code> and <code>scripts/finalize_phase_a.py</code> regenerate the sample). The sample is fit to build the dataset and to run the confirmatory model. It is not yet fit to publish: the 6 low- and 9 medium-confidence revelation dates and the two open D1 confirmations must be closed, and the three poorly size-matched clusters must be carried as a documented limitation with a robustness run.</p>
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="inner">
+  Generated 2026-10-10 14:55 UTC from run <code>outputs/full_all</code> / design tests <code>design_tests_v2/main31</code>
+  (TrainingPipeline a5836a9, DatePreparedPipeline f754840).
+  Design tests are the primary results; the fitted score is exploratory; every result is an association that identifies fraud already under way, not a prediction.
+  Only public SEC filing excerpts are shown.
+</div></footer>
+<script src="assets/js/nav.js"></script>
+
+</body>
+</html>

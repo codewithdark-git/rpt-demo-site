@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run the model · RPT fraud-risk study</title>
+<meta name="description" content="Related-party transactions and corporate fraud risk: a matched case-control study of SEC enforcement cases, with every result traceable to the filings.">
+<link rel="stylesheet" href="assets/css/site.css">
+
+</head>
+<body>
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="index.html">RPT <span>fraud-risk</span> study</a>
+    <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Site">
+      <a href="index.html" data-page="index">Home</a>
+      <a href="run.html" data-page="run">Run the model</a>
+      <a href="methodology.html" data-page="methodology">Methodology</a>
+      <a href="results.html" data-page="results">Results</a>
+      <a href="review-response.html" data-page="review-response">Review response</a>
+      <a href="companies.html" data-page="companies">Companies</a>
+      <a href="code.html" data-page="code">Code &amp; data</a>
+    </nav>
+  </div>
+</header>
+<main class="page" id="main">
+
+<h1>Run the model</h1>
+<p class="muted">Choose a firm. For each of its five window years the page shows (1) the filings and sections the data came from, (2) how every variable was derived, with its evidence, and (3) how the values enter the design score and the exploratory fitted model, recomputed live in this browser and checked against the recorded numbers.</p>
+<div id="banner" class="banner error" hidden></div>
+<div class="run">
+  <aside class="selector" aria-label="Company selector">
+    <input id="search" type="search" placeholder="Search firm, set or CIK" aria-label="Search firms">
+    <div class="small muted" style="margin:.2rem 0 .5rem"><span class="dot flag"></span> AI rule flagged a year &nbsp; <span class="dot nooof"></span> no out-of-fold score</div>
+    <div id="sets"></div>
+  </aside>
+  <section class="content" id="content">
+    <div class="notice info">Select a company on the left. Fraud cases are listed with their matched firms, so a case can be compared with its own peers.</div>
+  </section>
+</div>
+
+</main>
+<footer class="site"><div class="inner">
+  Generated 2026-10-10 14:55 UTC from run <code>outputs/full_all</code> / design tests <code>design_tests_v2/main31</code>
+  (TrainingPipeline a5836a9, DatePreparedPipeline f754840).
+  Design tests are the primary results; the fitted score is exploratory; every result is an association that identifies fraud already under way, not a prediction.
+  Only public SEC filing excerpts are shown.
+</div></footer>
+<script src="assets/js/nav.js"></script>
+
+<script type="module" src="assets/js/run.js"></script>
+
+</body>
+</html>
