@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model · RPT Signals</title>
+<meta name="description" content="RPT Signals: do the related-party transactions of US listed firms carry signals of fraud risk? A matched case-control study built from public SEC filings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+</head>
+<body data-page="model">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
+<header class="topnav">
+  <div class="inner">
+    <a class="brand" href="index.html"><span class="brand-name">RPT Signals</span><span class="brand-sub">Related-party transactions and fraud risk</span></a>
+    <button class="navtoggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="index.html" data-page="index">Overview</a>
+      <a href="sample.html" data-page="sample">Sample</a>
+      <a href="methodology.html" data-page="methodology">Method</a>
+      <a href="run.html" data-page="run">Explore the model</a>
+      <a href="results.html" data-page="model">Results</a>
+      <a href="model.html" data-page="model">Model</a>
+      <a href="explore.html" data-page="explore">Firms</a>
+      <button type="button" class="present-toggle" id="present-toggle" aria-pressed="false" title="Show one section at a time (P)">Presentation</button>
+    </nav>
+  </div>
+</header>
+<main class="page" id="main">
+<div id="banner" class="banner error" hidden></div>
+<header class="pagehead" data-slide="Model" id="model-head">
+  <p class="kicker">Model</p>
+  <h1>The model, and what it finds on the 50-case sample</h1>
+  <p class="lede">Three learners fitted on 39 inputs, validated by holding out one matched set at a time, then tested by the pre-registered battery. Pick a run and a fraud form; every table below follows the selection.</p>
+</header>
+
+<section class="finding" data-slide="Specification" id="spec">
+  <div class="verdict"><h2>The model used</h2><p id="spec-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="spec-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="features-table"></table></div></div>
+</section>
+
+<section class="finding" data-slide="Selection" id="select">
+  <div class="verdict"><h2>Choose what to show</h2>
+    <p><label for="run-select">Run</label> <select id="run-select"></select></p>
+    <p><label for="form-select">Fraud form</label> <select id="form-select"></select></p>
+    <p class="small muted" id="selection-note"></p></div>
+  <div class="data"><dl class="metrics" id="sample-metrics"></dl></div>
+</section>
+
+<section class="finding" data-slide="H1–H3" id="h13">
+  <div class="verdict"><h2>H1–H3: do the layers differ between case firms and their matched firms?</h2><p id="h13-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="h13-table"></table></div></div>
+</section>
+
+<section class="finding" data-slide="Within set" id="within">
+  <div class="verdict"><h2>Within each matched set: how often does the case firm score highest?</h2><p id="within-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="within-table"></table></div></div>
+</section>
+
+<section class="finding" data-slide="H4–H5" id="h45">
+  <div class="verdict"><h2>H4 early warning and H5 Model A versus Model B</h2><p id="h45-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="h4-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="h5-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="ab-table"></table></div></div>
+</section>
+
+<section class="finding" data-slide="Checks" id="checks">
+  <div class="verdict"><h2>Learned score, placebo tests, external set, power</h2><p id="checks-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="learned-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="placebo-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="external-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="power-table"></table></div></div>
+</section>
+
+<section class="finding" data-slide="Inputs" id="inputs">
+  <div class="verdict"><h2>Where the inputs came from</h2><p id="inputs-text"></p></div>
+  <div class="data"><div class="table-wrap"><table class="compact" id="sources-table"></table></div>
+  <div class="table-wrap"><table class="compact" id="coverage-table"></table></div></div>
+</section>
+</main>
+<div class="present-controls" id="present-controls" hidden>
+  <button type="button" id="present-prev" class="btn">← Previous</button>
+  <span id="present-pos" class="small muted"></span>
+  <button type="button" id="present-next" class="btn">Next →</button>
+  <button type="button" id="present-exit" class="btn">Exit</button>
+</div>
+<footer class="site"><div class="inner">
+  <div class="foot-brand"><span class="brand-name">RPT Signals</span><span>Related-party transactions and fraud risk · a matched case-control study of SEC enforcement cases</span></div>
+  <p>Built from public SEC EDGAR filings. The results are associations observed in the five fiscal years before each case became public, not predictions. The underlying datasets and code will be released when the research is published.</p>
+</div></footer>
+<script src="assets/js/nav.js"></script>
+<script type="module" src="assets/js/present.js"></script>
+<script type="module" src="assets/js/model.js"></script>
+</body>
+</html>
