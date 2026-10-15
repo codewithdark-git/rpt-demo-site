@@ -583,7 +583,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.2941,
        "ci_low": 0.7895,
        "ci_high": 2.1212,
@@ -598,7 +598,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7319,
        "ci_low": 0.5397,
        "ci_high": 0.9924,
@@ -613,7 +613,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 1.7284,
        "ci_low": 1.0133,
        "ci_high": 2.9481,
@@ -679,7 +679,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 0.9755,
        "ci_low": 0.2576,
        "ci_high": 3.6939,
@@ -694,7 +694,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.6223,
        "ci_low": 0.4029,
        "ci_high": 6.532,
@@ -709,7 +709,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 267.5246,
        "ci_low": 0.0,
        "ci_high": 2.3180705455886975e+19,
@@ -775,7 +775,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 0.6701,
        "ci_low": 0.2029,
        "ci_high": 2.2129,
@@ -790,7 +790,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.8853,
        "ci_low": 0.5133,
        "ci_high": 1.5267,
@@ -805,7 +805,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 1.0154,
        "ci_low": 0.4758,
        "ci_high": 2.1672,
@@ -871,7 +871,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.7308,
        "ci_low": 0.333,
        "ci_high": 8.9954,
@@ -886,7 +886,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.0363,
        "ci_low": 0.452,
        "ci_high": 2.3758,
@@ -901,7 +901,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 3.3206,
        "ci_low": 0.5469,
        "ci_high": 20.16,
@@ -967,7 +967,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 2.5434,
        "ci_low": 0.0897,
        "ci_high": 72.1026,
@@ -982,7 +982,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7712,
        "ci_low": 0.191,
        "ci_high": 3.1137,
@@ -997,7 +997,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 6.9804,
        "ci_low": 0.0003,
        "ci_high": 146553.4465,
@@ -1063,7 +1063,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.7634,
        "ci_low": 0.9258,
        "ci_high": 3.359,
@@ -1078,7 +1078,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.4681,
        "ci_low": 0.2737,
        "ci_high": 0.8007,
@@ -1093,7 +1093,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 3.2563,
        "ci_low": 0.8216,
        "ci_high": 12.9057,
@@ -1637,7 +1637,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.2949,
        "ci_low": 0.7879,
        "ci_high": 2.1282,
@@ -1652,7 +1652,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7319,
        "ci_low": 0.5397,
        "ci_high": 0.9924,
@@ -1667,7 +1667,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 1.7284,
        "ci_low": 1.0133,
        "ci_high": 2.9481,
@@ -1733,7 +1733,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 0.9743,
        "ci_low": 0.2579,
        "ci_high": 3.681,
@@ -1748,7 +1748,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.6223,
        "ci_low": 0.4029,
        "ci_high": 6.532,
@@ -1763,7 +1763,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 267.5246,
        "ci_low": 0.0,
        "ci_high": 2.3180705455886975e+19,
@@ -1829,7 +1829,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 0.6708,
        "ci_low": 0.203,
        "ci_high": 2.2159,
@@ -1844,7 +1844,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.8853,
        "ci_low": 0.5133,
        "ci_high": 1.5267,
@@ -1859,7 +1859,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 1.0154,
        "ci_low": 0.4758,
        "ci_high": 2.1672,
@@ -1925,7 +1925,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.7356,
        "ci_low": 0.3319,
        "ci_high": 9.0758,
@@ -1940,7 +1940,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.0363,
        "ci_low": 0.452,
        "ci_high": 2.3758,
@@ -1955,7 +1955,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 3.3206,
        "ci_low": 0.5469,
        "ci_high": 20.16,
@@ -2021,7 +2021,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 2.5222,
        "ci_low": 0.0911,
        "ci_high": 69.8052,
@@ -2036,7 +2036,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7712,
        "ci_low": 0.191,
        "ci_high": 3.1137,
@@ -2051,7 +2051,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 6.9804,
        "ci_low": 0.0003,
        "ci_high": 146553.4465,
@@ -2117,7 +2117,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.7311,
        "ci_low": 0.9009,
        "ci_high": 3.3267,
@@ -2132,7 +2132,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.4681,
        "ci_low": 0.2737,
        "ci_high": 0.8007,
@@ -2147,7 +2147,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 3.2563,
        "ci_low": 0.8216,
        "ci_high": 12.9057,
@@ -2691,7 +2691,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.3722,
        "ci_low": 0.8078,
        "ci_high": 2.3309,
@@ -2706,7 +2706,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7331,
        "ci_low": 0.543,
        "ci_high": 0.9898,
@@ -2721,7 +2721,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 2.1729,
        "ci_low": 1.1406,
        "ci_high": 4.1394,
@@ -2787,7 +2787,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.0212,
        "ci_low": 0.2574,
        "ci_high": 4.0518,
@@ -2802,7 +2802,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.7408,
        "ci_low": 0.3602,
        "ci_high": 8.4126,
@@ -2817,7 +2817,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 2095.7215,
        "ci_low": 0.0,
        "ci_high": 3.320310036379639e+23,
@@ -2883,7 +2883,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 0.7277,
        "ci_low": 0.2002,
        "ci_high": 2.6448,
@@ -2898,7 +2898,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.9231,
        "ci_low": 0.5588,
        "ci_high": 1.525,
@@ -2913,7 +2913,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 1.3562,
        "ci_low": 0.523,
        "ci_high": 3.5173,
@@ -2979,7 +2979,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.654,
        "ci_low": 0.3676,
        "ci_high": 7.4417,
@@ -2994,7 +2994,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 1.0316,
        "ci_low": 0.4546,
        "ci_high": 2.3408,
@@ -3009,7 +3009,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 3.3602,
        "ci_low": 0.3226,
        "ci_high": 34.994,
@@ -3075,7 +3075,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 2.5238,
        "ci_low": 0.0578,
        "ci_high": 110.1172,
@@ -3090,7 +3090,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.7177,
        "ci_low": 0.1573,
        "ci_high": 3.2749,
@@ -3105,7 +3105,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 14.9838,
        "ci_low": 0.0,
        "ci_high": 2628336716.7463,
@@ -3171,7 +3171,7 @@
       {
        "hypothesis": "H1",
        "layer": "L1_SCORE",
-       "description": "Financial layer: related-party lending and payables",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
        "odds_ratio_per_sd": 1.8351,
        "ci_low": 0.9219,
        "ci_high": 3.6527,
@@ -3186,7 +3186,7 @@
       {
        "hypothesis": "H2",
        "layer": "L2_SCORE",
-       "description": "Financial layer: related-party sales and purchases",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
        "odds_ratio_per_sd": 0.4599,
        "ci_low": 0.2677,
        "ci_high": 0.7901,
@@ -3201,7 +3201,7 @@
       {
        "hypothesis": "H3",
        "layer": "L3_SCORE",
-       "description": "Disclosure layer: incomplete, vague disclosure",
+       "description": "Governance layer: CEO duality, non-independent board",
        "odds_ratio_per_sd": 4.9205,
        "ci_low": 0.5648,
        "ci_high": 42.8668,

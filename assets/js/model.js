@@ -26,6 +26,18 @@ function render() {
     ? `Full battery output of ${run.label} (commit ${run.commit}).`
     : `Subset of the matched sets whose case is a ${bf.label.toLowerCase()} case, re-estimated from the run's firm-year scores (conditional logit with leverage and ROA where available, no bootstrap, no Holm). Fewer sets means wider intervals.`;
   const s = run.sample[0] || {};
+  const rows = all ? run.h1_h3 : bf.tests;
+  const chip = (h, r) => { const ok = r && r.odds_ratio_per_sd !== null; const p = r ? (all ? r.p_holm_firm_cluster : r.p_firm_cluster) : null;
+    const dir = r && r.odds_ratio_per_sd !== null && r.odds_ratio_per_sd > 1; const sig = p !== null && p < 0.05;
+    return `<a class="chip ${sig && dir ? "ok" : (sig ? "warn" : "")}" href="#h13"><span>${h} ${({H1:"financial",H2:"disclosure",H3:"governance"})[h]}</span><b>${ok ? `OR ${fmt(r.odds_ratio_per_sd,2)} · p ${fmt(p,3)}${sig && dir ? " · supported" : (sig ? " · opposite direction" : " · not supported")}` : "–"}</b></a>`; };
+  const h4met = run.h4.filter(r => String(r.design_rule_met_firm_cluster) === "True" || r.design_rule_met_firm_cluster === true).map(r => r.layer_score.replace("_SCORE",""));
+  const h5n = run.h5_rules.filter(r => r.met).length;
+  document.getElementById("model-chips").innerHTML = ["H1","H2","H3"].map(h => chip(h, rows.find(r => r.hypothesis === h))).join("") +
+    `<a class="chip ${h4met.length ? "ok" : ""}" href="#h45"><span>H4 earlier years</span><b>${h4met.length ? h4met.join(", ") + " before the final year" : "no layer before the final year"}</b></a>` +
+    `<a class="chip ${h5n ? "ok" : ""}" href="#h45"><span>H5 adds to audit signals</span><b>${h5n} of ${run.h5_rules.length} criteria met</b></a>`;
+  const ab = run.model_ab[0] || {}, ext = run.external[0] || {}, lr = run.learned[0] || {};
+  document.getElementById("glance-metrics").innerHTML = [["AUC, traditional signals (Model A)", fmt(ab.loso_auc_model_A,2)], ["AUC, + AI score (Model B)", fmt(ab.loso_auc_model_B,2)], ["AUC, learned score", fmt(lr.loso_auc_pooled,2)], ["AUC on the external set", fmt(ext.auc_ai_score_pooled,2)]]
+    .map(([k, v]) => `<div><dt>${v}</dt><dd>${k}</dd></div>`).join("");
   document.getElementById("sample-metrics").innerHTML = [["matched sets", bf.sets], ["firm-years", bf.firm_years], ["case firm-years", bf.fraud_firm_years], ["cases in run", s.cases], ["matched firms in run", s.matched_firms]]
     .map(([k, v]) => `<div><dt>${k}</dt><dd>${fmt(v)}</dd></div>`).join("");
   if (all) {

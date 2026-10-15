@@ -212,3 +212,10 @@ table.datatable { font-size: .8rem; display: block; overflow-x: auto; max-height
 .foot-brand { display: flex; flex-direction: column; gap: .15rem; margin-bottom: .5rem; }
 .foot-brand .brand-name { font-size: 1.05rem; }
 .scope { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: .5rem; }
+
+/* model page */
+.chip.ok b { color: #1f7a4d; }
+.chip.warn b { color: #b2481a; }
+#glance-metrics { margin-top: 1rem; }
+#select label { font-weight: 600; margin-right: .4rem; }
+#select select { font: inherit; padding: .3rem .5rem; border: 1px solid var(--line); border-radius: 6px; background: #fff; max-width: 100%; }

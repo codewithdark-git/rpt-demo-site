@@ -37,11 +37,15 @@
   <h1>The model, and what it finds on the 50-case sample</h1>
   <p class="lede">Three learners fitted on 39 inputs, validated by holding out one matched set at a time, then tested by the pre-registered battery. Pick a run and a fraud form; every table below follows the selection.</p>
 </header>
+<section class="finds" data-slide="At a glance" id="glance">
+  <div class="chips" id="model-chips"></div>
+  <dl class="metrics" id="glance-metrics"></dl>
+</section>
 
 <section class="finding" data-slide="Specification" id="spec">
   <div class="verdict"><h2>The model used</h2><p id="spec-text"></p></div>
   <div class="data"><div class="table-wrap"><table class="compact" id="spec-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="features-table"></table></div></div>
+  <details class="tbl"><summary>The 39 inputs by group</summary><div class="table-wrap"><table class="compact" id="features-table"></table></div></details></div>
 </section>
 
 <section class="finding" data-slide="Selection" id="select">
@@ -64,23 +68,23 @@
 
 <section class="finding" data-slide="H4–H5" id="h45">
   <div class="verdict"><h2>H4 early warning and H5 Model A versus Model B</h2><p id="h45-text"></p></div>
-  <div class="data"><div class="table-wrap"><table class="compact" id="h4-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="h5-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="ab-table"></table></div></div>
+  <div class="data"><details class="tbl"><summary>H4 By Layer</summary><div class="table-wrap"><table class="compact" id="h4-table"></table></div></details>
+  <details class="tbl"><summary>H5 Criteria</summary><div class="table-wrap"><table class="compact" id="h5-table"></table></div></details>
+  <details class="tbl"><summary>Model A / B</summary><div class="table-wrap"><table class="compact" id="ab-table"></table></div></details></div>
 </section>
 
 <section class="finding" data-slide="Checks" id="checks">
   <div class="verdict"><h2>Learned score, placebo tests, external set, power</h2><p id="checks-text"></p></div>
-  <div class="data"><div class="table-wrap"><table class="compact" id="learned-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="placebo-table"></table></div>
+  <div class="data"><details class="tbl"><summary>Learned</summary><div class="table-wrap"><table class="compact" id="learned-table"></table></div></details>
+  <details class="tbl"><summary>Placebo</summary><div class="table-wrap"><table class="compact" id="placebo-table"></table></div></details>
   <div class="table-wrap"><table class="compact" id="external-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="power-table"></table></div></div>
+  <details class="tbl"><summary>Power</summary><div class="table-wrap"><table class="compact" id="power-table"></table></div></details></div>
 </section>
 
 <section class="finding" data-slide="Inputs" id="inputs">
   <div class="verdict"><h2>Where the inputs came from</h2><p id="inputs-text"></p></div>
-  <div class="data"><div class="table-wrap"><table class="compact" id="sources-table"></table></div>
-  <div class="table-wrap"><table class="compact" id="coverage-table"></table></div></div>
+  <div class="data"><details class="tbl"><summary>Sources</summary><div class="table-wrap"><table class="compact" id="sources-table"></table></div></details>
+  <details class="tbl"><summary>Coverage</summary><div class="table-wrap"><table class="compact" id="coverage-table"></table></div></details></div>
 </section>
 </main>
 <div class="present-controls" id="present-controls" hidden>
