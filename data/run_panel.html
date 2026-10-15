@@ -1,0 +1,22 @@
+
+
+<header class="pagehead">
+  <p class="kicker">Explore the model</p>
+  <h1>Watch a firm-year's score be rebuilt from its filings</h1>
+  <p class="lede">Choose a firm. Each window year is rebuilt in three stages: the filings and sections the data came from, every variable with its evidence, and the live recomputation of the risk score, checked against the recorded numbers. The score is deterministic, so the steps appear at once; nothing is simulated.</p>
+</header>
+<div id="banner" class="banner error" hidden></div>
+<div class="run">
+  <aside class="selector" aria-label="Company selector">
+    <input id="search" type="search" placeholder="Search firm, set or CIK" aria-label="Search firms">
+    <div class="small muted" style="margin:.2rem 0 .5rem"><span class="dot flag"></span> above threshold in a year</div>
+    <div id="sets"></div>
+  </aside>
+  <section class="content" id="content">
+    <div class="notice info">Select a firm on the left. Observed case firms are listed with their matched comparison firms, so a case can be compared with its own set.</div>
+  </section>
+</div>
+<nav class="stepper" id="stepper" aria-label="Stages" hidden>
+  <a href="#stage-1"><span class="step">1</span>Evidence</a><a href="#stage-2"><span class="step">2</span>Variables</a><a href="#stage-3"><span class="step">3</span>Score</a><a href="#stage-4"><span class="step">4</span>Compare</a>
+</nav>
+

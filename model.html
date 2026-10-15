@@ -22,7 +22,6 @@
       <a href="index.html" data-page="index">Overview</a>
       <a href="sample.html" data-page="sample">Sample</a>
       <a href="methodology.html" data-page="methodology">Method</a>
-      <a href="run.html" data-page="run">Explore the model</a>
       <a href="results.html" data-page="model">Results</a>
       <a href="model.html" data-page="model">Model</a>
       <a href="explore.html" data-page="explore">Firms</a>
@@ -31,6 +30,11 @@
   </div>
 </header>
 <main class="page" id="main">
+<nav class="tabs" id="model-tabs" aria-label="Model views">
+  <a href="#results" data-tab="results" class="active">Results of the model</a>
+  <a href="#run" data-tab="run">Run it on a firm</a>
+</nav>
+<div class="tabpanel" id="tab-results">
 <div id="banner" class="banner error" hidden></div>
 <header class="pagehead" data-slide="Model" id="model-head">
   <p class="kicker">Model</p>
@@ -86,7 +90,29 @@
   <div class="data"><details class="tbl"><summary>Sources</summary><div class="table-wrap"><table class="compact" id="sources-table"></table></div></details>
   <details class="tbl"><summary>Coverage</summary><div class="table-wrap"><table class="compact" id="coverage-table"></table></div></details></div>
 </section>
-</main>
+</div><div class="tabpanel" id="tab-run" hidden>
+
+<header class="pagehead">
+  <p class="kicker">Run it on a firm</p>
+  <h1>Watch a firm-year's score be rebuilt from its filings</h1>
+  <p class="lede">Choose a firm. Each window year is rebuilt in three stages: the filings and sections the data came from, every variable with its evidence, and the live recomputation of the risk score, checked against the recorded numbers. The score is deterministic, so the steps appear at once; nothing is simulated.</p>
+</header>
+<div id="banner" class="banner error" hidden></div>
+<div class="run">
+  <aside class="selector" aria-label="Company selector">
+    <input id="search" type="search" placeholder="Search firm, set or CIK" aria-label="Search firms">
+    <div class="small muted" style="margin:.2rem 0 .5rem"><span class="dot flag"></span> above threshold in a year</div>
+    <div id="sets"></div>
+  </aside>
+  <section class="content" id="content">
+    <div class="notice info">Select a firm on the left. Observed case firms are listed with their matched comparison firms, so a case can be compared with its own set.</div>
+  </section>
+</div>
+<nav class="stepper" id="stepper" aria-label="Stages" hidden>
+  <a href="#stage-1"><span class="step">1</span>Evidence</a><a href="#stage-2"><span class="step">2</span>Variables</a><a href="#stage-3"><span class="step">3</span>Score</a><a href="#stage-4"><span class="step">4</span>Compare</a>
+</nav>
+
+</div></main>
 <div class="present-controls" id="present-controls" hidden>
   <button type="button" id="present-prev" class="btn">← Previous</button>
   <span id="present-pos" class="small muted"></span>
@@ -100,5 +126,13 @@
 <script src="assets/js/nav.js"></script>
 <script type="module" src="assets/js/present.js"></script>
 <script type="module" src="assets/js/model.js"></script>
+<script type="module" src="assets/js/run.js"></script>
+<script>
+(function(){const tabs=document.querySelectorAll('#model-tabs a');const panels={results:document.getElementById('tab-results'),run:document.getElementById('tab-run')};
+function show(k){if(!panels[k])k='results';for(const a of tabs)a.classList.toggle('active',a.dataset.tab===k);for(const n in panels)panels[n].hidden=n!==k;window.dispatchEvent(new Event('resize'));}
+function fromHash(){const h=location.hash.replace('#','');show(h==='run'||location.search.includes('cik=')?'run':'results');}
+for(const a of tabs)a.addEventListener('click',e=>{e.preventDefault();history.replaceState(null,'',a.getAttribute('href'));show(a.dataset.tab);});
+window.addEventListener('hashchange',fromHash);fromHash();})();
+</script>
 </body>
 </html>
