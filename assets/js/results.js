@@ -38,7 +38,7 @@ function dashboard(R) {
     p: `p ${fmtP(r.p_unadjusted)}, Holm ${fmtP(r.p_holm)}; firm-clustered p ${fmtP(r.p_firm_cluster)}, Holm ${fmtP(r.p_holm_firm_cluster)}`,
     n: `${r.n_firm_years} firm-years · ${r.n_firms} firms · ${r.n_matched_sets} sets`, status: status(r),
     read: { H1: "Measured as the fiscal-year total of related-party lending, payables, sales and purchases (note first, then XBRL tags, then Item 13), with zero when the firm reports no transaction of that type. Case firms have higher scaled exposure than their matched firms (odds ratio above one, firm-clustered p below 0.05), but the result does not meet the pre-registered standard after the Holm adjustment across the three hypotheses.",
-            H2: "Not supported, and in the opposite direction: case firms' related-party disclosures are more complete and plainer than their matched firms', not less. The disclosure measures as designed therefore do not carry the predicted information-asymmetry signal.",
+            H2: "Opposite direction on the measure as designed, which counts an item as stated if it appears anywhere in the note: longer notes about more transactions score as more complete. Measured per transaction, case and matched firms disclose alike, and vagueness does not differ. The prediction of less complete, vaguer disclosure is not supported on either measure.",
             H3: "Carried by CEO duality. Predicted direction and clustered p below 0.05 before adjustment, but not after the Holm adjustment the pre-registered rule applies; model-based p-values are shown for reference only." }[r.hypothesis],
   }));
   const h5 = R.h5;

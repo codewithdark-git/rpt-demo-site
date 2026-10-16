@@ -98,7 +98,7 @@ export function renderStage2(co, y, G) {
     ["RP_SALES", "revenue from related parties ÷ total revenue", amt("RP_SALES"), xv("revenue"), fmt(y.characteristics.RP_SALES.value, 4)],
     ["RP_PURCH", "purchases, fees, rent and services paid to related parties ÷ total assets", amt("RP_PURCH"), xv("total_assets"), fmt(y.characteristics.RP_PURCH.value, 4)],
   ];
-  s.appendChild(table(["Code", "Formula", "Numerator (largest amount of the flow, with its sentence)", "Denominator (XBRL)", "Value"], chRows, [4]));
+  s.appendChild(table(["Code", "Formula", "Numerator (fiscal-year total of the flow, with its sentence or XBRL tag)", "Denominator", "Value"], chRows, [4]));
   const items = ["counterparty_named", "amount_stated", "terms_stated", "purpose_stated"];
   const n = items.reduce((a, k) => a + (Number(rp[k]) || 0), 0);
   s.appendChild(h("p", { class: "small" }, [h("b", { text: "RP_INCOMP " }), "= (4 − items stated) ÷ 4. Items on the related-party text: ", items.map((k) => `${k} = ${flag01(rp[k])}`).join("; "), rp.no_transactions_stated ? "; the text states that there were no related-party transactions (scored on that text: see §3.7.1)" : "", ". ", h("span", { class: "eq", text: `(4 − ${n}) / 4 = ${fmt(y.characteristics.RP_INCOMP.value, 3)}` }), y.characteristics.RP_INCOMP.value === null ? " — no related-party text, so the characteristic is missing" : ""]));

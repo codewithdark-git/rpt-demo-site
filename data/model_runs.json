@@ -8,7 +8,7 @@
    "rf",
    "xgb"
   ],
-  "threshold": 0.6477,
+  "threshold": 0.6574,
   "target_fpr": 0.05,
   "n_features": 41,
   "feature_groups": {
@@ -76,19 +76,19 @@
   "fold_auc": [
    {
     "model": "logit",
-    "mean": 0.608,
+    "mean": 0.61,
     "std": 0.271,
     "count": 50.0
    },
    {
     "model": "rf",
-    "mean": 0.645,
-    "std": 0.236,
+    "mean": 0.647,
+    "std": 0.235,
     "count": 50.0
    },
    {
     "model": "xgb",
-    "mean": 0.623,
+    "mean": 0.62,
     "std": 0.223,
     "count": 50.0
    }
@@ -97,6 +97,1087 @@
   "peer_baseline": "loo_all"
  },
  "runs": [
+  {
+   "key": "conf50_v6",
+   "label": "Run 5 (16 Oct 2026): sentence-splitter correction C9; H2 per-transaction and length-controlled secondaries",
+   "run_date": "2026-10-16T17:56:51+00:00",
+   "commit": "32a4e5b",
+   "sample": [
+    {
+     "cases": 50.0,
+     "matched_firms": 237.0,
+     "matched_sets": 50.0,
+     "window_firm_years": 1411.0,
+     "fraud_firm_years": 239.0,
+     "strata": "{'core': 36, 'disclosure_only': 14}",
+     "tiers": "{'1': 46, '2': 4}",
+     "peers_per_set": "{2: 1, 3: 2, 4: 6, 5: 41}",
+     "post2004_window_sets": 50.0
+    }
+   ],
+   "h1_h3": [
+    {
+     "hypothesis": "H1",
+     "layer_score": "L1_SCORE",
+     "n_informative_sets": 41.0,
+     "odds_ratio_per_sd": 1.6829,
+     "or_ci_low_firm_cluster": 1.0674,
+     "or_ci_high_firm_cluster": 2.6533,
+     "p_firm_cluster": 0.0251,
+     "p_scoreboot": 0.0235,
+     "p_holm_firm_cluster": 0.0752,
+     "direction_as_predicted": 1.0
+    },
+    {
+     "hypothesis": "H2",
+     "layer_score": "L2_SCORE",
+     "n_informative_sets": 47.0,
+     "odds_ratio_per_sd": 0.7242,
+     "or_ci_low_firm_cluster": 0.532,
+     "or_ci_high_firm_cluster": 0.9858,
+     "p_firm_cluster": 0.0403,
+     "p_scoreboot": 0.042,
+     "p_holm_firm_cluster": 0.0805,
+     "direction_as_predicted": 0.0
+    },
+    {
+     "hypothesis": "H3",
+     "layer_score": "L3_SCORE",
+     "n_informative_sets": 36.0,
+     "odds_ratio_per_sd": 1.7267,
+     "or_ci_low_firm_cluster": 1.0153,
+     "or_ci_high_firm_cluster": 2.9365,
+     "p_firm_cluster": 0.0438,
+     "p_scoreboot": 0.0345,
+     "p_holm_firm_cluster": 0.0805,
+     "direction_as_predicted": 1.0
+    }
+   ],
+   "h4": [
+    {
+     "layer_score": "L1_SCORE",
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
+    },
+    {
+     "layer_score": "L2_SCORE",
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
+    },
+    {
+     "layer_score": "L3_SCORE",
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
+    }
+   ],
+   "h5_rules": [
+    {
+     "criterion": "AI_SCORE significant in Model B (pooled, firm-clustered)",
+     "met": false
+    },
+    {
+     "criterion": "AI_SCORE significant in Model B (conditional, firm-clustered)",
+     "met": false
+    },
+    {
+     "criterion": "Model B separates fraud firms better than Model A on held-out sets (pooled AUC gain, interval excludes 0)",
+     "met": false
+    },
+    {
+     "criterion": "within-set: Model B ranks the case above its matched firms more often than Model A (Wilson intervals do not overlap)",
+     "met": false
+    },
+    {
+     "criterion": "AI flag earlier than the traditional flag in more fraud firms than the reverse (equal false-alarm rate)",
+     "met": true
+    }
+   ],
+   "within_set": [
+    {
+     "score": "TRAD_INDEX",
+     "set_years": 239.0,
+     "share": 0.142,
+     "wilson_low": 0.104,
+     "wilson_high": 0.192,
+     "chance_share": 0.18
+    },
+    {
+     "score": "AI_SCORE",
+     "set_years": 219.0,
+     "share": 0.187,
+     "wilson_low": 0.141,
+     "wilson_high": 0.244,
+     "chance_share": 0.188
+    },
+    {
+     "score": "MODEL_A_INDEX",
+     "set_years": 207.0,
+     "share": 0.275,
+     "wilson_low": 0.219,
+     "wilson_high": 0.34,
+     "chance_share": 0.197
+    },
+    {
+     "score": "MODEL_B_INDEX",
+     "set_years": 196.0,
+     "share": 0.311,
+     "wilson_low": 0.251,
+     "wilson_high": 0.379,
+     "chance_share": 0.203
+    }
+   ],
+   "model_ab": [
+    {
+     "loso_auc_model_A": 0.523,
+     "loso_auc_model_B": 0.57,
+     "auc_gain_B_minus_A": 0.047,
+     "auc_gain_ci_low": -0.002,
+     "auc_gain_ci_high": 0.092,
+     "cases_flagged_ai_equal_far": 4.0,
+     "cases_flagged_trad_equal_far": 2.0,
+     "cases_ai_earlier_equal_far": 4.0,
+     "cases_trad_earlier_equal_far": 2.0
+    }
+   ],
+   "learned": [
+    {
+     "loso_auc_pooled": 0.593,
+     "within_set_share_case_above_all": 0.276,
+     "within_set_wilson_low": 0.223,
+     "within_set_wilson_high": 0.336,
+     "lambda_full_sample": 10.0
+    }
+   ],
+   "placebo": [
+    {
+     "hypothesis": "H1",
+     "real_coef_per_sd": 0.5205,
+     "placebo_mean": -0.0024,
+     "placebo_sd": 0.2782,
+     "share_placebo_at_or_beyond_real": 0.048,
+     "reps": 500.0
+    },
+    {
+     "hypothesis": "H2",
+     "real_coef_per_sd": -0.3227,
+     "placebo_mean": -0.0199,
+     "placebo_sd": 0.1702,
+     "share_placebo_at_or_beyond_real": 0.07,
+     "reps": 500.0
+    },
+    {
+     "hypothesis": "H3",
+     "real_coef_per_sd": 0.5462,
+     "placebo_mean": -0.0023,
+     "placebo_sd": 0.2363,
+     "share_placebo_at_or_beyond_real": 0.024,
+     "reps": 500.0
+    }
+   ],
+   "external": [
+    {
+     "cases": 9.0,
+     "sets": 9.0,
+     "firm_years": 226.0,
+     "auc_ai_score_pooled": 0.462,
+     "auc_trad_index_pooled": 0.512,
+     "auc_learned_pooled": 0.554,
+     "within_set_ai_share": 0.111,
+     "within_set_trad_share": 0.031
+    }
+   ],
+   "power": [
+    {
+     "hypothesis": "H1",
+     "informative_sets_observed": 41.0,
+     "odds_ratio_per_sd": 1.3,
+     "power": 0.715,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H1",
+     "informative_sets_observed": 41.0,
+     "odds_ratio_per_sd": 1.5,
+     "power": 0.97,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H1",
+     "informative_sets_observed": 41.0,
+     "odds_ratio_per_sd": 1.65,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H1",
+     "informative_sets_observed": 41.0,
+     "odds_ratio_per_sd": 2.0,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H1",
+     "informative_sets_observed": 41.0,
+     "odds_ratio_per_sd": 2.5,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H2",
+     "informative_sets_observed": 47.0,
+     "odds_ratio_per_sd": 1.3,
+     "power": 0.765,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H2",
+     "informative_sets_observed": 47.0,
+     "odds_ratio_per_sd": 1.5,
+     "power": 0.975,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H2",
+     "informative_sets_observed": 47.0,
+     "odds_ratio_per_sd": 1.65,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H2",
+     "informative_sets_observed": 47.0,
+     "odds_ratio_per_sd": 2.0,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H2",
+     "informative_sets_observed": 47.0,
+     "odds_ratio_per_sd": 2.5,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H3",
+     "informative_sets_observed": 36.0,
+     "odds_ratio_per_sd": 1.3,
+     "power": 0.635,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H3",
+     "informative_sets_observed": 36.0,
+     "odds_ratio_per_sd": 1.5,
+     "power": 0.96,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H3",
+     "informative_sets_observed": 36.0,
+     "odds_ratio_per_sd": 1.65,
+     "power": 0.99,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H3",
+     "informative_sets_observed": 36.0,
+     "odds_ratio_per_sd": 2.0,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    },
+    {
+     "hypothesis": "H3",
+     "informative_sets_observed": 36.0,
+     "odds_ratio_per_sd": 2.5,
+     "power": 1.0,
+     "mde_or_per_sd_80pct_power": 1.5
+    }
+   ],
+   "exploratory": [
+    {
+     "auc_fitted_score_oof": 0.597,
+     "within_set_share": 0.326,
+     "fitted_threshold": 0.6574
+    }
+   ],
+   "value_sources": [
+    {
+     "characteristic": "RP_LEND",
+     "observed": 657.0,
+     "from_note": 75.0,
+     "from_xbrl": 194.0,
+     "from_item13": 19.0,
+     "from_text": 0.0,
+     "zero_no_transaction": 375.0,
+     "values_above_1": 4.0,
+     "max_value": 27530.6875,
+     "basis": "{'zero': 371, 'xbrl_balance': 194, 'balance': 57, 'table_total': 24, 'flow_fallback': 7, 'unknown_fallback': 4}"
+    },
+    {
+     "characteristic": "RP_PAY",
+     "observed": 613.0,
+     "from_note": 122.0,
+     "from_xbrl": 147.0,
+     "from_item13": 27.0,
+     "from_text": 0.0,
+     "zero_no_transaction": 323.0,
+     "values_above_1": 8.0,
+     "max_value": 167000.0,
+     "basis": "{'zero': 319, 'xbrl_balance': 147, 'balance': 107, 'table_total': 31, 'unknown_fallback': 5, 'flow_fallback': 4}"
+    },
+    {
+     "characteristic": "RP_SALES",
+     "observed": 507.0,
+     "from_note": 36.0,
+     "from_xbrl": 61.0,
+     "from_item13": 33.0,
+     "from_text": 0.0,
+     "zero_no_transaction": 440.0,
+     "values_above_1": 2.0,
+     "max_value": 2.2421,
+     "basis": "{'zero': 381, 'xbrl_flow': 59, 'flow': 55, 'unknown_fallback': 10, 'table_total': 2}"
+    },
+    {
+     "characteristic": "RP_PURCH",
+     "observed": 566.0,
+     "from_note": 157.0,
+     "from_xbrl": 55.0,
+     "from_item13": 163.0,
+     "from_text": 0.0,
+     "zero_no_transaction": 197.0,
+     "values_above_1": 11.0,
+     "max_value": 1044623.0,
+     "basis": "{'flow': 286, 'zero': 193, 'xbrl_flow': 55, 'unknown_fallback': 22, 'table_total': 9, 'balance_fallback': 1}"
+    },
+    {
+     "characteristic": "total_assets (denominator / control)",
+     "observed": 1390.0,
+     "from_note": null,
+     "from_xbrl": 1007.0,
+     "from_item13": null,
+     "from_text": 383.0,
+     "zero_no_transaction": null,
+     "values_above_1": null,
+     "max_value": null,
+     "basis": null
+    },
+    {
+     "characteristic": "total_liabilities (denominator / control)",
+     "observed": 1260.0,
+     "from_note": null,
+     "from_xbrl": 828.0,
+     "from_item13": null,
+     "from_text": 432.0,
+     "zero_no_transaction": null,
+     "values_above_1": null,
+     "max_value": null,
+     "basis": null
+    },
+    {
+     "characteristic": "revenue (denominator / control)",
+     "observed": 1278.0,
+     "from_note": null,
+     "from_xbrl": 859.0,
+     "from_item13": null,
+     "from_text": 419.0,
+     "zero_no_transaction": null,
+     "values_above_1": null,
+     "max_value": null,
+     "basis": null
+    },
+    {
+     "characteristic": "net_income (denominator / control)",
+     "observed": 1385.0,
+     "from_note": null,
+     "from_xbrl": 1029.0,
+     "from_item13": null,
+     "from_text": 356.0,
+     "zero_no_transaction": null,
+     "values_above_1": null,
+     "max_value": null,
+     "basis": null
+    },
+    {
+     "characteristic": "operating_cash_flow (denominator / control)",
+     "observed": 1335.0,
+     "from_note": null,
+     "from_xbrl": 1038.0,
+     "from_item13": null,
+     "from_text": 297.0,
+     "zero_no_transaction": null,
+     "values_above_1": null,
+     "max_value": null,
+     "basis": null
+    }
+   ],
+   "coverage": [
+    {
+     "characteristic": "RP_LEND",
+     "layer": "L1",
+     "coverage_all": 0.466,
+     "coverage_fraud_firm_years": 0.586,
+     "coverage_matched_firm_years": 0.441
+    },
+    {
+     "characteristic": "RP_PAY",
+     "layer": "L1",
+     "coverage_all": 0.434,
+     "coverage_fraud_firm_years": 0.556,
+     "coverage_matched_firm_years": 0.41
+    },
+    {
+     "characteristic": "RP_SALES",
+     "layer": "L1",
+     "coverage_all": 0.359,
+     "coverage_fraud_firm_years": 0.464,
+     "coverage_matched_firm_years": 0.338
+    },
+    {
+     "characteristic": "RP_PURCH",
+     "layer": "L1",
+     "coverage_all": 0.401,
+     "coverage_fraud_firm_years": 0.477,
+     "coverage_matched_firm_years": 0.386
+    },
+    {
+     "characteristic": "RP_INCOMP",
+     "layer": "L2",
+     "coverage_all": 0.855,
+     "coverage_fraud_firm_years": 0.854,
+     "coverage_matched_firm_years": 0.855
+    },
+    {
+     "characteristic": "RP_VAGUE",
+     "layer": "L2",
+     "coverage_all": 0.853,
+     "coverage_fraud_firm_years": 0.854,
+     "coverage_matched_firm_years": 0.853
+    },
+    {
+     "characteristic": "BRD_NONIND",
+     "layer": "L3",
+     "coverage_all": 0.266,
+     "coverage_fraud_firm_years": 0.322,
+     "coverage_matched_firm_years": 0.254
+    },
+    {
+     "characteristic": "DUAL",
+     "layer": "L3",
+     "coverage_all": 0.539,
+     "coverage_fraud_firm_years": 0.548,
+     "coverage_matched_firm_years": 0.537
+    },
+    {
+     "characteristic": "ICFR_MW (traditional signal)",
+     "layer": "TRAD",
+     "coverage_all": 0.853,
+     "coverage_fraud_firm_years": 0.72,
+     "coverage_matched_firm_years": 0.881
+    },
+    {
+     "characteristic": "AUD_OPIN (traditional signal)",
+     "layer": "TRAD",
+     "coverage_all": 0.894,
+     "coverage_fraud_firm_years": 0.9,
+     "coverage_matched_firm_years": 0.892
+    },
+    {
+     "characteristic": "AUD_CHG (traditional signal)",
+     "layer": "TRAD",
+     "coverage_all": 1.0,
+     "coverage_fraud_firm_years": 1.0,
+     "coverage_matched_firm_years": 1.0
+    },
+    {
+     "characteristic": "RESTATE (traditional signal)",
+     "layer": "TRAD",
+     "coverage_all": 1.0,
+     "coverage_fraud_firm_years": 1.0,
+     "coverage_matched_firm_years": 1.0
+    }
+   ],
+   "by_form": [
+    {
+     "form": "all",
+     "label": "All forms",
+     "sets": 50,
+     "firm_years": 1411,
+     "fraud_firm_years": 239,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 1.755,
+       "ci_low": 1.0871,
+       "ci_high": 2.8331,
+       "p_firm_cluster": 0.0213,
+       "p_model": 0.0,
+       "n_sets_used": 39,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 0.7252,
+       "ci_low": 0.5327,
+       "ci_high": 0.9872,
+       "p_firm_cluster": 0.0412,
+       "p_model": 0.0002,
+       "n_sets_used": 47,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 1.7284,
+       "ci_low": 1.0133,
+       "ci_high": 2.9481,
+       "p_firm_cluster": 0.0446,
+       "p_model": 0.0,
+       "n_sets_used": 36,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 219.0,
+       "share": 0.187,
+       "wilson_low": 0.141,
+       "wilson_high": 0.244,
+       "chance_share": 0.188
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 239.0,
+       "share": 0.142,
+       "wilson_low": 0.104,
+       "wilson_high": 0.192,
+       "chance_share": 0.18
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 146.0,
+       "share": 0.37,
+       "wilson_low": 0.296,
+       "wilson_high": 0.451,
+       "chance_share": 0.322
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 204.0,
+       "share": 0.186,
+       "wilson_low": 0.139,
+       "wilson_high": 0.245,
+       "chance_share": 0.212
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 145.0,
+       "share": 0.29,
+       "wilson_low": 0.222,
+       "wilson_high": 0.368,
+       "chance_share": 0.277
+      }
+     ]
+    },
+    {
+     "form": "disclosure+misstatement",
+     "label": "Disclosure + misstatement",
+     "sets": 3,
+     "firm_years": 85,
+     "fraud_firm_years": 13,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 5.6035,
+       "ci_low": 0.0779,
+       "ci_high": 403.1052,
+       "p_firm_cluster": 0.4295,
+       "p_model": 0.0233,
+       "n_sets_used": 3,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 1.6326,
+       "ci_low": 0.4017,
+       "ci_high": 6.6359,
+       "p_firm_cluster": 0.4933,
+       "p_model": 0.2264,
+       "n_sets_used": 3,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 267.5246,
+       "ci_low": 0.0,
+       "ci_high": 2.3180705455886975e+19,
+       "p_firm_cluster": 0.7788,
+       "p_model": 0.1223,
+       "n_sets_used": 2,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 13.0,
+       "share": 0.538,
+       "wilson_low": 0.291,
+       "wilson_high": 0.768,
+       "chance_share": 0.172
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 13.0,
+       "share": 0.077,
+       "wilson_low": 0.014,
+       "wilson_high": 0.333,
+       "chance_share": 0.169
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 11.0,
+       "share": 0.455,
+       "wilson_low": 0.213,
+       "wilson_high": 0.72,
+       "chance_share": 0.245
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 11.0,
+       "share": 0.273,
+       "wilson_low": 0.097,
+       "wilson_high": 0.566,
+       "chance_share": 0.194
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 10.0,
+       "share": 0.7,
+       "wilson_low": 0.397,
+       "wilson_high": 0.892,
+       "chance_share": 0.342
+      }
+     ]
+    },
+    {
+     "form": "disclosure_only",
+     "label": "Disclosure only",
+     "sets": 14,
+     "firm_years": 400,
+     "fraud_firm_years": 69,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 1.1388,
+       "ci_low": 0.4368,
+       "ci_high": 2.9693,
+       "p_firm_cluster": 0.7904,
+       "p_model": 0.586,
+       "n_sets_used": 12,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 0.9168,
+       "ci_low": 0.5327,
+       "ci_high": 1.5779,
+       "p_firm_cluster": 0.7539,
+       "p_model": 0.5736,
+       "n_sets_used": 14,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 1.0154,
+       "ci_low": 0.4758,
+       "ci_high": 2.1672,
+       "p_firm_cluster": 0.9685,
+       "p_model": 0.9316,
+       "n_sets_used": 13,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 68.0,
+       "share": 0.132,
+       "wilson_low": 0.071,
+       "wilson_high": 0.233,
+       "chance_share": 0.186
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 69.0,
+       "share": 0.116,
+       "wilson_low": 0.06,
+       "wilson_high": 0.212,
+       "chance_share": 0.177
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 47.0,
+       "share": 0.319,
+       "wilson_low": 0.204,
+       "wilson_high": 0.462,
+       "chance_share": 0.32
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 63.0,
+       "share": 0.254,
+       "wilson_low": 0.163,
+       "wilson_high": 0.373,
+       "chance_share": 0.209
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 60.0,
+       "share": 0.183,
+       "wilson_low": 0.106,
+       "wilson_high": 0.299,
+       "chance_share": 0.27
+      }
+     ]
+    },
+    {
+     "form": "misappropriation",
+     "label": "Misappropriation",
+     "sets": 11,
+     "firm_years": 313,
+     "fraud_firm_years": 54,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 2.7906,
+       "ci_low": 0.8383,
+       "ci_high": 9.2902,
+       "p_firm_cluster": 0.0944,
+       "p_model": 0.0145,
+       "n_sets_used": 6,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 1.0256,
+       "ci_low": 0.4237,
+       "ci_high": 2.4827,
+       "p_firm_cluster": 0.9553,
+       "p_model": 0.9155,
+       "n_sets_used": 9,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 3.3206,
+       "ci_low": 0.5469,
+       "ci_high": 20.16,
+       "p_firm_cluster": 0.1922,
+       "p_model": 0.006,
+       "n_sets_used": 6,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 41.0,
+       "share": 0.22,
+       "wilson_low": 0.12,
+       "wilson_high": 0.367,
+       "chance_share": 0.187
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 54.0,
+       "share": 0.111,
+       "wilson_low": 0.052,
+       "wilson_high": 0.222,
+       "chance_share": 0.178
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 21.0,
+       "share": 0.286,
+       "wilson_low": 0.138,
+       "wilson_high": 0.5,
+       "chance_share": 0.352
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 35.0,
+       "share": 0.143,
+       "wilson_low": 0.063,
+       "wilson_high": 0.294,
+       "chance_share": 0.203
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 23.0,
+       "share": 0.348,
+       "wilson_low": 0.188,
+       "wilson_high": 0.551,
+       "chance_share": 0.288
+      }
+     ]
+    },
+    {
+     "form": "misappropriation+misstatement",
+     "label": "Misappropriation + misstatement",
+     "sets": 3,
+     "firm_years": 90,
+     "fraud_firm_years": 15,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 0.9773,
+       "ci_low": 0.3733,
+       "ci_high": 2.5587,
+       "p_firm_cluster": 0.9627,
+       "p_model": 0.9713,
+       "n_sets_used": 3,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 0.6716,
+       "ci_low": 0.1545,
+       "ci_high": 2.9195,
+       "p_firm_cluster": 0.5954,
+       "p_model": 0.4004,
+       "n_sets_used": 3,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 6.9804,
+       "ci_low": 0.0003,
+       "ci_high": 146553.4465,
+       "p_firm_cluster": 0.702,
+       "p_model": 0.1082,
+       "n_sets_used": 2,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 15.0,
+       "share": 0.2,
+       "wilson_low": 0.07,
+       "wilson_high": 0.452,
+       "chance_share": 0.167
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 15.0,
+       "share": 0.333,
+       "wilson_low": 0.152,
+       "wilson_high": 0.583,
+       "chance_share": 0.167
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 10.0,
+       "share": 0.1,
+       "wilson_low": 0.018,
+       "wilson_high": 0.404,
+       "chance_share": 0.353
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 15.0,
+       "share": 0.133,
+       "wilson_low": 0.037,
+       "wilson_high": 0.379,
+       "chance_share": 0.173
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 8.0,
+       "share": 0.25,
+       "wilson_low": 0.071,
+       "wilson_high": 0.591,
+       "chance_share": 0.215
+      }
+     ]
+    },
+    {
+     "form": "misstatement",
+     "label": "Misstatement",
+     "sets": 19,
+     "firm_years": 523,
+     "fraud_firm_years": 88,
+     "tests": [
+      {
+       "hypothesis": "H1",
+       "layer": "L1_SCORE",
+       "description": "Financial layer: related-party lending, payables, sales and purchases",
+       "odds_ratio_per_sd": 2.3632,
+       "ci_low": 0.9986,
+       "ci_high": 5.5927,
+       "p_firm_cluster": 0.0504,
+       "p_model": 0.0,
+       "n_sets_used": 15,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H2",
+       "layer": "L2_SCORE",
+       "description": "Disclosure layer: incomplete, vague related-party disclosure",
+       "odds_ratio_per_sd": 0.4597,
+       "ci_low": 0.2655,
+       "ci_high": 0.7959,
+       "p_firm_cluster": 0.0055,
+       "p_model": 0.0,
+       "n_sets_used": 18,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      },
+      {
+       "hypothesis": "H3",
+       "layer": "L3_SCORE",
+       "description": "Governance layer: CEO duality, non-independent board",
+       "odds_ratio_per_sd": 3.2563,
+       "ci_low": 0.8216,
+       "ci_high": 12.9057,
+       "p_firm_cluster": 0.0929,
+       "p_model": 0.0001,
+       "n_sets_used": 13,
+       "controls": [
+        "leverage",
+        "roa"
+       ]
+      }
+     ],
+     "within_set": [
+      {
+       "score": "AI_SCORE",
+       "set_years": 82.0,
+       "share": 0.159,
+       "wilson_low": 0.095,
+       "wilson_high": 0.253,
+       "chance_share": 0.196
+      },
+      {
+       "score": "TRAD_INDEX",
+       "set_years": 88.0,
+       "share": 0.159,
+       "wilson_low": 0.097,
+       "wilson_high": 0.25,
+       "chance_share": 0.187
+      },
+      {
+       "score": "L1_SCORE",
+       "set_years": 57.0,
+       "share": 0.474,
+       "wilson_low": 0.35,
+       "wilson_high": 0.601,
+       "chance_share": 0.323
+      },
+      {
+       "score": "L2_SCORE",
+       "set_years": 80.0,
+       "share": 0.15,
+       "wilson_low": 0.088,
+       "wilson_high": 0.244,
+       "chance_share": 0.228
+      },
+      {
+       "score": "L3_SCORE",
+       "set_years": 44.0,
+       "share": 0.318,
+       "wilson_low": 0.2,
+       "wilson_high": 0.466,
+       "chance_share": 0.278
+      }
+     ]
+    }
+   ]
+  },
   {
    "key": "conf50_v5",
    "label": "Run 4 (16 Oct 2026): financial layer per the 15 Oct brief (note > XBRL > Item 13, zero when no transaction, no cap)",

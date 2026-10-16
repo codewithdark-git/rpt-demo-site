@@ -29,7 +29,7 @@ function render() {
   const rows = all ? run.h1_h3 : bf.tests;
   const chip = (h, r) => { const ok = r && r.odds_ratio_per_sd !== null; const p = r ? (all ? r.p_holm_firm_cluster : r.p_firm_cluster) : null;
     const dir = r && r.odds_ratio_per_sd !== null && r.odds_ratio_per_sd > 1; const sig = p !== null && p < 0.05;
-    return `<a class="chip ${sig && dir ? "ok" : (sig ? "warn" : "")}" href="#h13"><span>${h} ${({H1:"financial",H2:"disclosure",H3:"governance"})[h]}</span><b>${ok ? `OR ${fmt(r.odds_ratio_per_sd,2)} · p ${fmt(p,3)}${sig && dir ? " · supported" : (sig ? " · opposite direction" : " · not supported")}` : "–"}</b></a>`; };
+    return `<a class="chip ${sig && dir ? "ok" : (!dir && ok ? "warn" : "")}" href="#h13"><span>${h} ${({H1:"financial",H2:"disclosure",H3:"governance"})[h]}</span><b>${ok ? `OR ${fmt(r.odds_ratio_per_sd,2)} · p ${fmt(p,3)}${sig && dir ? " · supported" : (!dir ? " · opposite direction, not supported" : " · not supported")}` : "–"}</b></a>`; };
   const h4met = run.h4.filter(r => String(r.design_rule_met_firm_cluster) === "True" || r.design_rule_met_firm_cluster === true).map(r => r.layer_score.replace("_SCORE",""));
   const h5n = run.h5_rules.filter(r => r.met).length;
   document.getElementById("model-chips").innerHTML = ["H1","H2","H3"].map(h => chip(h, rows.find(r => r.hypothesis === h))).join("") +
