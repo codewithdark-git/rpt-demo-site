@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15",
+ "generated": "2026-10-16",
  "model": {
   "primary_model": "logit",
   "alert_model": "ensemble",
@@ -168,9 +168,9 @@
     },
     {
      "layer_score": "L3_SCORE",
-     "design_rule_met_before_final_year": 1.0,
-     "design_rule_met_firm_cluster": 1.0,
-     "years_significant": "-3, -2"
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
     }
    ],
    "h5_rules": [
@@ -1222,9 +1222,9 @@
     },
     {
      "layer_score": "L3_SCORE",
-     "design_rule_met_before_final_year": 1.0,
-     "design_rule_met_firm_cluster": 1.0,
-     "years_significant": "-3, -2"
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
     }
    ],
    "h5_rules": [
@@ -2276,9 +2276,9 @@
     },
     {
      "layer_score": "L3_SCORE",
-     "design_rule_met_before_final_year": 1.0,
-     "design_rule_met_firm_cluster": 1.0,
-     "years_significant": "-3, -2"
+     "design_rule_met_before_final_year": 0.0,
+     "design_rule_met_firm_cluster": 0.0,
+     "years_significant": null
     }
    ],
    "h5_rules": [

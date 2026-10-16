@@ -2,7 +2,7 @@ import { forest, bars, smallMultiples, dotStrip, histOverlay, boxPlot, heatmap, 
 
 const $ = (id) => document.getElementById(id);
 const fmtP = (p) => p === null || p === undefined ? "—" : (p < 0.001 ? "< 0.001" : p.toFixed(3));
-const status = (r) => r.coef_per_sd < 0 ? "opposite" : (r.supported_firm_cluster ? "supported" : (r.supported_design_rule ? "model-based only" : "not supported"));
+const status = (r) => r.coef_per_sd < 0 ? "opposite" : (r.supported_design_rule ? "supported" : "not supported");
 const LAYER = { L1_SCORE: "financial", L2_SCORE: "disclosure", L3_SCORE: "governance" };
 function h(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 
@@ -39,12 +39,12 @@ function dashboard(R) {
     n: `${r.n_firm_years} firm-years · ${r.n_firms} firms · ${r.n_matched_sets} sets`, status: status(r),
     read: { H1: "Not supported means: among the firm-years that state a related-party amount, case firms do have higher scaled amounts (odds ratio above one), but the evidence does not reach the pre-registered standard once a firm's five years are treated as one cluster. The subset is also one in which case firms state amounts about three times as often, so the comparison is not of like with like.",
             H2: "Not supported, and in the opposite direction: case firms' related-party disclosures are more complete and plainer than their matched firms', not less. The disclosure measures as designed therefore do not carry the predicted information-asymmetry signal.",
-            H3: "Carried by CEO duality. Significant with model-based errors; not with the firm-clustered errors the design specifies." }[r.hypothesis],
+            H3: "Carried by CEO duality. Predicted direction and clustered p below 0.05 before adjustment, but not after the Holm adjustment the pre-registered rule applies; model-based p-values are shown for reference only." }[r.hypothesis],
   }));
   const h5 = R.h5;
   cards.push({ id: "H4", title: "Differences in earlier years", q: "Are the H1–H3 differences present before the final window year?", predicted: "a significant year before t−1", observed: R.h4_rule_met.length ? "met for " + R.h4_rule_met.join(", ") : "no layer significant before t−1",
-    effect: "governance at t−3: closest year", ci: "see the per-year intervals below", p: "fifteen year-by-layer tests", n: "7–25 informative sets per year", status: R.h4_rule_met.length ? "supported" : "not supported",
-    read: "The governance gap is present throughout and does not grow towards disclosure; limited evidence either way." });
+    effect: "no year passes after Holm adjustment", ci: "see the per-year intervals below", p: "fifteen year-by-layer tests, firm-clustered and Holm-adjusted", n: "informative sets vary by year", status: R.h4_rule_met.length ? "supported" : "not supported",
+    read: "The governance gap is present throughout the window and does not grow towards disclosure; no year passes the pre-registered rule." });
   cards.push({ id: "H5", title: "Added value over audit signals", q: "Does the AI risk score add to the traditional index, in strength or timing?", predicted: "AI_SCORE significant in Model B; higher out-of-set AUC; earlier flags",
     observed: `Model B AUC ${fmt(h5.loso_auc_model_B)} vs Model A ${fmt(h5.loso_auc_model_A)}; traditional index alone ${fmt(h5.auc_trad_index_alone)}`, effect: `coefficient ${fmt(h5.AI_SCORE_coef_per_sd_model_B_pooled)} per SD`, ci: `OR ${h5.AI_SCORE_or_ci_pooled}`,
     p: `firm-clustered p ${fmtP(h5.AI_SCORE_p_model_B_pooled_firm_cluster)}`, n: `${h5.n_firm_years} firm-years · ${h5.n_matched_sets} sets`, status: "not supported",
