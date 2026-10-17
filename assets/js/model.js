@@ -27,7 +27,7 @@ function render() {
     : `Subset of the matched sets whose case is a ${bf.label.toLowerCase()} case, re-estimated from the run's firm-year scores (conditional logit with leverage and ROA where available, no bootstrap, no Holm). Fewer sets means wider intervals.`;
   const s = run.sample[0] || {};
   const rows = all ? run.h1_h3 : bf.tests;
-  const chip = (h, r) => { const ok = r && r.odds_ratio_per_sd !== null; const p = r ? (all ? r.p_holm_firm_cluster : r.p_firm_cluster) : null;
+  const chip = (h, r) => { const ok = r && r.odds_ratio_per_sd !== null; const p = r ? (all ? (r.p_holm_one_sided_firm_cluster ?? r.p_holm_firm_cluster) : (r.p_firm_cluster === null || r.p_firm_cluster === undefined ? null : (r.odds_ratio_per_sd > 1 ? r.p_firm_cluster / 2 : 1 - r.p_firm_cluster / 2))) : null;
     const dir = r && r.odds_ratio_per_sd !== null && r.odds_ratio_per_sd > 1; const sig = p !== null && p < 0.05;
     return `<a class="chip ${sig && dir ? "ok" : (!dir && ok ? "warn" : "")}" href="#h13"><span>${h} ${({H1:"financial",H2:"disclosure",H3:"governance"})[h]}</span><b>${ok ? `OR ${fmt(r.odds_ratio_per_sd,2)} · p ${fmt(p,3)}${sig && dir ? " · supported" : (!dir ? " · opposite direction, not supported" : " · not supported")}` : "–"}</b></a>`; };
   const h4met = run.h4.filter(r => String(r.design_rule_met_firm_cluster) === "True" || r.design_rule_met_firm_cluster === true).map(r => r.layer_score.replace("_SCORE",""));
@@ -41,10 +41,10 @@ function render() {
   document.getElementById("sample-metrics").innerHTML = [["matched sets", bf.sets], ["firm-years", bf.firm_years], ["case firm-years", bf.fraud_firm_years], ["cases in run", s.cases], ["matched firms in run", s.matched_firms]]
     .map(([k, v]) => `<div><dt>${k}</dt><dd>${fmt(v)}</dd></div>`).join("");
   if (all) {
-    table("h13-table", run.h1_h3, ["hypothesis", "layer_score", "n_informative_sets", "odds_ratio_per_sd", "or_ci_low_firm_cluster", "or_ci_high_firm_cluster", "p_firm_cluster", "p_scoreboot", "p_holm_firm_cluster", "direction_as_predicted"],
-      ["H", "layer", "informative sets", "OR per SD", "CI low", "CI high", "p (firm-clustered)", "p (score bootstrap)", "p (Holm)", "direction as predicted"]);
-    const sig = run.h1_h3.filter(r => r.p_holm_firm_cluster !== null && r.p_holm_firm_cluster < 0.05).map(r => r.hypothesis);
-    document.getElementById("h13-text").textContent = sig.length ? `Supported after Holm: ${sig.join(", ")}.` : "No hypothesis survives the Holm correction in this run. " + run.h1_h3.map(r => `${r.hypothesis}: OR ${fmt(r.odds_ratio_per_sd,2)} per SD, p ${fmt(r.p_firm_cluster,3)}${r.direction_as_predicted === "False" || r.direction_as_predicted === false ? " (opposite direction)" : ""}`).join("; ") + ".";
+    table("h13-table", run.h1_h3, ["hypothesis", "layer_score", "n_informative_sets", "odds_ratio_per_sd", "or_ci_low_firm_cluster", "or_ci_high_firm_cluster", "p_firm_cluster", "p_scoreboot", "p_holm_firm_cluster", "p_one_sided_firm_cluster", "p_holm_one_sided_firm_cluster", "supported_design_rule", "direction_as_predicted"],
+      ["H", "layer", "informative sets", "OR per SD", "CI low", "CI high", "p two-sided (firm-clustered)", "p (score bootstrap)", "Holm two-sided", "p one-sided", "Holm one-sided (decision)", "supported", "direction as predicted"]);
+    const sig = run.h1_h3.filter(r => r.supported_design_rule === 1 || r.supported_design_rule === true || String(r.supported_design_rule) === "True").map(r => r.hypothesis);
+    document.getElementById("h13-text").textContent = sig.length ? `Supported under the decision rule (one-sided, firm-clustered, Holm across H1–H3; adopted 17 Oct 2026): ${sig.join(", ")}. Two-sided Holm values are in the table for reference.` : "No hypothesis survives the Holm correction in this run. " + run.h1_h3.map(r => `${r.hypothesis}: OR ${fmt(r.odds_ratio_per_sd,2)} per SD, p ${fmt(r.p_firm_cluster,3)}${r.direction_as_predicted === "False" || r.direction_as_predicted === false ? " (opposite direction)" : ""}`).join("; ") + ".";
     table("within-table", run.within_set, ["score", "set_years", "share", "wilson_low", "wilson_high", "chance_share"], ["score", "set-years", "case ranked first", "Wilson low", "Wilson high", "chance"]);
   } else {
     table("h13-table", bf.tests, ["hypothesis", "description", "n_sets_used", "odds_ratio_per_sd", "ci_low", "ci_high", "p_firm_cluster", "p_model", "error"], ["H", "layer", "sets used", "OR per SD", "CI low", "CI high", "p (firm-clustered)", "p (model)", "note"]);

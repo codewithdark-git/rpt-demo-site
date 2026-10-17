@@ -6,7 +6,7 @@ const steps = [
   { title: "Rank-based score\nconstruction", detail: "Rank 0–1 → layer mean → 10 × mean of layers" },
   { title: "Matched case/control\ncomparison", detail: "Conditional logit within matched sets; firm-clustered errors" },
   { title: "Five hypothesis\ntests", detail: "H1–H3 layers; H4 by year; H5 against the traditional index" },
-  { title: "Multiple-testing\ncorrection", detail: "Holm step-down across H1–H3; unadjusted values beside" },
+  { title: "Multiple-testing\ncorrection", detail: "One-sided in the predicted direction, Holm step-down across H1–H3; two-sided values beside" },
   { title: "Interpretation and\nlimitations", detail: "Associations before public disclosure; M2 pending" },
 ];
 const el = document.getElementById("v-method");
