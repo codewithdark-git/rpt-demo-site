@@ -223,3 +223,15 @@ table.datatable { font-size: .8rem; display: block; overflow-x: auto; max-height
 .tabs a { text-decoration: none; color: var(--ink-2); padding: .6rem 1rem; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -1px; }
 .tabs a.active { color: var(--accent); border-bottom-color: var(--accent); }
 .tabs a:hover { color: var(--ink); }
+
+/* risk-score construction */
+.build-steps { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .5rem; padding: 0; margin: 1rem 0 1.5rem; }
+.build-steps a { display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; text-decoration: none; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: .7rem .8rem; background: #fff; font-weight: 600; font-size: .92rem; height: 100%; }
+.build-steps a:hover { border-color: var(--accent); }
+.build-block { border-top: 2px solid var(--line); padding: 1.1rem 0 .4rem; margin-top: 1rem; }
+.build-block header { display: flex; align-items: baseline; gap: .7rem; }
+.build-block h3 { margin: 0; font-size: 1.12rem; }
+.build-block .step, .build-steps .step { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 600; font-size: .85rem; flex: none; }
+.build-block .design { color: var(--ink-2); border-left: 3px solid var(--line); padding-left: .7rem; }
+.build-block.example { background: var(--paper-2); border-radius: 8px; padding: 1.1rem 1rem; border-top: 0; }
+@media (max-width: 760px) { .build-steps { grid-template-columns: 1fr 1fr; } }

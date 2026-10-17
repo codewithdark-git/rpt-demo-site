@@ -60,6 +60,91 @@
   <p class="small muted">Measured filing characteristics (these eight, the traditional signals and the controls) are distinct from the derived risk score.</p>
 </section>
 
+<section data-slide="Risk-score construction" id="construction">
+  <h2>Risk-score construction: the five steps</h2>
+  <p class="lede">The 6 October design builds the AI risk score in five steps. Each block shows the step as the design states it, what the code does at that step, and what it produces on the 1411 analysed firm-years. Nothing in this score is learned; it is the pre-registered construction.</p>
+
+  <ol class="build-steps" aria-label="Five construction steps">
+    <li><a href="#cs-1"><span class="step">1</span>Raw figures</a></li>
+    <li><a href="#cs-2"><span class="step">2</span>Eight characteristics</a></li>
+    <li><a href="#cs-3"><span class="step">3</span>Rank 0–1</a></li>
+    <li><a href="#cs-4"><span class="step">4</span>Layer scores</a></li>
+    <li><a href="#cs-5"><span class="step">5</span>AI risk score 0–10</a></li>
+  </ol>
+
+  <article class="build-block" id="cs-1">
+    <header><span class="step">1</span><h3>Raw figures are entered for each firm-year</h3></header>
+    <p class="design"><b>Design.</b> Related-party amounts, the four disclosure items, word counts and board figures.</p>
+    <p><b>What the code does.</b> The related-party coder reads the financial-statement note and the Item 13 or proxy section separately and keeps every amount with its sentence. For each flow it takes, in order, the note's fiscal-year total, the firm's XBRL related-party tag, then the Item 13 total. It enters zero when the firm reports no transaction of that type, and leaves the value missing when a transaction is described without an amount. The disclosure items are flagged from the text. Board size, independent directors and CEO duality come from the proxy statement.</p>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Amount</th><th>note</th><th>XBRL tag</th><th>Item 13</th><th>zero</th><th>not observed</th></tr>
+      <tr><td>RP_LEND</td><td>75</td><td>194</td><td>19</td><td>375</td><td>748</td></tr><tr><td>RP_PAY</td><td>122</td><td>147</td><td>27</td><td>323</td><td>792</td></tr><tr><td>RP_SALES</td><td>36</td><td>61</td><td>33</td><td>440</td><td>841</td></tr><tr><td>RP_PURCH</td><td>157</td><td>55</td><td>163</td><td>197</td><td>839</td></tr>
+    </table></div>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Disclosure item stated</th><th>case firm-years</th><th>matched firm-years</th></tr>
+      <tr><td>counterparty named</td><td>85 %</td><td>85 %</td></tr><tr><td>amount stated</td><td>44 %</td><td>34 %</td></tr><tr><td>terms stated</td><td>49 %</td><td>39 %</td></tr><tr><td>business purpose stated</td><td>68 %</td><td>50 %</td></tr>
+    </table></div>
+    <p class="small muted">Related-party text length (median words): case 727, matched 494. Board independence read for 375 firm-years, CEO duality for 760.</p>
+  </article>
+
+  <article class="build-block" id="cs-2">
+    <header><span class="step">2</span><h3>The eight characteristics are calculated</h3></header>
+    <p class="design"><b>Design.</b> The ratios of the characteristics table, in three layers.</p>
+    <p><b>What the code does.</b> Each characteristic is computed and oriented so that a higher value always means more risk. Board independence is reversed (1 − independent share). Ratios above 1 are kept and flagged for a hand check, not capped.</p>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Layer</th><th>Code</th><th>Measured as</th><th>observed</th><th>coverage case / matched</th><th>median case / matched</th></tr>
+      <tr><td><span class="dot l1"></span>L1</td><td>RP_LEND</td><td>fiscal-year total due from related parties (note, else XBRL tag, else Item 13; 0 when none is reported) ÷ total assets; values above 1 flagged, not capped</td><td>657</td><td>59 % / 44 %</td><td>0.000 / 0.000</td></tr><tr><td><span class="dot l1"></span>L1</td><td>RP_PAY</td><td>fiscal-year total due to related parties (note, else XBRL tag, else Item 13; 0 when none is reported) ÷ total assets; values above 1 flagged, not capped</td><td>613</td><td>56 % / 41 %</td><td>0.000 / 0.000</td></tr><tr><td><span class="dot l1"></span>L1</td><td>RP_SALES</td><td>fiscal-year total of sales to related parties (note, else XBRL tag, else Item 13; 0 when none is reported) ÷ revenue; values above 1 flagged, not capped</td><td>507</td><td>46 % / 34 %</td><td>0.000 / 0.000</td></tr><tr><td><span class="dot l1"></span>L1</td><td>RP_PURCH</td><td>fiscal-year total of purchases, fees and rent paid to related parties (note, else XBRL tag, else Item 13; 0 when none is reported) ÷ total assets; values above 1 flagged, not capped</td><td>566</td><td>48 % / 39 %</td><td>0.000 / 0.000</td></tr><tr><td><span class="dot l2"></span>L2</td><td>RP_INCOMP</td><td>(4 − items stated) ÷ 4; items: counterparty named, amount stated, terms stated, purpose stated</td><td>1206</td><td>85 % / 85 %</td><td>0.250 / 0.500</td></tr><tr><td><span class="dot l2"></span>L2</td><td>RP_VAGUE</td><td>(uncertainty + weak-modal words) ÷ total words</td><td>1204</td><td>85 % / 85 %</td><td>0.233 / 0.255</td></tr><tr><td><span class="dot l3"></span>L3</td><td>BRD_NONIND</td><td>1 − (independent directors ÷ board size), from the proxy statement</td><td>375</td><td>32 % / 25 %</td><td>0.333 / 0.333</td></tr><tr><td><span class="dot l3"></span>L3</td><td>DUAL</td><td>1 if the chief executive also chairs the board</td><td>760</td><td>55 % / 54 %</td><td>1.000 / 1.000</td></tr>
+    </table></div>
+  </article>
+
+  <article class="build-block" id="cs-3">
+    <header><span class="step">3</span><h3>Each characteristic is ranked against all firm-years, from 0 to 1</h3></header>
+    <p class="design"><b>Design.</b> Characteristics on one scale, not driven by a few extreme firms.</p>
+    <p><b>What the code does.</b> Each characteristic is converted to its percentile rank among the 1411 analysed firm-years (pandas <code>rank(pct=True)</code>, average ranks for ties). A missing value stays missing; nothing is imputed. One difference from the design's wording: the design says "each continuous characteristic", but the code also ranks CEO duality, which is 0/1, so every duality value takes one of two tied ranks.</p>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Code</th><th>ranked</th><th>distinct values</th><th>median rank case / matched</th><th>note</th></tr>
+      <tr><td>RP_LEND</td><td>657</td><td>251</td><td>0.63 / 0.31</td><td>407 zeros share one tied rank of 0.311</td></tr><tr><td>RP_PAY</td><td>613</td><td>266</td><td>0.59 / 0.28</td><td>348 zeros share one tied rank of 0.285</td></tr><tr><td>RP_SALES</td><td>507</td><td>120</td><td>0.38 / 0.38</td><td>388 zeros share one tied rank of 0.384</td></tr><tr><td>RP_PURCH</td><td>566</td><td>367</td><td>0.52 / 0.50</td><td>200 zeros share one tied rank of 0.178</td></tr><tr><td>RP_INCOMP</td><td>1206</td><td>5</td><td>0.38 / 0.64</td><td>279 zeros share one tied rank of 0.116</td></tr><tr><td>RP_VAGUE</td><td>1204</td><td>815</td><td>0.47 / 0.51</td><td></td></tr><tr><td>BRD_NONIND</td><td>375</td><td>48</td><td>0.48 / 0.48</td><td></td></tr><tr><td>DUAL</td><td>760</td><td>2</td><td>0.70 / 0.70</td><td>binary: every 0 gets rank 0.20, every 1 gets 0.70 (average ranks for ties)</td></tr>
+    </table></div>
+  </article>
+
+  <article class="build-block" id="cs-4">
+    <header><span class="step">4</span><h3>Ranks are averaged within each layer</h3></header>
+    <p class="design"><b>Design.</b> A financial score, a disclosure score and a governance score.</p>
+    <p><b>What the code does.</b> A layer score is the mean of the ranks of the characteristics observed for that firm-year. A layer with one observed characteristic takes that rank; a layer with none has no score.</p>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Layer</th><th>Characteristics</th><th>firm-years with a score</th><th>characteristics observed (firm-years)</th><th>mean score case / matched</th></tr>
+      <tr><td><span class="dot l1"></span>L1 Financial (conflict of interest)</td><td>RP_LEND, RP_PAY, RP_SALES, RP_PURCH</td><td>50 %</td><td>0 observed: 705, 1 observed: 103, 2 observed: 52, 3 observed: 68, 4 observed: 483</td><td>0.582 / 0.515</td></tr><tr><td><span class="dot l2"></span>L2 Disclosure (information asymmetry)</td><td>RP_INCOMP, RP_VAGUE</td><td>85 %</td><td>0 observed: 205, 1 observed: 2, 2 observed: 1204</td><td>0.444 / 0.512</td></tr><tr><td><span class="dot l3"></span>L3 Governance (weak monitoring)</td><td>BRD_NONIND, DUAL</td><td>63 %</td><td>0 observed: 526, 1 observed: 635, 2 observed: 250</td><td>0.568 / 0.493</td></tr>
+    </table></div>
+  </article>
+
+  <article class="build-block" id="cs-5">
+    <header><span class="step">5</span><h3>The three layer scores are averaged and multiplied by 10</h3></header>
+    <p class="design"><b>Design.</b> The AI risk score, 0 to 10.</p>
+    <p><b>What the code does.</b> AI_SCORE = 10 × the mean of the layer scores that exist. A firm-year with no observed characteristic has no score. The flag threshold is the 95th percentile of the matched firm-years' scores, so 5 % of matched firm-years are flagged by construction.</p>
+    <dl class="metrics">
+      <div><dt>1329</dt><dd>of 1411 firm-years scored</dd></div>
+      <div><dt>5.17 / 5.08</dt><dd>median score, case / matched</dd></div>
+      <div><dt>7.69</dt><dd>flag threshold (matched 95th percentile)</dd></div>
+      <div><dt>4 %</dt><dd>of case firm-years flagged (matched 5 %)</dd></div>
+    </dl>
+    <p class="small muted">Layers in the score: 0 layers: 82, 1 layer: 278, 2 layers: 634, 3 layers: 417. The same five steps run live in the browser on the Model page, and match the recorded scores on every firm-year.</p>
+  </article>
+
+  <article class="build-block example" id="cs-example">
+    <header><span class="step">✓</span><h3>One firm-year through all five steps: AMERICAN ELECTRIC POWER CO INC, FY2019 (t-1)</h3></header>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Code</th><th>Step 1: source</th><th>amount</th><th>Step 2: value</th><th>Step 3: rank</th></tr>
+      <tr><td><span class="dot l1"></span>RP_LEND</td><td>related-party note</td><td>3,547.00 m</td><td>0.047</td><td>0.932</td></tr><tr><td><span class="dot l1"></span>RP_PAY</td><td>related-party note</td><td>19.00 m</td><td>0.000</td><td>0.623</td></tr><tr><td><span class="dot l1"></span>RP_SALES</td><td>XBRL related-party tag</td><td>0</td><td>0.000</td><td>0.384</td></tr><tr><td><span class="dot l1"></span>RP_PURCH</td><td>zero: no transaction of this type reported</td><td>0</td><td>0.000</td><td>0.178</td></tr><tr><td><span class="dot l2"></span>RP_INCOMP</td><td>related-party text</td><td></td><td>0.000</td><td>0.116</td></tr><tr><td><span class="dot l2"></span>RP_VAGUE</td><td>related-party text</td><td></td><td>0.191</td><td>0.244</td></tr><tr><td><span class="dot l3"></span>BRD_NONIND</td><td>proxy statement</td><td></td><td>0.071</td><td>0.033</td></tr><tr><td><span class="dot l3"></span>DUAL</td><td>proxy statement</td><td></td><td>1.000</td><td>0.698</td></tr>
+    </table></div>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Step 4: layer</th><th>calculation</th><th>score</th></tr>
+      <tr><td>L1 Financial</td><td>0.932 + 0.623 + 0.384 + 0.178  ÷ 4</td><td>0.529</td></tr><tr><td>L2 Disclosure</td><td>0.116 + 0.244  ÷ 2</td><td>0.180</td></tr><tr><td>L3 Governance</td><td>0.033 + 0.698  ÷ 2</td><td>0.366</td></tr>
+      <tr><td><b>Step 5: AI risk score</b></td><td>10 × (0.529 + 0.180 + 0.366) ÷ 3</td><td><b>3.58</b></td></tr>
+    </table></div>
+    <p class="small">Below the flag threshold of 7.69. <a href="model.html?cik=0000004904&amp;fy=2019#run">Open this firm-year in the Model page</a> to see the filings, the evidence sentences and the live recomputation.</p>
+  </article>
+</section>
+
 <section data-slide="Design diagram" id="diagram">
   <h2>The full design in one figure</h2>
   <figure class="diagram"><img src="assets/img/thesis/fig_methodology_blocks.png" alt="Three-stage methodology diagram with eighteen numbered blocks"><figcaption>Sample and data, measurement, tests and validation.</figcaption></figure>
