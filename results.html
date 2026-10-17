@@ -95,6 +95,27 @@
   <div class="chart-pair"><div id="v-h5" class="chart"></div><div id="v-h5timing" class="chart"></div></div>
 </article>
 
+
+
+<article class="finding exploratory" data-slide="Exploratory: H4 and H5" id="exploratory">
+  <div class="verdict">
+    <h2>Exploratory: the differences are stable, and a learned score adds to the audit signals in strength</h2>
+    <p class="small"><b>Status.</b> Exploratory analyses added on 17 October 2026 at the researcher's request, after the results were known. They are not hypothesis tests and do not change the H4 or H5 verdicts above.</p>
+    <p><b>H4, trend.</b> For no layer does the case-versus-matched gap widen towards revelation; the interaction odds ratios are all close to one. Pooling the years before the final year, financial exposure and governance are higher in case firms, but after the Holm adjustment across the three layers they sit just above 0.05. The picture is a stable difference between firms rather than one that builds up before the fraud is revealed.</p>
+    <p><b>H5, learned score.</b> With the learned out-of-set score in place of the rank-averaged score, Model B's held-out AUC is 0.59 against 0.53 for the traditional signals (gain 0.066, interval -0.001 to 0.124). The learned score is significant in Model B one-sided (pooled p 0.021; conditional odds ratio 1.42, p 0.027). It meets 2 of the 5 H5 criteria: it adds in strength, not in ranking within sets or in timing.</p>
+  </div>
+  <div>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>Analysis</th><th>Layer</th><th>OR per SD</th><th>95 % CI (clustered)</th><th>one-sided p</th><th>Holm</th><th>sets</th></tr>
+      <tr><td>Trend: gap widens towards revelation</td><td>H1 financial</td><td>1.08</td><td>0.91–1.28</td><td>0.202</td><td>0.607</td><td>41</td></tr><tr><td>Pooled t−5 to t−2: gap present before the final year</td><td>H1 financial</td><td>1.54</td><td>0.97–2.44</td><td>0.033</td><td>0.065</td><td>39</td></tr><tr><td>Trend: gap widens towards revelation</td><td>H2 disclosure</td><td>1.01</td><td>0.90–1.13</td><td>0.460</td><td>0.607</td><td>47</td></tr><tr><td>Pooled t−5 to t−2: gap present before the final year</td><td>H2 disclosure</td><td>0.74</td><td>0.55–1.01</td><td>0.970</td><td>0.970</td><td>45</td></tr><tr><td>Trend: gap widens towards revelation</td><td>H3 governance</td><td>1.05</td><td>0.90–1.22</td><td>0.286</td><td>0.607</td><td>36</td></tr><tr><td>Pooled t−5 to t−2: gap present before the final year</td><td>H3 governance</td><td>1.79</td><td>1.02–3.14</td><td>0.022</td><td>0.065</td><td>35</td></tr>
+    </table></div>
+    <div class="table-wrap"><table class="compact">
+      <tr><th>H5 criterion with the learned score</th><th>met</th></tr>
+      <tr><td>learned score significant in Model B (pooled, firm-clustered, one-sided)</td><td>yes</td></tr><tr><td>learned score significant in Model B (conditional, firm-clustered, one-sided)</td><td>yes</td></tr><tr><td>Model B separates fraud firms better than Model A on held-out sets (pooled AUC gain, interval excludes 0)</td><td>no</td></tr><tr><td>within-set: Model B ranks the case above its matched firms more often than Model A (Wilson intervals do not overlap)</td><td>no</td></tr><tr><td>learned flag earlier than the traditional flag in more fraud firms than the reverse (equal false-alarm rate)</td><td>no</td></tr>
+    </table></div>
+  </div>
+</article>
+
 <article class="finding" data-slide="Sample sensitivity" id="samples">
   <div class="verdict">
     <h2>The sample moves precision, not direction</h2>

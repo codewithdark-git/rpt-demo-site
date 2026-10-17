@@ -44,11 +44,11 @@ function dashboard(R) {
   const h5 = R.h5;
   cards.push({ id: "H4", title: "Differences in earlier years", q: "Are the H1–H3 differences present before the final window year?", predicted: "a significant year before t−1", observed: R.h4_rule_met.length ? "met for " + R.h4_rule_met.join(", ") : "no layer significant before t−1",
     effect: "no year passes after Holm adjustment", ci: "see the per-year intervals below", p: "fifteen year-by-layer tests, firm-clustered and Holm-adjusted", n: "informative sets vary by year", status: R.h4_rule_met.length ? "supported" : "not supported",
-    read: "The governance gap is present throughout the window and does not grow towards disclosure; no year passes the decision rule, one-sided or two-sided." });
+    read: "The governance gap is present throughout the window and does not grow towards disclosure; no year passes the decision rule, one-sided or two-sided. An exploratory trend test finds no widening of the gap (see the exploratory section below)." });
   cards.push({ id: "H5", title: "Added value over audit signals", q: "Does the AI risk score add to the traditional index, in strength or timing?", predicted: "AI_SCORE significant in Model B; higher out-of-set AUC; earlier flags",
     observed: `Model B AUC ${fmt(h5.loso_auc_model_B)} vs Model A ${fmt(h5.loso_auc_model_A)}; traditional index alone ${fmt(h5.auc_trad_index_alone)}`, effect: `coefficient ${fmt(h5.AI_SCORE_coef_per_sd_model_B_pooled)} per SD`, ci: `OR ${h5.AI_SCORE_or_ci_pooled}`,
     p: `one-sided firm-clustered p ${fmtP(h5.AI_SCORE_coef_per_sd_model_B_pooled > 0 ? h5.AI_SCORE_p_model_B_pooled_firm_cluster / 2 : 1 - h5.AI_SCORE_p_model_B_pooled_firm_cluster / 2)} (decision); two-sided ${fmtP(h5.AI_SCORE_p_model_B_pooled_firm_cluster)}`, n: `${h5.n_firm_years} firm-years · ${h5.n_matched_sets} sets`, status: "not supported",
-    read: `At an equal false-alarm rate the AI rule flags ${h5.cases_flagged_ai_equal_far} of ${h5.cases} cases, the traditional rule ${h5.cases_flagged_trad_equal_far}; ${h5.cases_flagged_by_neither_equal_far} are flagged by neither.` });
+    read: `At an equal false-alarm rate the AI rule flags ${h5.cases_flagged_ai_equal_far} of ${h5.cases} cases, the traditional rule ${h5.cases_flagged_trad_equal_far}; ${h5.cases_flagged_by_neither_equal_far} are flagged by neither. In an exploratory re-run with the learned score in place of the rank-averaged score, the score adds to the audit signals in strength (2 of 5 criteria; see the exploratory section below).` });
   d.textContent = "";
   for (const c of cards) {
     const card = h("div", "dcard " + c.status.replace(/ /g, "-"));
